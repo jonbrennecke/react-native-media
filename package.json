@@ -1,20 +1,43 @@
-
 {
-  "name": "react-native-jonbrennecke-farrago",
+  "name": "@jonbrennecke/farrago",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "check": "./scripts/check.sh",
+    "flow": "flow",
+    "flow-typed": "flow-typed",
+    "format": "./scripts/format.sh",
+    "format-prettier": "prettier --trailing-comma es5 --single-quote --write \"src/**/*.js\""
   },
   "keywords": [
     "react-native"
   ],
-  "author": "",
-  "license": "",
+  "author": "jpbrennecke@gmail.com",
+  "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.41.2",
-    "react-native-windows": "0.41.0-rc.1"
-
+    "react-native": "^0.57.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-decorators": "7.2.3",
+    "@babel/plugin-transform-flow-strip-types": "7.2.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "23.6.0",
+    "eslint": "4.19.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-config-react-native": "2.0.0",
+    "eslint-import-resolver-reactnative": "1.0.2",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-import": "2.11.0",
+    "eslint-plugin-jest": "22.1.2",
+    "eslint-plugin-prettier": "2.6.0",
+    "eslint-plugin-react": "7.7.0",
+    "eslint-plugin-react-native": "3.2.1",
+    "flow-bin": "^0.78.0",
+    "flow-typed": "^2.5.1",
+    "jest": "23.6.0",
+    "prettier": "1.12.0"
   }
 }

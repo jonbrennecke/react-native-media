@@ -8,4 +8,3 @@
 @interface RNJonbrenneckeFarrago : NSObject <RCTBridgeModule>
 
 @end
-  
