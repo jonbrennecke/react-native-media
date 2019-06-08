@@ -11,6 +11,7 @@
     "format": "./scripts/format.sh",
     "format-prettier": "prettier --trailing-comma es5 --single-quote --write \"src/**/*.js\""
   },
+  "private": false,
   "keywords": [
     "react-native"
   ],
