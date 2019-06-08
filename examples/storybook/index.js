@@ -8,5 +8,3 @@ YellowBox.ignoreWarnings([
 ]);
 
 AppRegistry.registerComponent('Storybook', () => StorybookUI);
-
-export default StorybookUI;
