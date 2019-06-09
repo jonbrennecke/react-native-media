@@ -48,7 +48,8 @@ const resolve = {
 
 module.exports = {
   externals: {
-    'react-native': 'react-native'
+    'react-native': 'react-native',
+    'react': 'react'
   },
   mode: 'production',
   target: 'web',

@@ -7,14 +7,14 @@ import type { SFC, Style } from './types/react';
 const NativeThumbnailView = requireNativeComponent('HSThumbnailView');
 
 export type ThumbnailViewProps = {
-  style: Style;
+  style?: ?Style;
   videoID: string;
 };
 
-export const ThumbnailView: SFC<ThumbnailViewProps> = (
+export const ThumbnailView: SFC<ThumbnailViewProps> = ({
   style,
   videoID
-) => (
+}) => (
   <NativeThumbnailView
     style={style}
     localIdentifier={videoID}

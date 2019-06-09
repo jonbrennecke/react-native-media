@@ -6,6 +6,6 @@ import { ThumbnailView } from '@jonbrennecke/react-native-media';
 
 storiesOf('Thumbnail view', module).add('Hello world', () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <ThumbnailView />
+    <ThumbnailView id="asfaf" />
   </View>
 ));

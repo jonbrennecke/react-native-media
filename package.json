@@ -24,6 +24,7 @@
   "author": "jpbrennecke@gmail.com",
   "license": "MIT",
   "peerDependencies": {
+    "react": "*",
     "react-native": "^0.57.0"
   },
   "repository": {
@@ -35,7 +36,6 @@
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-decorators": "7.2.3",
     "@babel/plugin-transform-flow-strip-types": "7.2.3",
-    "@babel/runtime": "7.0.0-beta.55",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.6.0",
     "babel-loader": "7.1.5",

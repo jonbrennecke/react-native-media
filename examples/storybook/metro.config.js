@@ -1,9 +1,8 @@
 const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 const escape = require('escape-string-regexp');
-const parentPackage = require('../../package.json');
-
-const peerDependencies = Object.keys(parentPackage.peerDependencies);
+// const parentPackage = require('../../package.json');
+// const peerDependencies = Object.keys(parentPackage.peerDependencies);
 
 module.exports = {
   projectRoot: __dirname,
@@ -11,18 +10,10 @@ module.exports = {
   resolver: {
     blacklistRE: blacklist([
       new RegExp(
-        `^${escape(path.resolve(__dirname, '../..', 'node_modules'))}\\/.*$`
-      ),
+        `^${escape(path.resolve(__dirname, '../..', 'node_modules', 'react-native'))}\\/.*$`
+      )
     ]),
 
-    providesModuleNodeModules: peerDependencies,
-  },
-  transformer: {
-    getTransformOptions: () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: false
-      }
-    })
+    providesModuleNodeModules: ['react-native'],
   }
 };
