@@ -19,7 +19,7 @@
     "haul": "haul"
   },
   "dependencies": {
-    "@jonbrennecke/farrago": "../../",
+    "@jonbrennecke/react-native-media": "../../",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },
