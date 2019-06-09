@@ -2,8 +2,16 @@ import UIKit
 
 @objc(FRGOFarragoExampleView)
 class FarragoExampleView: UIView {
-  override func didMoveToWindow() {
+  private let label = UILabel()
+
+  override func didMoveToSuperview() {
+    super.didMoveToSuperview()
     super.didMoveToWindow()
-    backgroundColor = .red
+    label.frame = bounds
+    label.text = "Hello World!"
+    label.textAlignment = .center
+    label.backgroundColor = .red
+    label.sizeToFit()
+    addSubview(label)
   }
 }

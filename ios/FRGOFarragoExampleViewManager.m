@@ -1,5 +1,5 @@
-
 #import "FRGOFarragoExampleViewManager.h"
+#import "FRGOFarrago-Swift.h"
 
 @implementation FRGOFarragoExampleViewManager
 
@@ -10,7 +10,7 @@
 RCT_EXPORT_MODULE()
 
 - (UIView *)view {
-  UIView *exampleView = [[UIView alloc] init];
+  FRGOFarragoExampleView *exampleView = [[FRGOFarragoExampleView alloc] init];
   return (UIView *)exampleView;
 }
 

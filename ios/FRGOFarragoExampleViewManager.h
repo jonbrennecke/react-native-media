@@ -1,7 +1,5 @@
 #pragma once
 
-//#import "FRGOFarrago-Swift.h"
-
 #if __has_include("RCTViewManager.h")
 #import "RCTViewManager.h"
 #else

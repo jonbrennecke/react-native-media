@@ -19,7 +19,7 @@
     "haul": "haul"
   },
   "dependencies": {
-    "@jonbrennecke/farrago": "1.0.9",
+    "@jonbrennecke/farrago": "../../",
     "react": "16.6.3",
     "react-native": "0.57.8"
   },

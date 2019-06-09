@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { FarragoExampleView } from '@jonbrennecke/farrago';
 
 storiesOf('Example', module).add('Hello world', () => (
-  <View style={{ flex: 1 }}>
-    <FarragoExampleView style={{ flex: 1, backgroundColor: 'blue' }}/>
+  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <FarragoExampleView />
   </View>
 ));
