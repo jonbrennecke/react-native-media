@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FC0B252B22AC54E900EE45CA /* FRGOFarragoExampleViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0B252A22AC54E900EE45CA /* FRGOFarragoExampleViewManager.m */; };
-		FCFC983B22AC7CD20089D452 /* FarragoExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC983922AC7CD20089D452 /* FarragoExampleView.swift */; };
+		FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */; };
+		FCA0A4BC22ACC25400A93C32 /* ColorHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BB22ACC25400A93C32 /* ColorHistogram.swift */; };
+		FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */; };
+		FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */; };
+		FCFC983B22AC7CD20089D452 /* HSThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFC983922AC7CD20089D452 /* HSThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,11 +27,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		134814201AA4EA6300B7C361 /* libFRGOFarrago.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFRGOFarrago.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC0B252922AC54E900EE45CA /* FRGOFarragoExampleViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRGOFarragoExampleViewManager.h; sourceTree = "<group>"; };
-		FC0B252A22AC54E900EE45CA /* FRGOFarragoExampleViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = FRGOFarragoExampleViewManager.m; sourceTree = "<group>"; tabWidth = 2; };
-		FCFC983922AC7CD20089D452 /* FarragoExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = FarragoExampleView.swift; sourceTree = "<group>"; };
-		FCFC983A22AC7CD20089D452 /* FRGOFarrago-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FRGOFarrago-Bridging-Header.h"; sourceTree = "<group>"; };
+		134814201AA4EA6300B7C361 /* libHSReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHSReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC0B252922AC54E900EE45CA /* HSThumbnailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSThumbnailViewManager.h; sourceTree = "<group>"; };
+		FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = HSThumbnailViewManager.m; sourceTree = "<group>"; tabWidth = 2; };
+		FCA0A4BB22ACC25400A93C32 /* ColorHistogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHistogram.swift; sourceTree = "<group>"; };
+		FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orientationUtil.swift; sourceTree = "<group>"; };
+		FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageUtils.swift; sourceTree = "<group>"; };
+		FCFC983922AC7CD20089D452 /* HSThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSThumbnailView.swift; sourceTree = "<group>"; };
+		FCFC983A22AC7CD20089D452 /* HSReactNativeMedia-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HSReactNativeMedia-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +51,7 @@
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				134814201AA4EA6300B7C361 /* libFRGOFarrago.a */,
+				134814201AA4EA6300B7C361 /* libHSReactNativeMedia.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,20 +59,39 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				FCFC983922AC7CD20089D452 /* FarragoExampleView.swift */,
-				FCFC983A22AC7CD20089D452 /* FRGOFarrago-Bridging-Header.h */,
-				FC0B252922AC54E900EE45CA /* FRGOFarragoExampleViewManager.h */,
-				FC0B252A22AC54E900EE45CA /* FRGOFarragoExampleViewManager.m */,
+				FCA0A4C122ACC92700A93C32 /* utils */,
+				FCFC983A22AC7CD20089D452 /* HSReactNativeMedia-Bridging-Header.h */,
+				FCA0A4BB22ACC25400A93C32 /* ColorHistogram.swift */,
+				FC9F993122ACA0F700430DE5 /* HSThumbnailView */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		FC9F993122ACA0F700430DE5 /* HSThumbnailView */ = {
+			isa = PBXGroup;
+			children = (
+				FCFC983922AC7CD20089D452 /* HSThumbnailView.swift */,
+				FC0B252922AC54E900EE45CA /* HSThumbnailViewManager.h */,
+				FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */,
+			);
+			path = HSThumbnailView;
+			sourceTree = "<group>";
+		};
+		FCA0A4C122ACC92700A93C32 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */,
+				FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */,
+			);
+			path = utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		58B511DA1A9E6C8500147676 /* FRGOFarrago */ = {
+		58B511DA1A9E6C8500147676 /* HSReactNativeMedia */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "FRGOFarrago" */;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "HSReactNativeMedia" */;
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
@@ -76,9 +101,9 @@
 			);
 			dependencies = (
 			);
-			name = FRGOFarrago;
+			name = HSReactNativeMedia;
 			productName = RCTDataManager;
-			productReference = 134814201AA4EA6300B7C361 /* libFRGOFarrago.a */;
+			productReference = 134814201AA4EA6300B7C361 /* libHSReactNativeMedia.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +121,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "FRGOFarrago" */;
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "HSReactNativeMedia" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -109,7 +134,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				58B511DA1A9E6C8500147676 /* FRGOFarrago */,
+				58B511DA1A9E6C8500147676 /* HSReactNativeMedia */,
 			);
 		};
 /* End PBXProject section */
@@ -119,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCFC983B22AC7CD20089D452 /* FarragoExampleView.swift in Sources */,
-				FC0B252B22AC54E900EE45CA /* FRGOFarragoExampleViewManager.m in Sources */,
+				FCFC983B22AC7CD20089D452 /* HSThumbnailView.swift in Sources */,
+				FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */,
+				FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */,
+				FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */,
+				FCA0A4BC22ACC25400A93C32 /* ColorHistogram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,9 +255,9 @@
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = FRGOFarrago;
+				PRODUCT_NAME = HSReactNativeMedia;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "FRGOFarrago-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HSReactNativeMedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -252,9 +280,9 @@
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = FRGOFarrago;
+				PRODUCT_NAME = HSReactNativeMedia;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "FRGOFarrago-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HSReactNativeMedia-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -262,7 +290,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "FRGOFarrago" */ = {
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "HSReactNativeMedia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511ED1A9E6C8500147676 /* Debug */,
@@ -271,7 +299,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "FRGOFarrago" */ = {
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "HSReactNativeMedia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,

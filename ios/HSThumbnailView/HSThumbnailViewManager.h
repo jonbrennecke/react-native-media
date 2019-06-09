@@ -6,6 +6,6 @@
 #import <React/RCTViewManager.h>
 #endif
 
-@class FRGOFarragoExampleViewManager;
-@interface FRGOFarragoExampleViewManager : RCTViewManager
+@class HSThumbnailViewManager;
+@interface HSThumbnailViewManager : RCTViewManager
 @end

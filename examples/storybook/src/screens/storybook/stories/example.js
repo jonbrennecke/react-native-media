@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { View } from 'react-native';
 
-import { FarragoExampleView } from '@jonbrennecke/farrago';
+import { ThumbnailView } from '@jonbrennecke/react-native-media';
 
-storiesOf('Example', module).add('Hello world', () => (
+storiesOf('Thumbnail view', module).add('Hello world', () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <FarragoExampleView />
+    <ThumbnailView />
   </View>
 ));

@@ -1,6 +1,22 @@
 // @flow
+import React from 'react';
 import { requireNativeComponent } from 'react-native';
 
-export const FarragoExampleView = requireNativeComponent(
-  'FRGOFarragoExampleView'
+import type { SFC, Style } from './types/react';
+
+const NativeThumbnailView = requireNativeComponent('HSThumbnailView');
+
+export type ThumbnailViewProps = {
+  style: Style;
+  videoID: string;
+};
+
+export const ThumbnailView: SFC<ThumbnailViewProps> = (
+  style,
+  videoID
+) => (
+  <NativeThumbnailView
+    style={style}
+    localIdentifier={videoID}
+  />
 );

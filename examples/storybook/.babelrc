@@ -6,7 +6,7 @@
     "@babel/plugin-proposal-class-properties",
     ["module-resolver", {
       "alias": {
-        "@jonbrennecke/farrago": "../.."
+        "@jonbrennecke/react-native-media": "../.."
       }
     }]
   ]

@@ -36,13 +36,13 @@
 		2D16E6881FA4F8E400B85C8A /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D16E6891FA4F8E400B85C8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* StorybookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* StorybookTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
-		7D89DAAC5302454F90AC15A0 /* libFRGOFarrago.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 218AB209E88A4F139B253AD5 /* libFRGOFarrago.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E4E776D6D9A45A2B0EA3B57 /* libReactNativeConfig-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C58E7DD208D94D92847F0B1B /* libReactNativeConfig-tvOS.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		FC6EA7D621CEA44D007C3B3E /* PassionOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC6EA7AC21CEA44D007C3B3E /* PassionOne-Regular.ttf */; };
 		FC6EA7D721CEA44D007C3B3E /* PT_Sans-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC6EA7D421CEA44D007C3B3E /* PT_Sans-Web-Bold.ttf */; };
 		FC6EA7D821CEA44D007C3B3E /* PT_Sans-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC6EA7D521CEA44D007C3B3E /* PT_Sans-Web-Regular.ttf */; };
+		FCC4169722ACC11100C234A7 /* libHSReactNativeMedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCC4169622ACB97500C234A7 /* libHSReactNativeMedia.a */; };
 		FCDAA01C22AC8D8F00A2E246 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCDAA01B22AC8D8F00A2E246 /* Empty.swift */; };
 /* End PBXBuildFile section */
 
@@ -320,12 +320,12 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
-		FCDA9FF322AC8B0700A2E246 /* PBXContainerItemProxy */ = {
+		FCC4169522ACB97500C234A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = FCDA9FEF22AC8B0700A2E246 /* FRGOFarrago.xcodeproj */;
+			containerPortal = FCC4169122ACB97500C234A7 /* HSReactNativeMedia.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = FRGOFarrago;
+			remoteInfo = HSReactNativeMedia;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -365,7 +365,7 @@
 		FC6EA7AC21CEA44D007C3B3E /* PassionOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PassionOne-Regular.ttf"; path = "../assets/fonts/PassionOne-Regular.ttf"; sourceTree = "<group>"; };
 		FC6EA7D421CEA44D007C3B3E /* PT_Sans-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PT_Sans-Web-Bold.ttf"; path = "../assets/fonts/PT_Sans-Web-Bold.ttf"; sourceTree = "<group>"; };
 		FC6EA7D521CEA44D007C3B3E /* PT_Sans-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PT_Sans-Web-Regular.ttf"; path = "../assets/fonts/PT_Sans-Web-Regular.ttf"; sourceTree = "<group>"; };
-		FCDA9FEF22AC8B0700A2E246 /* FRGOFarrago.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FRGOFarrago.xcodeproj; path = ../../../ios/FRGOFarrago.xcodeproj; sourceTree = "<group>"; };
+		FCC4169122ACB97500C234A7 /* HSReactNativeMedia.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HSReactNativeMedia.xcodeproj; path = ../../../ios/HSReactNativeMedia.xcodeproj; sourceTree = "<group>"; };
 		FCDAA01A22AC8D8E00A2E246 /* Storybook-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Storybook-Bridging-Header.h"; sourceTree = "<group>"; };
 		FCDAA01B22AC8D8F00A2E246 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -395,7 +395,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				7D89DAAC5302454F90AC15A0 /* libFRGOFarrago.a in Frameworks */,
+				FCC4169722ACC11100C234A7 /* libHSReactNativeMedia.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,7 +574,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				FCDA9FEF22AC8B0700A2E246 /* FRGOFarrago.xcodeproj */,
+				FCC4169122ACB97500C234A7 /* HSReactNativeMedia.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -658,10 +658,10 @@
 			name = fonts;
 			sourceTree = "<group>";
 		};
-		FCDA9FF022AC8B0700A2E246 /* Products */ = {
+		FCC4169222ACB97500C234A7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FCDA9FF422AC8B0700A2E246 /* libFRGOFarrago.a */,
+				FCC4169622ACB97500C234A7 /* libHSReactNativeMedia.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -782,8 +782,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = FCDA9FF022AC8B0700A2E246 /* Products */;
-					ProjectRef = FCDA9FEF22AC8B0700A2E246 /* FRGOFarrago.xcodeproj */;
+					ProductGroup = FCC4169222ACB97500C234A7 /* Products */;
+					ProjectRef = FCC4169122ACB97500C234A7 /* HSReactNativeMedia.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1104,11 +1104,11 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		FCDA9FF422AC8B0700A2E246 /* libFRGOFarrago.a */ = {
+		FCC4169622ACB97500C234A7 /* libHSReactNativeMedia.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libFRGOFarrago.a;
-			remoteRef = FCDA9FF322AC8B0700A2E246 /* PBXContainerItemProxy */;
+			path = libHSReactNativeMedia.a;
+			remoteRef = FCC4169522ACB97500C234A7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
