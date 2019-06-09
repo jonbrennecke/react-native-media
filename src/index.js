@@ -14,7 +14,7 @@ export type ThumbnailViewProps = {
 export const ThumbnailView: SFC<ThumbnailViewProps> = ({
   style,
   videoID
-}) => (
+}: ThumbnailViewProps) => (
   <NativeThumbnailView
     style={style}
     localIdentifier={videoID}
