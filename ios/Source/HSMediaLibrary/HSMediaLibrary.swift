@@ -1,7 +1,5 @@
 import Photos
 
-fileprivate let FETCH_LIMIT = 100
-
 @objc
 class HSMediaLibrary: NSObject {
   @objc
@@ -36,7 +34,7 @@ class HSMediaLibrary: NSObject {
     let fetchOptions = PHFetchOptions()
     fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
     if #available(iOS 9.0, *) {
-      fetchOptions.fetchLimit = FETCH_LIMIT
+      fetchOptions.fetchLimit = query.limit
     }
     fetchOptions.wantsIncrementalChangeDetails = true
     let mediaType = query.mediaType.PHAssetMediaType

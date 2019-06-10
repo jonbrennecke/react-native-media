@@ -18,7 +18,6 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const styles = {
   container: {
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
@@ -31,7 +30,7 @@ const styles = {
   thumbnail: {
     flex: 1,
     borderRadius: 3,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   duration: {
     position: 'absolute',

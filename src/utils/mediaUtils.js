@@ -5,6 +5,8 @@ import { NativeModules } from 'react-native';
 import type { MediaObject } from '../types';
 // import type { Return } from '../types/util';
 
+const DEFAULT_LIMIT = 20;
+
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
@@ -23,8 +25,15 @@ export const authorizeMediaLibrary = (): Promise<boolean> => {
   return MediaLibrary.authorizeMediaLibraryAsync();
 };
 
-export const loadImageAssets = (): Promise<MediaObject[]> => {
-  return MediaLibrary.queryAsync({ mediaType: 'image' });
+export const loadImageAssets = ({
+  limit = DEFAULT_LIMIT,
+}: {
+  limit?: number,
+} = {}): Promise<MediaObject[]> => {
+  return MediaLibrary.queryAsync({
+    mediaType: 'image',
+    limit,
+  });
 };
 
 // static startObservingVideos(
