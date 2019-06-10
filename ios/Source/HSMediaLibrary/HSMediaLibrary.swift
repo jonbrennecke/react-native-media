@@ -41,8 +41,13 @@ class HSMediaLibrary: NSObject {
     }
     fetchOptions.wantsIncrementalChangeDetails = true
     let mediaType = query.mediaType.PHAssetMediaType
-    let videoAssets = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
-    return createArray(withFetchResult: videoAssets)
+    if mediaType == .unknown {
+      let videoAssets = PHAsset.fetchAssets(with: fetchOptions)
+      return createArray(withFetchResult: videoAssets)
+    } else {
+      let videoAssets = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
+      return createArray(withFetchResult: videoAssets)
+    }
   }
 }
 

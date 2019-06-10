@@ -6,7 +6,7 @@ import uniqBy from 'lodash/uniqBy';
 
 import {
   ThumbnailLoadMoreGrid,
-  queryImages,
+  queryMedia,
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
@@ -32,7 +32,7 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
       initialState={{ assets: [], hasLoadedAllAssets: false }}
       onMount={async (unused, setState) => {
         await authorizeMediaLibrary();
-        const assets = await queryImages();
+        const assets = await queryMedia();
         setState({ assets: sortAssets(assets) });
       }}
       render={({ assets, hasLoadedAllAssets }, setState) => {
@@ -44,7 +44,7 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
           if (hasLoadedAllAssets) {
             return;
           }
-          const newAssets = await queryImages({
+          const newAssets = await queryMedia({
             creationDateQuery: {
               date: last.creationDate,
               equation: 'lessThan',

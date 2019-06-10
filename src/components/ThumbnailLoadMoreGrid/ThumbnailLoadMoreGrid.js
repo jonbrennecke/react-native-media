@@ -45,7 +45,6 @@ export const ThumbnailLoadMoreGrid: SFC<ThumbnailLoadMoreGridProps> = ({
       numColumns={3}
       horizontal={false}
       data={assets}
-      removeClippedSubviews={false}
       keyExtractor={asset => asset.assetID}
       renderItem={({ item: asset }) => (
         <ThumbnailGridItem

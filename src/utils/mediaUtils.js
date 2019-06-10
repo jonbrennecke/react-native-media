@@ -4,8 +4,6 @@ import { NativeModules } from 'react-native';
 
 import type { MediaObject } from '../types';
 
-const DEFAULT_LIMIT = 20;
-
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
@@ -20,7 +18,7 @@ export type DateQueryEquation =
   | 'lessThan'
   | 'lessThanOrEqualTo';
 
-export type MediaType = 'video' | 'image';
+export type MediaType = 'video' | 'image' | 'any';
 
 export type DateQuery = {
   date: Date,
@@ -56,7 +54,8 @@ export const queryImages = ({
 };
 
 export const queryMedia = ({
-  limit = DEFAULT_LIMIT,
+  mediaType = 'any',
+  limit = 20,
   creationDateQuery,
 }: {
   mediaType: MediaType,
@@ -64,7 +63,7 @@ export const queryMedia = ({
   limit?: number,
 } = {}): Promise<MediaObject[]> => {
   return MediaLibrary.queryAsync({
-    mediaType: 'image',
+    mediaType,
     creationDateQuery,
     limit,
   });
