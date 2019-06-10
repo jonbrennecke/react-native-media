@@ -1,1 +1,2 @@
-import './thumbnail';
+import './Thumbnail';
+import './ThumbnailGrid';

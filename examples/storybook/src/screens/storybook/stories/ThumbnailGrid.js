@@ -2,19 +2,19 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
 
-import { Thumbnail, loadImageAssets, authorizeMediaLibrary } from '@jonbrennecke/react-native-media';
+import { ThumbnailGrid, loadImageAssets, authorizeMediaLibrary } from '@jonbrennecke/react-native-media';
 
 import { StorybookAsyncWrapper } from '../utils';
 
 const styles = {
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   thumbnail: {
-    height: 75,
-    width: 75
+    flex: 1
+  },
+  duration: {
+    color: '#fff'
   }
 };
 
@@ -23,15 +23,17 @@ const authorizeAndLoadAssets = async () => {
   return await loadImageAssets();
 };
 
-storiesOf('Thumbnails', module).add('Thumbnail', () => (
+storiesOf('Thumbnails', module).add('Thumbnail Grid', () => (
   <SafeAreaView style={styles.container}>
     <StorybookAsyncWrapper
       loadAsync={authorizeAndLoadAssets}
-      render={assets =>
-        assets && assets.map(({ assetID }) => (
-          <Thumbnail style={styles.thumbnail} key={assetID} assetID={assetID} />
-        ))
-      }
+      render={assets => (
+        <ThumbnailGrid
+          style={styles.thumbnail}
+          assets={assets || []}
+          extraDurationStyle={styles.duration}
+        />
+      )}
     />
   </SafeAreaView>
 ));

@@ -2,14 +2,13 @@
 import Bluebird from 'bluebird';
 import { NativeModules } from 'react-native';
 
+import type { MediaObject } from '../types';
 // import type { Return } from '../types/util';
 
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
 // const NativeMediaManagerEventEmitter = new NativeEventEmitter(_MediaLibrary);
-
-export type MediaObject = { assetID: string, duration: number };
 
 // const EVENTS = {
 //   DID_UPDATE_VIDEOS: 'mediaLibraryDidUpdateVideos',
