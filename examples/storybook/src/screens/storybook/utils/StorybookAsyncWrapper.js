@@ -3,20 +3,20 @@ import { PureComponent } from 'react';
 
 import type { Element } from 'react';
 
-export type Props<T> = {
+export type StorybookAsyncWrapperProps<T> = {
   loadAsync: () => Promise<T>,
   render: (data: ?T) => ?Element<*>,
 };
 
-export type State<T> = {
+export type StorybookAsyncWrapperState<T> = {
   data: ?T,
 };
 
 export class StorybookAsyncWrapper<T> extends PureComponent<
-  Props<T>,
-  State<T>
+  StorybookAsyncWrapperProps<T>,
+  StorybookAsyncWrapperState<T>
 > {
-  state: State<T> = {
+  state: StorybookAsyncWrapperState<T> = {
     data: null,
   };
 
@@ -25,7 +25,7 @@ export class StorybookAsyncWrapper<T> extends PureComponent<
     this.setState({ data });
   }
 
-  async componentWillReceiveProps(nextProps: Props<T>) {
+  async componentWillReceiveProps(nextProps: StorybookAsyncWrapperProps<T>) {
     const data = await nextProps.loadAsync();
     this.setState({ data });
   }

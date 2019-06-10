@@ -8,7 +8,7 @@ import {
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
-import { StorybookAsyncWrapper } from '../utils';
+import { StorybookStateWrapper } from '../utils';
 
 const styles = {
   container: {
@@ -22,23 +22,40 @@ const styles = {
   },
 };
 
-const authorizeAndLoadAssets = async () => {
-  await authorizeMediaLibrary();
-  return await loadImageAssets({ limit: 1 });
-};
-
 storiesOf('Thumbnails', module).add('Thumbnail Load More', () => (
   <SafeAreaView style={styles.container}>
-    <StorybookAsyncWrapper
-      loadAsync={authorizeAndLoadAssets}
-      render={assets => (
-        <ThumbnailLoadMore
-          assets={assets || []}
-          loadMoreText="Load More"
-          extraDurationStyle={styles.duration}
-          onRequestLoadMore={() => {}}
-        />
-      )}
+    <StorybookStateWrapper
+      initialState={{ assets: [] }}
+      onMount={async (unused, setState) => {
+        await authorizeMediaLibrary();
+        const assets = await loadImageAssets({ limit: 5 });
+        setState({ assets });
+      }}
+      render={({ assets }, setState) => {
+        if (!assets || !assets.length) {
+          return null;
+        }
+        const last = assets[assets.length - 1];
+
+        const loadMore = async () => {
+          const assets = await loadImageAssets({
+            limit: 5,
+            creationDateQuery: {
+              date: last.creationDate,
+              equation: 'lessThan',
+            },
+          });
+          setState({ assets });
+        };
+        return (
+          <ThumbnailLoadMore
+            assets={assets || []}
+            loadMoreText="Load More"
+            extraDurationStyle={styles.duration}
+            onRequestLoadMore={loadMore}
+          />
+        );
+      }}
     />
   </SafeAreaView>
 ));

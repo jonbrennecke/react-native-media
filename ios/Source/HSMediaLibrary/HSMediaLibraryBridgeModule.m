@@ -44,12 +44,8 @@
         if (asset == nil) {
           return;
         }
-        NSString *localIdentifier = asset.localIdentifier;
-        NSTimeInterval duration = asset.duration;
-        NSDictionary *video =
-            @{ @"videoID" : localIdentifier,
-               @"duration" : @(duration) };
-        [videos insertObject:video atIndex:idx];
+        HSMediaAsset *mediaAsset = [[HSMediaAsset alloc] initWithAsset:asset];
+        [videos insertObject:[mediaAsset asDict] atIndex:idx];
       }];
   [self sendEventWithName:@"mediaLibraryDidUpdateVideos"
                      body:@{@"videos" : videos}];
@@ -96,11 +92,8 @@ RCT_EXPORT_METHOD(query
       [[NSMutableArray alloc] initWithCapacity:assets.count];
   [assets enumerateObjectsUsingBlock:^(PHAsset *_Nonnull asset, NSUInteger idx,
                                        BOOL *_Nonnull stop) {
-    NSDictionary *video = @{
-      @"assetID" : asset.localIdentifier,
-      @"duration" : @(asset.duration)
-    };
-    [videos insertObject:video atIndex:idx];
+    HSMediaAsset *mediaAsset = [[HSMediaAsset alloc] initWithAsset:asset];
+    [videos insertObject:[mediaAsset asDict] atIndex:idx];
   }];
   callback(@[ [NSNull null], videos ]);
 }

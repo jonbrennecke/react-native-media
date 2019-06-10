@@ -32,6 +32,9 @@ class HSMediaLibrary: NSObject {
   @objc(loadAssets:)
   public func loadAssets(query: HSMediaLibraryQuery) -> [PHAsset] {
     let fetchOptions = PHFetchOptions()
+    if let creationDateQuery = query.creationDateQuery {
+      fetchOptions.predicate = creationDateQuery.predicate(forVariableNamed: "creationDate")
+    }
     fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
     if #available(iOS 9.0, *) {
       fetchOptions.fetchLimit = query.limit

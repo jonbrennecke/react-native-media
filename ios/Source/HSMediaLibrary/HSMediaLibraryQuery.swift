@@ -6,9 +6,11 @@ fileprivate let DEFAULT_LIMIT = 100
 class HSMediaLibraryQuery: NSObject {
   internal let mediaType: HSMediaType
   internal let limit: Int
+  internal let creationDateQuery: HSMediaLibraryDateQuery?
 
-  init(mediaType: HSMediaType, limit: Int = DEFAULT_LIMIT) {
+  init(mediaType: HSMediaType, creationDateQuery: HSMediaLibraryDateQuery?, limit: Int = DEFAULT_LIMIT) {
     self.mediaType = mediaType
+    self.creationDateQuery = creationDateQuery
     self.limit = limit
     super.init()
   }
@@ -18,10 +20,14 @@ class HSMediaLibraryQuery: NSObject {
     guard
       let mediaTypeString = dict["mediaType"] as? String,
       let mediaType = HSMediaType.from(string: mediaTypeString),
-      let limit = dict["limit"] as? Int
+      let limit = dict["limit"] as? Int,
+      let dateQueryDict = dict["creationDateQuery"] as? NSDictionary?
     else {
       return nil
     }
-    return HSMediaLibraryQuery(mediaType: mediaType, limit: limit)
+    let creationDateQuery: HSMediaLibraryDateQuery? = dateQueryDict != nil
+      ? HSMediaLibraryDateQuery.from(dict: dateQueryDict!)
+      : nil
+    return HSMediaLibraryQuery(mediaType: mediaType, creationDateQuery: creationDateQuery, limit: limit)
   }
 }
