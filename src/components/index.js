@@ -1,4 +1,5 @@
 // @flow
 export * from './Thumbnail';
 export * from './ThumbnailGrid';
-export * from './ThumbnailLoadMore';
+export * from './ThumbnailGridItem';
+export * from './ThumbnailLoadMoreGrid';

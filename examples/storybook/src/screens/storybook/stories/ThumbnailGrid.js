@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native';
 
 import {
   ThumbnailGrid,
-  loadImageAssets,
+  queryImages,
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
@@ -24,7 +24,7 @@ const styles = {
 
 const authorizeAndLoadAssets = async () => {
   await authorizeMediaLibrary();
-  return await loadImageAssets();
+  return await queryImages();
 };
 
 storiesOf('Thumbnails', module).add('Thumbnail Grid', () => (

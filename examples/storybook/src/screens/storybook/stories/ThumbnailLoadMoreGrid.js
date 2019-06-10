@@ -1,10 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
+import sortBy from 'lodash/sortBy';
+import uniqBy from 'lodash/uniqBy';
 
 import {
-  ThumbnailLoadMore,
-  loadImageAssets,
+  ThumbnailLoadMoreGrid,
+  queryImages,
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
@@ -22,35 +24,40 @@ const styles = {
   },
 };
 
-storiesOf('Thumbnails', module).add('Thumbnail Load More', () => (
+const sortAssets = assets => uniqBy(sortBy(assets, 'creationDate').reverse(), 'assetID');
+
+storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
   <SafeAreaView style={styles.container}>
     <StorybookStateWrapper
-      initialState={{ assets: [] }}
+      initialState={{ assets: [], hasLoadedAllAssets: false }}
       onMount={async (unused, setState) => {
         await authorizeMediaLibrary();
-        const assets = await loadImageAssets({ limit: 5 });
-        setState({ assets });
+        const assets = await queryImages();
+        setState({ assets: sortAssets(assets) });
       }}
-      render={({ assets }, setState) => {
+      render={({ assets, hasLoadedAllAssets }, setState) => {
         if (!assets || !assets.length) {
           return null;
         }
         const last = assets[assets.length - 1];
-
         const loadMore = async () => {
-          const assets = await loadImageAssets({
-            limit: 5,
+          if (hasLoadedAllAssets) {
+            return;
+          }
+          const newAssets = await queryImages({
             creationDateQuery: {
               date: last.creationDate,
               equation: 'lessThan',
             },
           });
-          setState({ assets });
+          setState({
+            assets: sortAssets([ ...assets, ...newAssets ]),
+            hasLoadedAllAssets: !newAssets.length
+          });
         };
         return (
-          <ThumbnailLoadMore
+          <ThumbnailLoadMoreGrid
             assets={assets || []}
-            loadMoreText="Load More"
             extraDurationStyle={styles.duration}
             onRequestLoadMore={loadMore}
           />

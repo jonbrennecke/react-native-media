@@ -1,3 +1,4 @@
+// @flow
 import './Thumbnail';
 import './ThumbnailGrid';
-import './ThumbnailLoadMore';
+import './ThumbnailLoadMoreGrid';
