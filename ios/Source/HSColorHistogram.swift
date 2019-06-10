@@ -1,6 +1,6 @@
 import UIKit
 
-internal class ColorHistogram {
+internal class HSColorHistogram {
   private let numberOfBins: Int
   private let countedSet: NSCountedSet
 

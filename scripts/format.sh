@@ -8,7 +8,7 @@ npm run format-prettier
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 project_dir=$(cd "$dir/../" 2> /dev/null && pwd -P)
 format=$(brew --prefix llvm)/bin/clang-format
-$format -i $project_dir/ios/**/*.h $project_dir/ios/*.h $project_dir/ios/**/*.m $project_dir/ios/*.m
+$format -i $project_dir/ios/Source/**/*.h $project_dir/ios/Source/*.h $project_dir/ios/Source/**/*.m $project_dir/ios/Source/*.m
 
 # run swiftformat to format Swift files
 swiftformat $project_dir/ios --indent 2
