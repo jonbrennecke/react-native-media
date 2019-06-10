@@ -2,13 +2,14 @@
 import Bluebird from 'bluebird';
 import { NativeModules } from 'react-native';
 
-// import type { VideoAssetIdentifier } from '../types/media';
 // import type { Return } from '../types/util';
 
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
 // const NativeMediaManagerEventEmitter = new NativeEventEmitter(_MediaLibrary);
+
+export type MediaObject = { assetID: string, duration: number };
 
 // const EVENTS = {
 //   DID_UPDATE_VIDEOS: 'mediaLibraryDidUpdateVideos',
@@ -19,9 +20,11 @@ const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 //   typeof NativeMediaManagerEventEmitter.addListener
 // >;
 
-export type VideoObject = { assetID: string, duration: number };
+export const authorizeMediaLibrary = (): Promise<boolean> => {
+  return MediaLibrary.authorizeMediaLibraryAsync();
+};
 
-export const loadVideoAssets = (): Promise<VideoObject[]> => {
+export const loadImageAssets = (): Promise<MediaObject[]> => {
   return MediaLibrary.queryAsync({ mediaType: 'image' });
 };
 

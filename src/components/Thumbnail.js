@@ -8,10 +8,10 @@ const NativeThumbnailView = requireNativeComponent('HSThumbnailView');
 
 export type ThumbnailProps = {
   style?: ?Style,
-  videoID: string,
+  assetID: string,
 };
 
 export const Thumbnail: SFC<ThumbnailProps> = ({
   style,
-  videoID,
-}: ThumbnailProps) => <NativeThumbnailView style={style} videoID={videoID} />;
+  assetID,
+}: ThumbnailProps) => <NativeThumbnailView style={style} assetID={assetID} />;

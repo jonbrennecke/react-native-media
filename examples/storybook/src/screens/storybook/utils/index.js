@@ -1,2 +1,2 @@
 // @flow
-export * from './StorybookDataLoader';
+export * from './StorybookAsyncWrapper';

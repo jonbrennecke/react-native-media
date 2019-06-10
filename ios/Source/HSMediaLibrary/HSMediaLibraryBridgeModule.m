@@ -20,8 +20,8 @@
 
 #pragma mark - HSMediaLibraryDelegate
 
-- (void)mediaLibraryManagerDidGenerateThumbnail:(UIImage *)thumbnail
-                                  forTargetSize:(CGSize)size {
+- (void)mediaLibraryDidGenerateThumbnail:(UIImage *)thumbnail
+                           forTargetSize:(CGSize)size {
   if (!thumbnail || !hasListeners) {
     return;
   }
@@ -32,7 +32,7 @@
                      }];
 }
 
-- (void)mediaLibraryManagerDidUpdateVideos:(NSArray<PHAsset *> *)videoAssets {
+- (void)mediaLibraryDidUpdateVideos:(NSArray<PHAsset *> *)videoAssets {
   if (!hasListeners) {
     return;
   }
@@ -75,6 +75,12 @@
 
 RCT_EXPORT_MODULE(MediaLibrary)
 
+RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
+  [mediaLibrary authorizeMediaLibrary:^(BOOL success) {
+    callback(@[ [NSNull null], @(success) ]);
+  }];
+}
+
 RCT_EXPORT_METHOD(query
                   : (NSDictionary *)queryArgs callback
                   : (RCTResponseSenderBlock)callback) {
@@ -90,9 +96,10 @@ RCT_EXPORT_METHOD(query
       [[NSMutableArray alloc] initWithCapacity:assets.count];
   [assets enumerateObjectsUsingBlock:^(PHAsset *_Nonnull asset, NSUInteger idx,
                                        BOOL *_Nonnull stop) {
-    NSDictionary *video =
-        @{ @"assetID" : asset.localIdentifier,
-           @"duration" : @(asset.duration) };
+    NSDictionary *video = @{
+      @"assetID" : asset.localIdentifier,
+      @"duration" : @(asset.duration)
+    };
     [videos insertObject:video atIndex:idx];
   }];
   callback(@[ [NSNull null], videos ]);

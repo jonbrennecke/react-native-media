@@ -18,10 +18,10 @@ RCT_EXPORT_MODULE(HSThumbnailViewManager)
   return (UIView *)thumbnailView;
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(videoID, NSString, HSThumbnailView) {
-  NSString *videoID = [RCTConvert NSString:json];
+RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, HSThumbnailView) {
+  NSString *assetID = [RCTConvert NSString:json];
   PHFetchResult<PHAsset *> *fetchResult =
-      [PHAsset fetchAssetsWithLocalIdentifiers:@[ videoID ] options:nil];
+      [PHAsset fetchAssetsWithLocalIdentifiers:@[ assetID ] options:nil];
   PHAsset *asset = fetchResult.firstObject;
   if (asset == nil) {
     return;
