@@ -4,17 +4,20 @@ import { PureComponent } from 'react';
 import type { Element } from 'react';
 
 export type Props<T> = {
-  loadAsync: () => Promise<T>;
-  render: (data: ?T) => ?Element<*>;
+  loadAsync: () => Promise<T>,
+  render: (data: ?T) => ?Element<*>,
 };
 
 export type State<T> = {
-  data: ?T;
+  data: ?T,
 };
 
-export class StorybookAsyncWrapper<T> extends PureComponent<Props<T>, State<T>> {
+export class StorybookAsyncWrapper<T> extends PureComponent<
+  Props<T>,
+  State<T>
+> {
   state: State<T> = {
-    data: null
+    data: null,
   };
 
   async componentDidMount() {

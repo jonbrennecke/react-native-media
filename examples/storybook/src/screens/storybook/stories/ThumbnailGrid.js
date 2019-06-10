@@ -2,7 +2,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
 
-import { ThumbnailGrid, loadImageAssets, authorizeMediaLibrary } from '@jonbrennecke/react-native-media';
+import {
+  ThumbnailGrid,
+  loadImageAssets,
+  authorizeMediaLibrary,
+} from '@jonbrennecke/react-native-media';
 
 import { StorybookAsyncWrapper } from '../utils';
 
@@ -11,11 +15,11 @@ const styles = {
     flex: 1,
   },
   thumbnail: {
-    flex: 1
+    flex: 1,
   },
   duration: {
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 };
 
 const authorizeAndLoadAssets = async () => {
