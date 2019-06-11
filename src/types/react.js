@@ -1,16 +1,13 @@
 // @flow
-import StyleSheetPropType from 'react-native/Libraries/StyleSheet/StyleSheetPropType';
-import ViewStylePropTypes from 'react-native/Libraries/Components/View/ViewStylePropTypes';
+import type { ____DangerouslyImpreciseStyle_Internal } from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
 
 import type {
   Element,
   ChildrenArray,
-  StatelessFunctionalComponent,
+  StatelessFunctionalComponent
 } from 'react';
 
-const stylePropType = StyleSheetPropType(ViewStylePropTypes);
-
-export type Style = stylePropType;
+export type Style = $Shape<____DangerouslyImpreciseStyle_Internal>;
 
 export type SFC<P> = StatelessFunctionalComponent<P>;
 

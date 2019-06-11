@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
 
 import {
-  Seekbar,
+  SeekbarBackground,
   queryVideos,
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
@@ -19,7 +19,7 @@ const styles = {
   seekbar: {
     height: 75,
     width: '100%'
-  },
+  }
 };
 
 const authorizeAndLoadAssets = async () => {
@@ -27,13 +27,13 @@ const authorizeAndLoadAssets = async () => {
   return await queryVideos({ limit: 1 });
 };
 
-storiesOf('Seekbar', module).add('Seekbar', () => (
+storiesOf('Seekbar', module).add('Seekbar Background', () => (
   <SafeAreaView style={styles.container}>
     <StorybookAsyncWrapper
       loadAsync={authorizeAndLoadAssets}
       render={assets =>
         assets && assets[0] && (
-          <Seekbar style={styles.seekbar} assetID={assets[0].assetID} />
+          <SeekbarBackground style={styles.seekbar} assetID={assets[0].assetID} />
         )
       }
     />
