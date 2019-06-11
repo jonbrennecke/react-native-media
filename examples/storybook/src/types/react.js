@@ -10,7 +10,7 @@ import type {
 
 const stylePropType = StyleSheetPropType(ViewStylePropTypes);
 
-export type Style = stylePropType;
+export type Style = typeof stylePropType;
 
 export type SFC<P> = StatelessFunctionalComponent<P>;
 

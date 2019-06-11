@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 
 import type { Element } from 'react';
 
-export type StorybookStateWrapperProps<S> = {
+export type StorybookStateWrapperProps<S: Object> = {
   initialState: S,
   onMount?: (data: ?S, setState: (?S) => void) => void,
   render: (data: ?S, setState: (?S) => void) => ?Element<*>,
@@ -11,7 +11,7 @@ export type StorybookStateWrapperProps<S> = {
 
 export type StorybookStateWrapperState<S> = S;
 
-export class StorybookStateWrapper<S> extends PureComponent<
+export class StorybookStateWrapper<S: Object> extends PureComponent<
   StorybookStateWrapperProps<S>,
   StorybookStateWrapperState<S>
 > {
@@ -27,6 +27,7 @@ export class StorybookStateWrapper<S> extends PureComponent<
   }
 
   render() {
+    // $FlowFixMe
     return this.props.render(this.state, state => this.setState(state));
   }
 }

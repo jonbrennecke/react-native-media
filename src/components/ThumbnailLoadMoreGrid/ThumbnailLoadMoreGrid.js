@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { View, FlatList, Dimensions } from 'react-native';
 import noop from 'lodash/noop';
 
@@ -21,69 +21,48 @@ const GRID_ITEM_WIDTH = SCREEN_WIDTH / 3;
 const GRID_ITEM_HEIGHT = GRID_ITEM_WIDTH * (4 / 3);
 
 const styles = {
-  container: {},
+  container: {
+    flex: 1,
+  },
   gridItem: {
     width: GRID_ITEM_WIDTH,
     height: GRID_ITEM_HEIGHT,
   },
 };
 
-export class ThumbnailLoadMoreGrid extends PureComponent<
-  ThumbnailLoadMoreGridProps
-> {
-  flatListRef: ?FlatList<MediaObject>;
-
-  render() {
-    const {
-      style,
-      assets,
-      extraDurationStyle,
-      onRequestLoadMore,
-      onPressThumbnail = noop,
-    } = this.props;
-    return (
-      <View style={[styles.container, style]}>
-        <FlatList
-          ref={ref => {
-            this.flatListRef = ref;
-          }}
-          initialScrollIndex={0}
-          enableEmptySections
-          numColumns={3}
-          horizontal={false}
-          data={assets}
-          removeClippedSubviews
-          initialNumToRender={15}
-          keyExtractor={asset => asset.assetID}
-          renderItem={({ item: asset }) => (
-            <ThumbnailGridItem
-              style={styles.gridItem}
-              assetID={asset.assetID}
-              duration={asset.duration}
-              mediaType={asset.mediaType}
-              extraDurationStyle={extraDurationStyle}
-              onPressThumbnail={onPressThumbnail}
-            />
-          )}
-          getItemLayout={(unused, index) => ({
-            length: GRID_ITEM_WIDTH,
-            offset: GRID_ITEM_HEIGHT,
-            index,
-          })}
-          onEndReached={({ distanceFromEnd }) => {
-            if (distanceFromEnd < 0) {
-              // this.flatListRef && this.flatListRef.scrollToOffset({
-              //   offset: Math.abs(distanceFromEnd),
-              //   animated: false,
-              // });
-              return;
-            }
-            onRequestLoadMore && onRequestLoadMore();
-          }}
-          onScrollToIndexFailed={() => console.log('here')}
-          onEndReachedThreshold={0.75}
+export const ThumbnailLoadMoreGrid: SFC<ThumbnailLoadMoreGridProps> = ({
+  style,
+  assets,
+  extraDurationStyle,
+  onRequestLoadMore,
+  onPressThumbnail = noop,
+}: ThumbnailLoadMoreGridProps) => (
+  <View style={[styles.container, style]}>
+    <FlatList
+      numColumns={3}
+      enableEmptySections
+      horizontal={false}
+      data={assets}
+      keyExtractor={asset => asset.assetID}
+      removeClippedSubviews
+      initialNumToRender={15}
+      renderItem={({ item: asset }) => (
+        <ThumbnailGridItem
+          style={styles.gridItem}
+          assetID={asset.assetID}
+          duration={asset.duration}
+          mediaType={asset.mediaType}
+          extraDurationStyle={extraDurationStyle}
+          onPressThumbnail={onPressThumbnail}
         />
-      </View>
-    );
-  }
-}
+      )}
+      onEndReached={({ distanceFromEnd }) => {
+        if (distanceFromEnd < 0) {
+          return;
+        }
+        onRequestLoadMore && onRequestLoadMore();
+      }}
+      onEndReachedThreshold={0.75}
+    />
+  </View>
+);

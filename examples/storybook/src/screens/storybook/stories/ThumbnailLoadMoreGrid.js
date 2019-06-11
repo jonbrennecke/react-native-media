@@ -33,20 +33,16 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
       initialState={{ assets: [], hasLoadedAllAssets: false }}
       onMount={async (unused, setState) => {
         await authorizeMediaLibrary();
-        const assets = await queryMedia({
-          limit: 300
-        });
+        const assets = await queryMedia();
         setState({ assets: sortAssets(assets) });
       }}
       render={({ assets, hasLoadedAllAssets }, setState) => {
         const lastItem = last(assets);
         const loadMore = async () => {
-          console.log('loadMore called');
           if (hasLoadedAllAssets) {
             return;
           }
           const newAssets = await queryMedia({
-            limit: 9,
             creationDateQuery: {
               date: lastItem.creationDate,
               equation: 'lessThan',

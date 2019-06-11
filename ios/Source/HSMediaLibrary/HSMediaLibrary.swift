@@ -53,8 +53,6 @@ class HSMediaLibrary: NSObject {
 
 extension HSMediaLibrary: PHPhotoLibraryChangeObserver {
   func photoLibraryDidChange(_: PHChange) {
-    //    TODO:
-//    let videos = loadAssets()
-//    delegate?.mediaLibrary(didUpdateVideos: videos)
+//    delegate?.mediaLibraryDidChange()
   }
 }

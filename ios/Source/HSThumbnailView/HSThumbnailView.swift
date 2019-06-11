@@ -1,8 +1,9 @@
 import Photos
 import UIKit
 
-fileprivate let DEFAULT_THUMBNAIL_WIDTH: CGFloat = 100
-fileprivate let DEFAULT_THUMBNAIL_SIZE = CGSize(width: DEFAULT_THUMBNAIL_WIDTH, height: DEFAULT_THUMBNAIL_WIDTH * 4 / 3)
+fileprivate let PREFETCH_THUMBNAIL_WIDTH: CGFloat = 25
+fileprivate let PREFETCH_THUMBNAIL_SIZE = CGSize(width: PREFETCH_THUMBNAIL_WIDTH, height: PREFETCH_THUMBNAIL_WIDTH * 4 / 3)
+fileprivate let SIZE_ZERO = CGSize(width: CGFloat.leastNonzeroMagnitude, height: CGFloat.leastNonzeroMagnitude)
 
 class HSThumbnailView: UIView {
   private static let queue = DispatchQueue(label: "thumbnail loading queue")
@@ -34,7 +35,7 @@ class HSThumbnailView: UIView {
   @objc(startCachingImages:)
   public static func startCaching(images: [PHAsset]) {
     imageManager.startCachingImages(for: images,
-                                    targetSize: DEFAULT_THUMBNAIL_SIZE,
+                                    targetSize: PREFETCH_THUMBNAIL_SIZE,
                                     contentMode: .aspectFill,
                                     options: nil)
   }
@@ -59,18 +60,28 @@ class HSThumbnailView: UIView {
     }
     let size = frame.size
     HSThumbnailView.queue.async { [weak self] in
-      self?.requestID = self?.loadThumbnail(forAsset: asset, withSize: size)
+      if size.width < SIZE_ZERO.width,
+        size.height < SIZE_ZERO.height {
+        self?.requestID = self?.loadThumbnail(asset: asset, targetSize: PREFETCH_THUMBNAIL_SIZE)
+      }
+      let targetSize = CGSize(width: size.width * UIScreen.main.scale, height: UIScreen.main.scale)
+      self?.requestID = self?.loadThumbnail(asset: asset, targetSize: targetSize)
     }
   }
 
-  private func loadThumbnail(forAsset asset: PHAsset, withSize size: CGSize) -> PHImageRequestID {
+  private func loadThumbnail(asset: PHAsset, targetSize: CGSize) -> PHImageRequestID {
     let requestOptions = PHImageRequestOptions()
-    requestOptions.isSynchronous = false
+    requestOptions.isSynchronous = true
     requestOptions.resizeMode = .fast
     requestOptions.deliveryMode = .opportunistic
-    let originalPixelSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-    let orientation = imageOrientation(forSize: originalPixelSize)
-    return HSThumbnailView.imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: requestOptions) { [weak self] image, _ in
+    let fullImageSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+    let orientation = imageOrientation(forSize: fullImageSize)
+    return HSThumbnailView.imageManager.requestImage(
+      for: asset,
+      targetSize: targetSize,
+      contentMode: .aspectFill,
+      options: requestOptions
+    ) { [weak self] image, _ in
       guard let image = image else {
         return
       }
