@@ -11,7 +11,7 @@
     "format": "./scripts/format.sh",
     "format-prettier": "prettier --trailing-comma es5 --single-quote --write \"src/**/*.js\"",
     "clean": "rm -rf build",
-    "build": "npm run clean && webpack -p --progress --colors --config ./webpack/config.js && npm run gen-types",
+    "build": "npm run clean && webpack -p --progress --colors --config ./webpack/config.js",
     "prepublish": "npm run build",
     "gen-types": "flow gen-flow-files ./src/index.js > ./build/index.js.flow"
   },
@@ -51,7 +51,7 @@
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.7.0",
     "eslint-plugin-react-native": "3.2.1",
-    "flow-bin": "^0.78.0",
+    "flow-bin": "0.93.0",
     "flow-typed": "^2.5.1",
     "jest": "23.6.0",
     "lodash.noop": "3.0.1",
