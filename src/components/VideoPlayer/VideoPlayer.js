@@ -8,7 +8,7 @@ import type { Style } from '../../types/react';
 import type { Size, Orientation } from '../../types/media';
 
 const NativeVideoPlayerView = requireNativeComponent('HSVideoPlayerView');
-const { VideoPlayerViewManager: _VideoPlayerViewManager } = NativeModules;
+const { HSVideoPlayerViewManager: _VideoPlayerViewManager } = NativeModules;
 const VideoPlayerViewManager = Bluebird.promisifyAll(_VideoPlayerViewManager);
 
 type ReactNativeFiberHostComponent = any;

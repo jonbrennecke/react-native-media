@@ -1,8 +1,6 @@
 import Foundation
 import Photos
 
-fileprivate let DEFAULT_LIMIT = 100
-
 @objc
 class HSMediaAsset: NSObject {
   internal let creationDate: Date?
@@ -27,9 +25,11 @@ class HSMediaAsset: NSObject {
     self.mediaType = mediaType
     super.init()
   }
+}
 
+extension HSMediaAsset : NSDictionaryConvertible {
   @objc
-  public func asDict() -> NSDictionary {
+  public func asDictionary() -> NSDictionary {
     return [
       "assetID": assetID,
       "duration": duration,

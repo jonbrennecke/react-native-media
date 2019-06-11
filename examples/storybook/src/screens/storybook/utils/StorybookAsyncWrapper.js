@@ -32,6 +32,6 @@ export class StorybookAsyncWrapper<T> extends PureComponent<
 
   render() {
     // $FlowFixMe
-    return this.props.render(this.state.data);
+    return this.props.render(this.state.data) || null;
   }
 }

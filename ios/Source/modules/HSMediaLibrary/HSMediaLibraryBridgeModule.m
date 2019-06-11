@@ -45,7 +45,7 @@
           return;
         }
         HSMediaAsset *mediaAsset = [[HSMediaAsset alloc] initWithAsset:asset];
-        [videos insertObject:[mediaAsset asDict] atIndex:idx];
+        [videos insertObject:[mediaAsset asDictionary] atIndex:idx];
       }];
   [self sendEventWithName:@"mediaLibraryDidUpdateVideos"
                      body:@{@"videos" : videos}];
@@ -77,28 +77,43 @@ RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
   }];
 }
 
-RCT_EXPORT_METHOD(query
+RCT_EXPORT_METHOD(queryMedia
                   : (NSDictionary *)queryArgs callback
                   : (RCTResponseSenderBlock)callback) {
-  HSMediaLibraryQuery *query = [HSMediaLibraryQuery fromDict:queryArgs];
+  HSMediaLibraryMediaQuery *query = [[HSMediaLibraryMediaQuery alloc] initWithDict:queryArgs];
   if (!query) {
     id error =
-        RCTMakeError(@"Invalid query sent to MediaLibrary", queryArgs, nil);
+        RCTMakeError(@"Invalid meida query sent to MediaLibrary", queryArgs, nil);
     callback(@[ error, [NSNull null] ]);
     return;
   }
-  NSArray<PHAsset *> *assets = [mediaLibrary loadAssets:query];
-  NSMutableArray<NSDictionary *> *videos =
-      [[NSMutableArray alloc] initWithCapacity:assets.count];
-  [assets enumerateObjectsUsingBlock:^(PHAsset *_Nonnull asset, NSUInteger idx,
-                                       BOOL *_Nonnull stop) {
-    HSMediaAsset *mediaAsset = [[HSMediaAsset alloc] initWithAsset:asset];
-    [videos insertObject:[mediaAsset asDict] atIndex:idx];
+  NSArray<id<NSDictionaryConvertible>> *queryResult = [mediaLibrary queryMedia:query];
+  NSMutableArray<NSDictionary *> *assets = [[NSMutableArray alloc] initWithCapacity:queryResult.count];
+  [queryResult enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res, NSUInteger idx,
+                                            BOOL *_Nonnull stop) {
+    [assets insertObject:[res asDictionary] atIndex:idx];
   }];
-  callback(@[ [NSNull null], videos ]);
+  callback(@[ [NSNull null], assets ]);
 }
 
-// TODO:
+RCT_EXPORT_METHOD(queryAlbums
+                  : (NSDictionary *)queryArgs callback
+                  : (RCTResponseSenderBlock)callback) {
+  HSMediaLibraryBasicQuery *query = [[HSMediaLibraryBasicQuery alloc] initWithDict:queryArgs];
+  if (!query) {
+    id error =
+    RCTMakeError(@"Invalid album query sent to MediaLibrary", queryArgs, nil);
+    callback(@[ error, [NSNull null] ]);
+    return;
+  }
+  NSArray<id<NSDictionaryConvertible>> *queryResult = [mediaLibrary queryAlbums:query];
+  NSMutableArray<NSDictionary *> *albums = [[NSMutableArray alloc] initWithCapacity:queryResult.count];
+  [queryResult enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res, NSUInteger idx,
+                                       BOOL *_Nonnull stop) {
+    [albums insertObject:[res asDictionary] atIndex:idx];
+  }];
+  callback(@[ [NSNull null], albums ]);
+}
 
 // RCT_EXPORT_METHOD(startObservingVideos) { [mediaLibrary
 // startObservingVideos]; }

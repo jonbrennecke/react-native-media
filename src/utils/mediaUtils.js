@@ -60,8 +60,22 @@ export const queryMedia = ({
   creationDateQuery?: DateQuery,
   limit?: number,
 } = {}): Promise<MediaObject[]> => {
-  return MediaLibrary.queryAsync({
+  return MediaLibrary.queryMediaAsync({
     mediaType,
+    creationDateQuery,
+    limit,
+  });
+};
+
+export const queryAlbums = ({
+  limit = 20,
+  creationDateQuery,
+}: {
+  mediaType: MediaType,
+  creationDateQuery?: DateQuery,
+  limit?: number,
+} = {}): Promise<MediaObject[]> => {
+  return MediaLibrary.queryAlbumsAsync({
     creationDateQuery,
     limit,
   });

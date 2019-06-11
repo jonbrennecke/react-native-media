@@ -29,8 +29,8 @@ class HSMediaLibrary: NSObject {
     }
   }
 
-  @objc(loadAssets:)
-  public func loadAssets(query: HSMediaLibraryQuery) -> [PHAsset] {
+  @objc(queryMedia:)
+  public func queryMedia(_ query: HSMediaLibraryMediaQuery) -> [HSMediaAsset] {
     let fetchOptions = PHFetchOptions()
     if let creationDateQuery = query.creationDateQuery {
       fetchOptions.predicate = creationDateQuery.predicate(forVariableNamed: "creationDate")
@@ -42,12 +42,29 @@ class HSMediaLibrary: NSObject {
     fetchOptions.wantsIncrementalChangeDetails = true
     let mediaType = query.mediaType.PHAssetMediaType
     if mediaType == .unknown {
-      let videoAssets = PHAsset.fetchAssets(with: fetchOptions)
-      return createArray(withFetchResult: videoAssets)
-    } else {
-      let videoAssets = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
-      return createArray(withFetchResult: videoAssets)
+      let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+      let assets = createArray(withFetchResult: fetchResult)
+      return assets.map { HSMediaAsset(asset: $0) }
     }
+    let fetchResult = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
+    let assets = createArray(withFetchResult: fetchResult)
+    return assets.map { HSMediaAsset(asset: $0) }
+  }
+
+  @objc(queryAlbums:)
+  public func queryAlbums(_ query: HSMediaLibraryBasicQuery) -> [HSMediaAlbum] {
+    let fetchOptions = PHFetchOptions()
+    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "endDate", ascending: false)]
+    if #available(iOS 9.0, *) {
+      fetchOptions.fetchLimit = query.limit
+    }
+    let fetchResult = PHAssetCollection.fetchAssetCollections(
+      with: .album,
+      subtype: .albumRegular,
+      options: fetchOptions
+    )
+    let collectionArray = createArray(withFetchResult: fetchResult)
+    return collectionArray.map { HSMediaAlbum(collection: $0) }
   }
 }
 
