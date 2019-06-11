@@ -22,7 +22,6 @@ const styles = {
 const authorizeAndLoadAlbums = async (state, setState) => {
   await authorizeMediaLibrary();
   const albums = await queryAlbums();
-  console.log(albums);
   setState({ albums });
 };
 

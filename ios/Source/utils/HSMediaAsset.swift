@@ -27,7 +27,7 @@ class HSMediaAsset: NSObject {
   }
 }
 
-extension HSMediaAsset : NSDictionaryConvertible {
+extension HSMediaAsset: NSDictionaryConvertible {
   @objc
   public func asDictionary() -> NSDictionary {
     return [

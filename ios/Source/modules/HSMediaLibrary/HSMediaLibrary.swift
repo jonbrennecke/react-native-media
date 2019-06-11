@@ -54,7 +54,7 @@ class HSMediaLibrary: NSObject {
   @objc(queryAlbums:)
   public func queryAlbums(_ query: HSMediaLibraryBasicQuery) -> [HSMediaAlbum] {
     let fetchOptions = PHFetchOptions()
-    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "endDate", ascending: false)]
+    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
     if #available(iOS 9.0, *) {
       fetchOptions.fetchLimit = query.limit
     }

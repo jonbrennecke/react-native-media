@@ -2,7 +2,7 @@
 import Bluebird from 'bluebird';
 import { NativeModules } from 'react-native';
 
-import type { MediaObject, MediaType } from '../types';
+import type { AlbumObject, MediaObject, MediaType } from '../types';
 
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
@@ -71,10 +71,9 @@ export const queryAlbums = ({
   limit = 20,
   creationDateQuery,
 }: {
-  mediaType: MediaType,
   creationDateQuery?: DateQuery,
   limit?: number,
-} = {}): Promise<MediaObject[]> => {
+} = {}): Promise<AlbumObject[]> => {
   return MediaLibrary.queryAlbumsAsync({
     creationDateQuery,
     limit,

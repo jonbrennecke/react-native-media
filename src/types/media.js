@@ -7,6 +7,14 @@ export type MediaObject = {
   mediaType: MediaType,
 };
 
+export type AlbumObject = {
+  albumID: string,
+  count: number,
+  title: string,
+  startDate: string,
+  endDate: string,
+};
+
 export type Size = {
   width: number,
   height: number,
