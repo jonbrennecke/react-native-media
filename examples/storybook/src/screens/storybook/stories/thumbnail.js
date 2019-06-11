@@ -24,7 +24,7 @@ const styles = {
 
 const authorizeAndLoadAssets = async () => {
   await authorizeMediaLibrary();
-  return await queryImages();
+  return await queryImages({ limit: 3 });
 };
 
 storiesOf('Thumbnails', module).add('Thumbnail', () => (

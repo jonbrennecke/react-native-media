@@ -5,25 +5,27 @@ import noop from 'lodash/noop';
 
 import { Thumbnail } from '../Thumbnail';
 
-import type { SFC, Style, MediaObject } from '../../types';
+import type { SFC, Style, MediaType } from '../../types';
 
 type ThumbnailGridItemProps = {
   style?: ?Style,
   extraDurationStyle?: ?Style,
-  asset: MediaObject,
-  onPressThumbnail?: (video: MediaObject) => void,
+  assetID: string,
+  duration: number,
+  mediaType: MediaType,
+  onPressThumbnail?: (assetID: string) => void,
 };
 
 const styles = {
   container: {},
   thumbnailWrap: {
     flex: 1,
-    padding: 1
+    padding: 1,
   },
   thumbnail: {
     flex: 1,
     borderRadius: 3,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   duration: {
     position: 'absolute',
@@ -43,20 +45,23 @@ const styles = {
 
 export const ThumbnailGridItem: SFC<ThumbnailGridItemProps> = ({
   style,
-  asset,
+  assetID,
+  duration,
+  mediaType,
   extraDurationStyle,
   onPressThumbnail = noop,
 }: ThumbnailGridItemProps) => (
   <View style={[styles.container, style]}>
     <TouchableOpacity
-      key={asset.assetID}
       style={styles.thumbnailWrap}
-      onPress={() => onPressThumbnail(asset)}
+      onPress={() => onPressThumbnail(assetID)}
     >
-      <Thumbnail style={styles.thumbnail} assetID={asset.assetID} />
-      <Text numberOfLines={1} style={[styles.duration, extraDurationStyle]}>
-        {formatDuration(asset.duration)}
-      </Text>
+      <Thumbnail style={styles.thumbnail} assetID={assetID} />
+      {mediaType === 'video' && (
+        <Text numberOfLines={1} style={[styles.duration, extraDurationStyle]}>
+          {formatDuration(duration)}
+        </Text>
+      )}
     </TouchableOpacity>
   </View>
 );

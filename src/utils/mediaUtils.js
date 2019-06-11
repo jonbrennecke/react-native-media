@@ -2,7 +2,7 @@
 import Bluebird from 'bluebird';
 import { NativeModules } from 'react-native';
 
-import type { MediaObject } from '../types';
+import type { MediaObject, MediaType } from '../types';
 
 const { MediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
@@ -17,8 +17,6 @@ export type DateQueryEquation =
   | 'equalTo'
   | 'lessThan'
   | 'lessThanOrEqualTo';
-
-export type MediaType = 'video' | 'image' | 'any';
 
 export type DateQuery = {
   date: Date,

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
 import sortBy from 'lodash/sortBy';
 import uniqBy from 'lodash/uniqBy';
+import last from 'lodash/last';
 
 import {
   ThumbnailLoadMoreGrid,
@@ -32,21 +33,22 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
       initialState={{ assets: [], hasLoadedAllAssets: false }}
       onMount={async (unused, setState) => {
         await authorizeMediaLibrary();
-        const assets = await queryMedia();
+        const assets = await queryMedia({
+          limit: 300
+        });
         setState({ assets: sortAssets(assets) });
       }}
       render={({ assets, hasLoadedAllAssets }, setState) => {
-        if (!assets || !assets.length) {
-          return null;
-        }
-        const last = assets[assets.length - 1];
+        const lastItem = last(assets);
         const loadMore = async () => {
+          console.log('loadMore called');
           if (hasLoadedAllAssets) {
             return;
           }
           const newAssets = await queryMedia({
+            limit: 9,
             creationDateQuery: {
-              date: last.creationDate,
+              date: lastItem.creationDate,
               equation: 'lessThan',
             },
           });
@@ -57,7 +59,7 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
         };
         return (
           <ThumbnailLoadMoreGrid
-            assets={assets || []}
+            assets={assets}
             extraDurationStyle={styles.duration}
             onRequestLoadMore={loadMore}
           />

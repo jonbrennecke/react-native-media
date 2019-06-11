@@ -19,12 +19,12 @@ class HSMediaLibraryQuery: NSObject {
   public static func from(dict: NSDictionary) -> HSMediaLibraryQuery? {
     guard
       let mediaTypeString = dict["mediaType"] as? String,
-      let mediaType = HSMediaType.from(string: mediaTypeString),
       let limit = dict["limit"] as? Int,
       let dateQueryDict = dict["creationDateQuery"] as? NSDictionary?
     else {
       return nil
     }
+    let mediaType = HSMediaType.from(string: mediaTypeString)
     let creationDateQuery: HSMediaLibraryDateQuery? = dateQueryDict != nil
       ? HSMediaLibraryDateQuery.from(dict: dateQueryDict!)
       : nil
