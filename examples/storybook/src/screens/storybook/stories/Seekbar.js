@@ -1,14 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
+import noop from 'lodash/noop';
 
 import {
-  SeekbarBackground,
+  Seekbar,
   queryVideos,
-  authorizeMediaLibrary,
+  authorizeMediaLibrary
 } from '@jonbrennecke/react-native-media';
 
-import { StorybookAsyncWrapper } from '../utils';
+import { StorybookStateWrapper } from '../utils';
 
 const styles = {
   container: {
@@ -19,21 +20,35 @@ const styles = {
   seekbar: {
     height: 75,
     width: '100%'
+  },
+  handle: {
+    backgroundColor: '#fff'
   }
 };
 
-const authorizeAndLoadAssets = async () => {
+const authorizeAndLoadAssets = async (state, setState) => {
   await authorizeMediaLibrary();
-  return await queryVideos({ limit: 1 });
+  const assets = await queryVideos({ limit: 1 });
+  setState({ assets });
 };
 
-storiesOf('Seekbar', module).add('Seekbar Background', () => (
+storiesOf('Seekbar', module).add('Seekbar', () => (
   <SafeAreaView style={styles.container}>
-    <StorybookAsyncWrapper
-      loadAsync={authorizeAndLoadAssets}
-      render={assets =>
+    <StorybookStateWrapper
+      onMount={authorizeAndLoadAssets}
+      initialState={{ assets: [], playbackTime: 0 }}
+      render={({ assets, playbackTime }, setState) =>
         assets && assets[0] && (
-          <SeekbarBackground style={styles.seekbar} assetID={assets[0].assetID} />
+          <Seekbar
+            style={styles.seekbar}
+            handleStyle={styles.handle}
+            assetID={assets[0].assetID}
+            duration={assets[0].duration}
+            playbackTime={playbackTime}
+            onSeekToTime={playbackTime => setState({ playbackTime })}
+            onDidBeginDrag={noop}
+            onDidEndDrag={noop}
+          />
         )
       }
     />

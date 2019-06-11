@@ -9,7 +9,7 @@ export type StorybookStateWrapperProps<S: Object> = {
   render: (data: ?S, setState: (?S) => void) => ?Element<*>,
 };
 
-export type StorybookStateWrapperState<S> = S;
+export type StorybookStateWrapperState<S: Object> = S;
 
 export class StorybookStateWrapper<S: Object> extends PureComponent<
   StorybookStateWrapperProps<S>,
@@ -28,6 +28,6 @@ export class StorybookStateWrapper<S: Object> extends PureComponent<
 
   render() {
     // $FlowFixMe
-    return this.props.render(this.state, state => this.setState(state));
+    return this.props.render(this.state, state => this.setState(state)) || null;
   }
 }

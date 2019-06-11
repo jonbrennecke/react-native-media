@@ -4,3 +4,4 @@ export * from './ThumbnailGrid';
 export * from './ThumbnailGridItem';
 export * from './ThumbnailLoadMoreGrid';
 export * from './SeekbarBackground';
+export * from './Seekbar';

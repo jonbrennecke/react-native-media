@@ -63,6 +63,7 @@
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "bluebird": "3.5.5"
+    "bluebird": "3.5.5",
+    "core-decorators": "^0.20.0"
   }
 }
