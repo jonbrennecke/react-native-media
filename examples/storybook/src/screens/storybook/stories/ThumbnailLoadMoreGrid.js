@@ -25,7 +25,8 @@ const styles = {
   },
 };
 
-const sortAssets = assets => uniqBy(sortBy(assets, 'creationDate').reverse(), 'assetID');
+const sortAssets = assets =>
+  uniqBy(sortBy(assets, 'creationDate').reverse(), 'assetID');
 
 storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
   <SafeAreaView style={styles.container}>
@@ -49,8 +50,8 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
             },
           });
           setState({
-            assets: sortAssets([ ...assets, ...newAssets ]),
-            hasLoadedAllAssets: !newAssets.length
+            assets: sortAssets([...assets, ...newAssets]),
+            hasLoadedAllAssets: !newAssets.length,
           });
         };
         return (

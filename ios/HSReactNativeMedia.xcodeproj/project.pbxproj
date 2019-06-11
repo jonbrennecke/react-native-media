@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */; };
+		FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */; };
+		FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */; };
+		FC73F2E522AF8824009B6D9F /* seekbarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */; };
 		FCA0A4BC22ACC25400A93C32 /* HSColorHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */; };
 		FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */; };
 		FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */; };
@@ -40,6 +43,10 @@
 		134814201AA4EA6300B7C361 /* libHSReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHSReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC0B252922AC54E900EE45CA /* HSThumbnailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSThumbnailViewManager.h; sourceTree = "<group>"; };
 		FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = HSThumbnailViewManager.m; sourceTree = "<group>"; tabWidth = 2; };
+		FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSSeekbarView.swift; sourceTree = "<group>"; tabWidth = 2; };
+		FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSSeekbarViewManager.m; sourceTree = "<group>"; };
+		FC6B60FD22AF815C0060F828 /* HSSeekbarViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSSeekbarViewManager.h; sourceTree = "<group>"; };
+		FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = seekbarUtils.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSColorHistogram.swift; sourceTree = "<group>"; };
 		FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orientationUtil.swift; sourceTree = "<group>"; };
 		FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageUtils.swift; sourceTree = "<group>"; };
@@ -86,6 +93,17 @@
 			);
 			sourceTree = "<group>";
 		};
+		FC6B60FA22AF7BE80060F828 /* HSSeekbarView */ = {
+			isa = PBXGroup;
+			children = (
+				FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */,
+				FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */,
+				FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */,
+				FC6B60FD22AF815C0060F828 /* HSSeekbarViewManager.h */,
+			);
+			path = HSSeekbarView;
+			sourceTree = "<group>";
+		};
 		FC9F993122ACA0F700430DE5 /* HSThumbnailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,13 +141,14 @@
 		FCDAC44F22AE01A6004A36E7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				FCDAC44322ADF907004A36E7 /* HSMediaLibrary */,
 				FCA0A4C122ACC92700A93C32 /* utils */,
 				FCDAC45022AEA842004A36E7 /* HSMediaAsset.swift */,
 				FCDAC44D22AE017E004A36E7 /* HSMediaType.swift */,
 				FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */,
 				FCDAC45622AEF2E4004A36E7 /* HSDateFormatter.swift */,
+				FCDAC44322ADF907004A36E7 /* HSMediaLibrary */,
 				FC9F993122ACA0F700430DE5 /* HSThumbnailView */,
+				FC6B60FA22AF7BE80060F828 /* HSSeekbarView */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -194,6 +213,7 @@
 			files = (
 				FCDAC45122AEA842004A36E7 /* HSMediaAsset.swift in Sources */,
 				FCFC983B22AC7CD20089D452 /* HSThumbnailView.swift in Sources */,
+				FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */,
 				FCDAC44522ADF989004A36E7 /* HSMediaLibraryDelegate.swift in Sources */,
 				FCDAC44722ADFB4B004A36E7 /* HSMediaLibraryBridgeModule.m in Sources */,
 				FCDAC44E22AE017E004A36E7 /* HSMediaType.swift in Sources */,
@@ -204,8 +224,10 @@
 				FCDAC44C22AE00DE004A36E7 /* HSMediaLibraryQuery.swift in Sources */,
 				FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */,
 				FCDAC44222ADF8DA004A36E7 /* HSMediaLibrary.swift in Sources */,
+				FC73F2E522AF8824009B6D9F /* seekbarUtils.swift in Sources */,
 				FCA0A4BC22ACC25400A93C32 /* HSColorHistogram.swift in Sources */,
 				FCDAC45322AEB3E0004A36E7 /* HSMediaLibraryDateQuery.swift in Sources */,
+				FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */,
 				FCDAC45722AEF2E4004A36E7 /* HSDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
