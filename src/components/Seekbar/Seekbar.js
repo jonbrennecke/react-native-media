@@ -113,7 +113,9 @@ export class Seekbar extends PureComponent<Props, State> {
             x: offsetX,
             y: 0,
           }}
-          renderChildren={props => <View style={[styles.handle, this.props.handleStyle]} {...props} />}
+          renderChildren={props => (
+            <View style={[styles.handle, this.props.handleStyle]} {...props} />
+          )}
         />
       </View>
     );

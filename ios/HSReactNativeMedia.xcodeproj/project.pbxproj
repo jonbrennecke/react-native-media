@@ -11,6 +11,12 @@
 		FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */; };
 		FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */; };
 		FC73F2E522AF8824009B6D9F /* seekbarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */; };
+		FC73F2E822B02723009B6D9F /* HSVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */; };
+		FC73F2EA22B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */; };
+		FC73F2EC22B028D5009B6D9F /* HSVideoPlayerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */; };
+		FC73F2F022B02A02009B6D9F /* HSVideoPlayerWrappingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */; };
+		FC73F2F322B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2F222B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m */; };
+		FC73F2F822B02F1F009B6D9F /* OrientationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */; };
 		FCA0A4BC22ACC25400A93C32 /* HSColorHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */; };
 		FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */; };
 		FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */; };
@@ -47,8 +53,17 @@
 		FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSSeekbarViewManager.m; sourceTree = "<group>"; };
 		FC6B60FD22AF815C0060F828 /* HSSeekbarViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSSeekbarViewManager.h; sourceTree = "<group>"; };
 		FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = seekbarUtils.swift; sourceTree = "<group>"; tabWidth = 2; };
+		FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerView.swift; sourceTree = "<group>"; tabWidth = 2; };
+		FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
+		FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSVideoPlayerViewManager.m; sourceTree = "<group>"; };
+		FC73F2ED22B029A9009B6D9F /* HSVideoPlayerViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSVideoPlayerViewManager.h; sourceTree = "<group>"; };
+		FC73F2EE22B029F7009B6D9F /* HSVideoPlayerWrappingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSVideoPlayerWrappingView.h; sourceTree = "<group>"; };
+		FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSVideoPlayerWrappingView.m; sourceTree = "<group>"; };
+		FC73F2F222B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+UIImageOrientation.m"; sourceTree = "<group>"; };
+		FC73F2F422B02AB1009B6D9F /* RCTConvert+UIImageOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+UIImageOrientation.h"; sourceTree = "<group>"; };
+		FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationUtil.swift; sourceTree = "<group>"; };
 		FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSColorHistogram.swift; sourceTree = "<group>"; };
-		FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orientationUtil.swift; sourceTree = "<group>"; };
+		FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = orientationUtil.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageUtils.swift; sourceTree = "<group>"; };
 		FCDAC44122ADF8DA004A36E7 /* HSMediaLibrary.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSMediaLibrary.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		FCDAC44422ADF989004A36E7 /* HSMediaLibraryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMediaLibraryDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +119,48 @@
 			path = HSSeekbarView;
 			sourceTree = "<group>";
 		};
+		FC73F2E622B0270B009B6D9F /* HSVideoPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				FC73F2F122B02A92009B6D9F /* RCTConvert */,
+				FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */,
+				FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */,
+				FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */,
+				FC73F2ED22B029A9009B6D9F /* HSVideoPlayerViewManager.h */,
+				FC73F2EE22B029F7009B6D9F /* HSVideoPlayerWrappingView.h */,
+				FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */,
+				FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */,
+			);
+			path = HSVideoPlayerView;
+			sourceTree = "<group>";
+		};
+		FC73F2F122B02A92009B6D9F /* RCTConvert */ = {
+			isa = PBXGroup;
+			children = (
+				FC73F2F222B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m */,
+				FC73F2F422B02AB1009B6D9F /* RCTConvert+UIImageOrientation.h */,
+			);
+			path = RCTConvert;
+			sourceTree = "<group>";
+		};
+		FC73F2F522B02C20009B6D9F /* views */ = {
+			isa = PBXGroup;
+			children = (
+				FC6B60FA22AF7BE80060F828 /* HSSeekbarView */,
+				FC9F993122ACA0F700430DE5 /* HSThumbnailView */,
+				FC73F2E622B0270B009B6D9F /* HSVideoPlayerView */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		FC73F2F622B02D56009B6D9F /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				FCDAC44322ADF907004A36E7 /* HSMediaLibrary */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
 		FC9F993122ACA0F700430DE5 /* HSThumbnailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +174,10 @@
 		FCA0A4C122ACC92700A93C32 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				FCDAC45022AEA842004A36E7 /* HSMediaAsset.swift */,
+				FCDAC44D22AE017E004A36E7 /* HSMediaType.swift */,
+				FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */,
+				FCDAC45622AEF2E4004A36E7 /* HSDateFormatter.swift */,
 				FCDAC44922AE004B004A36E7 /* mediaUtils.swift */,
 				FCA0A4BF22ACC8C300A93C32 /* imageUtils.swift */,
 				FCA0A4BD22ACC2B700A93C32 /* orientationUtil.swift */,
@@ -141,14 +202,9 @@
 		FCDAC44F22AE01A6004A36E7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FC73F2F622B02D56009B6D9F /* modules */,
+				FC73F2F522B02C20009B6D9F /* views */,
 				FCA0A4C122ACC92700A93C32 /* utils */,
-				FCDAC45022AEA842004A36E7 /* HSMediaAsset.swift */,
-				FCDAC44D22AE017E004A36E7 /* HSMediaType.swift */,
-				FCA0A4BB22ACC25400A93C32 /* HSColorHistogram.swift */,
-				FCDAC45622AEF2E4004A36E7 /* HSDateFormatter.swift */,
-				FCDAC44322ADF907004A36E7 /* HSMediaLibrary */,
-				FC9F993122ACA0F700430DE5 /* HSThumbnailView */,
-				FC6B60FA22AF7BE80060F828 /* HSSeekbarView */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -212,14 +268,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCDAC45122AEA842004A36E7 /* HSMediaAsset.swift in Sources */,
+				FC73F2E822B02723009B6D9F /* HSVideoPlayerView.swift in Sources */,
 				FCFC983B22AC7CD20089D452 /* HSThumbnailView.swift in Sources */,
+				FC73F2EA22B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift in Sources */,
 				FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */,
 				FCDAC44522ADF989004A36E7 /* HSMediaLibraryDelegate.swift in Sources */,
+				FC73F2F022B02A02009B6D9F /* HSVideoPlayerWrappingView.m in Sources */,
 				FCDAC44722ADFB4B004A36E7 /* HSMediaLibraryBridgeModule.m in Sources */,
 				FCDAC44E22AE017E004A36E7 /* HSMediaType.swift in Sources */,
 				FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */,
+				FC73F2F822B02F1F009B6D9F /* OrientationUtil.swift in Sources */,
 				FCDAC44A22AE004B004A36E7 /* mediaUtils.swift in Sources */,
 				FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */,
+				FC73F2EC22B028D5009B6D9F /* HSVideoPlayerViewManager.m in Sources */,
+				FC73F2F322B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m in Sources */,
 				FCDAC45522AEB426004A36E7 /* HSMediaLibraryDateQueryEquation.swift in Sources */,
 				FCDAC44C22AE00DE004A36E7 /* HSMediaLibraryQuery.swift in Sources */,
 				FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */,

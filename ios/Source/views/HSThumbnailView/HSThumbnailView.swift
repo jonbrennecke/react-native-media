@@ -75,7 +75,7 @@ class HSThumbnailView: UIView {
     requestOptions.resizeMode = .fast
     requestOptions.deliveryMode = .opportunistic
     let fullImageSize = CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
-    let orientation = imageOrientation(forSize: fullImageSize)
+    let thumbnailOrientation = orientation(forSize: fullImageSize)
     return HSThumbnailView.imageManager.requestImage(
       for: asset,
       targetSize: targetSize,
@@ -86,7 +86,7 @@ class HSThumbnailView: UIView {
         return
       }
       DispatchQueue.main.async {
-        switch orientation {
+        switch thumbnailOrientation {
         case .right, .rightMirrored, .left, .leftMirrored:
           self?.imageView.contentMode = .scaleAspectFit
           self?.setLandscapeImageBackground(withImage: image)

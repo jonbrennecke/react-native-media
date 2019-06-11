@@ -6,3 +6,18 @@ export type MediaObject = {
   duration: number,
   mediaType: MediaType,
 };
+
+export type Size = {
+  width: number,
+  height: number,
+};
+
+export type Orientation =
+  | 'left'
+  | 'leftMirrored'
+  | 'right'
+  | 'rightMirrored'
+  | 'up'
+  | 'upMirrored'
+  | 'down'
+  | 'downMirrored';
