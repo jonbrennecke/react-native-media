@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { storiesOf } from '@storybook/react-native';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, View, Text } from 'react-native';
 
 import {
   queryAlbums,
@@ -14,8 +14,9 @@ const styles = {
   container: {
     flex: 1
   },
-  video: {
-    flex: 1
+  list: {
+    flex: 1,
+    flexDirection: 'column'
   }
 };
 
@@ -30,11 +31,13 @@ storiesOf('Albums', module).add('Albums', () => (
     <StorybookStateWrapper
       onMount={(state, setState) => { authorizeAndLoadAlbums(state, setState); }}
       initialState={{ albums: [] }}
-      render={({ albums }) =>
-        albums && albums[0] && (
-          <View/>
-        )
-      }
+      render={({ albums }) => (
+        <View style={styles.list}>
+          {albums.map(album => (
+            <Text key={album.albumID}>{album.title}</Text>
+          ))}
+        </View>
+      )}
     />
   </SafeAreaView>
 ));

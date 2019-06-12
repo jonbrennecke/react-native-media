@@ -8,3 +8,25 @@ internal func createArray<T>(withFetchResult fetchResult: PHFetchResult<T>) -> [
   }
   return array
 }
+
+internal func fetchAssets(in albumID: String?, with mediaType: PHAssetMediaType, options: PHFetchOptions) -> PHFetchResult<PHAsset> {
+  guard let albumID = albumID, let collection = fetchAssetCollection(with: albumID) else {
+    return mediaType == .unknown
+      ? PHAsset.fetchAssets(with: options)
+      : PHAsset.fetchAssets(with: mediaType, options: options)
+  }
+  if let predicate = options.predicate, mediaType != .unknown {
+    let mediaTypePredicate = NSPredicate(format: "mediaType = %@", argumentArray: [mediaType])
+    options.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+      predicate,
+      mediaTypePredicate,
+    ])
+  }
+  return PHAsset.fetchAssets(in: collection, options: options)
+}
+
+fileprivate func fetchAssetCollection(with id: String) -> PHAssetCollection? {
+  return PHAssetCollection.fetchAssetCollections(
+    withLocalIdentifiers: [id], options: nil
+  ).firstObject
+}
