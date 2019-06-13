@@ -26,44 +26,55 @@ export type DateQuery = {
 export const queryVideos = ({
   limit,
   creationDateQuery,
+  albumID,
 }: {
   creationDateQuery?: DateQuery,
   limit?: number,
+  albumID?: string,
 } = {}): Promise<MediaObject[]> => {
   return queryMedia({
     mediaType: 'video',
     creationDateQuery,
     limit,
+    albumID,
   });
 };
 
 export const queryImages = ({
   limit,
   creationDateQuery,
+  albumID,
 }: {
   creationDateQuery?: DateQuery,
   limit?: number,
+  albumID?: string,
 } = {}): Promise<MediaObject[]> => {
   return queryMedia({
     mediaType: 'image',
     creationDateQuery,
     limit,
+    albumID,
   });
+};
+
+export type MediaQuery = {
+  mediaType: MediaType,
+  creationDateQuery?: DateQuery,
+  limit?: number,
+  albumID?: string,
 };
 
 export const queryMedia = ({
   mediaType = 'any',
   limit = 20,
   creationDateQuery,
-}: {
-  mediaType: MediaType,
-  creationDateQuery?: DateQuery,
-  limit?: number,
-} = {}): Promise<MediaObject[]> => {
+  albumID,
+}: MediaQuery = {}): Promise<MediaObject[]> => {
   return MediaLibrary.queryMediaAsync({
     mediaType,
     creationDateQuery,
     limit,
+    albumID,
   });
 };
 

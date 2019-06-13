@@ -55,8 +55,8 @@ class HSMediaLibrary: NSObject {
       fetchOptions.fetchLimit = query.limit
     }
     let fetchResult = PHAssetCollection.fetchAssetCollections(
-      with: .album,
-      subtype: .albumRegular,
+      with: .album, // TODO: also want .smartAlbum
+      subtype: .any,
       options: fetchOptions
     )
     let collectionArray = createArray(withFetchResult: fetchResult)

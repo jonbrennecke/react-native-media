@@ -6,3 +6,4 @@ export * from './ThumbnailLoadMoreGrid';
 export * from './SeekbarBackground';
 export * from './Seekbar';
 export * from './VideoPlayer';
+export * from './AlbumExplorer';

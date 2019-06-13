@@ -6,11 +6,12 @@ import type { SFC, Style } from '../../types';
 
 const NativeThumbnailView = requireNativeComponent('HSThumbnailView');
 
-export type Props = {
+export type ThumbnailProps = {
   style?: ?Style,
   assetID: string,
 };
 
-export const Thumbnail: SFC<Props> = ({ style, assetID }: Props) => (
-  <NativeThumbnailView style={style} assetID={assetID} />
-);
+export const Thumbnail: SFC<ThumbnailProps> = ({
+  style,
+  assetID,
+}: ThumbnailProps) => <NativeThumbnailView style={style} assetID={assetID} />;

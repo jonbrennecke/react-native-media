@@ -6,7 +6,7 @@ import noop from 'lodash/noop';
 import {
   Seekbar,
   queryVideos,
-  authorizeMediaLibrary
+  authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
 import { StorybookStateWrapper } from '../utils';
@@ -19,11 +19,11 @@ const styles = {
   },
   seekbar: {
     height: 75,
-    width: '100%'
+    width: '100%',
   },
   handle: {
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+  },
 };
 
 const authorizeAndLoadAssets = async (state, setState) => {
@@ -38,7 +38,8 @@ storiesOf('Seekbar', module).add('Seekbar', () => (
       onMount={authorizeAndLoadAssets}
       initialState={{ assets: [], playbackTime: 0 }}
       render={({ assets, playbackTime }, setState) =>
-        assets && assets[0] && (
+        assets &&
+        assets[0] && (
           <Seekbar
             style={styles.seekbar}
             handleStyle={styles.handle}

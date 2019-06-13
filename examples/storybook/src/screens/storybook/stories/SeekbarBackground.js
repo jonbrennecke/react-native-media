@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native';
 import {
   SeekbarBackground,
   queryVideos,
-  authorizeMediaLibrary
+  authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
 import { StorybookAsyncWrapper } from '../utils';
@@ -18,8 +18,8 @@ const styles = {
   },
   seekbar: {
     height: 75,
-    width: '100%'
-  }
+    width: '100%',
+  },
 };
 
 const authorizeAndLoadAssets = async () => {
@@ -32,8 +32,12 @@ storiesOf('Seekbar', module).add('Seekbar Background', () => (
     <StorybookAsyncWrapper
       loadAsync={authorizeAndLoadAssets}
       render={assets =>
-        assets && assets[0] && (
-          <SeekbarBackground style={styles.seekbar} assetID={assets[0].assetID} />
+        assets &&
+        assets[0] && (
+          <SeekbarBackground
+            style={styles.seekbar}
+            assetID={assets[0].assetID}
+          />
         )
       }
     />

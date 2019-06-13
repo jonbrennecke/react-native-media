@@ -7,18 +7,18 @@ import noop from 'lodash/noop';
 import {
   VideoPlayer,
   queryVideos,
-  authorizeMediaLibrary
+  authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
 import { StorybookStateWrapper } from '../utils';
 
 const styles = {
   container: {
-    flex: 1
+    flex: 1,
   },
   video: {
-    flex: 1
-  }
+    flex: 1,
+  },
 };
 
 const authorizeAndLoadAssets = async (state, setState) => {
@@ -30,10 +30,13 @@ const authorizeAndLoadAssets = async (state, setState) => {
 storiesOf('Video', module).add('Video Player', () => (
   <SafeAreaView style={styles.container}>
     <StorybookStateWrapper
-      onMount={(state, setState) => { authorizeAndLoadAssets(state, setState); }}
+      onMount={(state, setState) => {
+        authorizeAndLoadAssets(state, setState);
+      }}
       initialState={{ assets: [], playbackTime: 0 }}
       render={({ assets }) =>
-        assets && assets[0] && (
+        assets &&
+        assets[0] && (
           <VideoPlayer
             style={styles.video}
             videoID={assets[0].assetID}
