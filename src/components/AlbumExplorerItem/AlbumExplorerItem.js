@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Thumbnail } from '../Thumbnail';
 
@@ -9,30 +9,56 @@ import type { SFC, Style, AlbumObject } from '../../types';
 export type Props = {
   style?: ?Style,
   album: AlbumObject,
+  onPressAlbum: (albumID: string) => void,
   thumbnailAssetIDForAlbumID: (albumID: string) => ?string,
 };
 
 const styles = {
   container: {
     width: '100%',
-    height: 100,
-    backgroundColor: 'red',
+    height: 170,
   },
-  albumTitle: {},
+  albumTitle: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    paddingBottom: 5,
+    paddingLeft: 7,
+    color: '#fff',
+    textShadowColor: 'rgba(0,0,0,0.5)',
+    textShadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    textShadowRadius: 1,
+    textAlign: 'left',
+  },
   thumbnail: {
     flex: 1,
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  thumbnailWrap: {
+    flex: 1,
+    padding: 1,
   },
 };
 
 export const AlbumExplorerItem: SFC<Props> = ({
   style,
   album,
+  onPressAlbum,
   thumbnailAssetIDForAlbumID,
 }: Props) => {
   const assetID = thumbnailAssetIDForAlbumID(album.albumID);
   return (
     <View style={[styles.container, style]}>
-      {assetID && <Thumbnail style={styles.thumbnail} assetID={assetID} />}
+      <TouchableOpacity
+        style={styles.thumbnailWrap}
+        onPress={() => onPressAlbum(album.albumID)}
+      >
+        {assetID && <Thumbnail style={styles.thumbnail} assetID={assetID} />}
+      </TouchableOpacity>
       <Text numberOfLines={1} style={styles.albumTitle}>
         {album.title}
       </Text>

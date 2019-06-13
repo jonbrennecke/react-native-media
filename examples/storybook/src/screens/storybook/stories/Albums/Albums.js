@@ -8,6 +8,7 @@ import {
   MediaStateContainer,
 } from '@jonbrennecke/react-native-media';
 import { Provider } from 'react-redux';
+import noop from 'lodash/noop';
 
 import { createReduxStore } from './mediaStore';
 import { StorybookAsyncWrapper } from '../../utils/StorybookAsyncWrapper';
@@ -42,6 +43,7 @@ const Component = MediaStateContainer(
           <AlbumExplorer
             albums={albums.toJSON()}
             style={styles.explorer}
+            onPressAlbum={noop}
             thumbnailAssetIDForAlbumID={albumID => {
               const assets = assetsForAlbum(albumID);
               if (assets && assets.loadingStatus !== 'isLoading') {

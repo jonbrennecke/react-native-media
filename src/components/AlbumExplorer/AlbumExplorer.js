@@ -9,16 +9,18 @@ import type { SFC, Style, AlbumObject } from '../../types';
 export type AlbumExplorerProps = {
   style?: ?Style,
   albums: AlbumObject[],
+  onPressAlbum: (albumID: string) => void;
   thumbnailAssetIDForAlbumID: (albumID: string) => ?string,
 };
 
 const styles = {
   container: {},
-};
+};  
 
 export const AlbumExplorer: SFC<AlbumExplorerProps> = ({
   style,
   albums,
+  onPressAlbum,
   thumbnailAssetIDForAlbumID,
 }: AlbumExplorerProps) => (
   <View style={[styles.container, style]}>
@@ -26,6 +28,7 @@ export const AlbumExplorer: SFC<AlbumExplorerProps> = ({
       <AlbumExplorerItem
         key={album.albumID}
         album={album}
+        onPressAlbum={onPressAlbum}
         thumbnailAssetIDForAlbumID={thumbnailAssetIDForAlbumID}
       />
     ))}
