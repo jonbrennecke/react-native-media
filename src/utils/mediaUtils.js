@@ -58,7 +58,7 @@ export const queryImages = ({
 };
 
 export type MediaQuery = {
-  mediaType: MediaType,
+  mediaType?: MediaType,
   creationDateQuery?: DateQuery,
   limit?: number,
   albumID?: string,
@@ -78,13 +78,15 @@ export const queryMedia = ({
   });
 };
 
+export type AlbumQuery = {
+  creationDateQuery?: DateQuery,
+  limit?: number,
+};
+
 export const queryAlbums = ({
   limit = 20,
   creationDateQuery,
-}: {
-  creationDateQuery?: DateQuery,
-  limit?: number,
-} = {}): Promise<AlbumObject[]> => {
+}: AlbumQuery = {}): Promise<AlbumObject[]> => {
   return MediaLibrary.queryAlbumsAsync({
     creationDateQuery,
     limit,

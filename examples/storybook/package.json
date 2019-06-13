@@ -21,7 +21,13 @@
     "@jonbrennecke/react-native-media": "../../",
     "lodash": "4.17.11",
     "react": "16.6.3",
-    "react-native": "0.58.6"
+    "react-native": "0.58.6",
+    "react-redux": "5.0.7",
+    "redux": "3.7.2",
+    "redux-logger": "3.0.6",
+    "redux-storage": "4.1.2",
+    "redux-storage-merger-immutablejs": "1.0.5",
+    "redux-thunk": "2.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
@@ -44,7 +50,7 @@
     "eslint-plugin-prettier": "2.6.0",
     "eslint-plugin-react": "7.7.0",
     "eslint-plugin-react-native": "3.2.1",
-    "flow-bin": "0.93.0",
+    "flow-bin": "^0.86.0",
     "flow-typed": "^2.5.1",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.54.1",

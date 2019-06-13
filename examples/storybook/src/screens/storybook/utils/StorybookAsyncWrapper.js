@@ -25,13 +25,7 @@ export class StorybookAsyncWrapper<T> extends PureComponent<
     this.setState({ data });
   }
 
-  async componentWillReceiveProps(nextProps: StorybookAsyncWrapperProps<T>) {
-    const data = await nextProps.loadAsync();
-    this.setState({ data });
-  }
-
   render() {
-    // $FlowFixMe
     return this.props.render(this.state.data) || null;
   }
 }

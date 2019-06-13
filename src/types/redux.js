@@ -23,12 +23,11 @@ export type ThunkAction<Payload, State> = (
 
 export type PromiseAction<Payload> = Promise<Action<Payload>>;
 
+export type DispatchAction<Payload> = Action<Payload> | PromiseAction<Payload>;
+
 export type Dispatch<Payload> = (
-  action: | Action<Payload>
-  | ThunkAction<Payload>
-  | PromiseAction<Payload>
-  | Array<Action<Payload>>
-) => void | Promise<void>;
+  action: DispatchAction<Payload> | ((Dispatch<Payload>) => mixed)
+) => DispatchAction<Payload>;
 
 export type ActionCreator<State, Payload> = (
   dispatch: Dispatch<Payload>,

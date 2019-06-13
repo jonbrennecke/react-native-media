@@ -15,7 +15,7 @@ type MapActions = <Payload>(
 
 type MapActionCreators = <Payload>(
   (any, Action<Payload>) => any
-) => Payload => (dispatch: Dispatch<Payload>) => void;
+) => Payload => (Dispatch<Payload>) => Action<Payload>;
 
 export function createReducer<
   State,
@@ -39,7 +39,7 @@ export function createReducer<
   const actionCreators = Object.keys(reducers).reduce(
     (actionCreators, key) => ({
       ...actionCreators,
-      [key]: (...args) => dispatch => dispatch(actions[key](...args)),
+      [key]: payload => dispatch => dispatch(actions[key](payload)),
     }),
     {}
   );
