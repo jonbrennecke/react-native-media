@@ -53,6 +53,13 @@ class HSThumbnailView: UIView {
       loadThumbnail()
     }
   }
+  
+  @objc
+  public var resizeCover: Bool = false {
+    didSet {
+      loadThumbnail()
+    }
+  }
 
   private func loadThumbnail() {
     guard let asset = asset else {
@@ -86,8 +93,8 @@ class HSThumbnailView: UIView {
         return
       }
       DispatchQueue.main.async {
-        switch thumbnailOrientation {
-        case .right, .rightMirrored, .left, .leftMirrored:
+        switch (self?.resizeCover ?? false, isLandscape(orientation: thumbnailOrientation)) {
+        case (false, true):
           self?.imageView.contentMode = .scaleAspectFit
           self?.setLandscapeImageBackground(withImage: image)
           break

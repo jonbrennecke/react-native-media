@@ -9,9 +9,11 @@ const NativeThumbnailView = requireNativeComponent('HSThumbnailView');
 export type ThumbnailProps = {
   style?: ?Style,
   assetID: string,
+  resizeCover?: boolean,
 };
 
 export const Thumbnail: SFC<ThumbnailProps> = ({
   style,
   assetID,
-}: ThumbnailProps) => <NativeThumbnailView style={style} assetID={assetID} />;
+  resizeCover = false
+}: ThumbnailProps) => <NativeThumbnailView style={style} assetID={assetID} resizeCover={resizeCover} />;

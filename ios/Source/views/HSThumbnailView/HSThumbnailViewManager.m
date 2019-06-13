@@ -33,4 +33,13 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, HSThumbnailView) {
   view.asset = asset;
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(resizeCover, BOOL, HSThumbnailView) {
+  BOOL resizeCover = [RCTConvert BOOL:json];
+  if (![view isKindOfClass:[HSThumbnailView class]]) {
+    RCTLogError(@"View is not the correct class. Expected 'HSThumbnailView'.");
+    return;
+  }
+  view.resizeCover = resizeCover;
+}
+
 @end

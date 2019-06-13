@@ -22,8 +22,8 @@ const styles = {
     position: 'absolute',
     bottom: 0,
     left: 0,
-    paddingBottom: 5,
-    paddingLeft: 7,
+    paddingBottom: 7,
+    paddingLeft: 10,
     color: '#fff',
     textShadowColor: 'rgba(0,0,0,0.5)',
     textShadowOffset: {
@@ -32,6 +32,7 @@ const styles = {
     },
     textShadowRadius: 1,
     textAlign: 'left',
+    fontSize: 19
   },
   thumbnail: {
     flex: 1,
@@ -57,7 +58,7 @@ export const AlbumExplorerItem: SFC<Props> = ({
         style={styles.thumbnailWrap}
         onPress={() => onPressAlbum(album.albumID)}
       >
-        {assetID && <Thumbnail style={styles.thumbnail} assetID={assetID} />}
+        {assetID && <Thumbnail style={styles.thumbnail} assetID={assetID} resizeCover />}
       </TouchableOpacity>
       <Text numberOfLines={1} style={styles.albumTitle}>
         {album.title}
