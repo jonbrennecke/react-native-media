@@ -22,6 +22,7 @@ const styles = {
   explorer: {
     flex: 1,
   },
+  albumTitleStyle: {},
 };
 
 const Component = MediaStateContainer(
@@ -33,9 +34,6 @@ const Component = MediaStateContainer(
     queryAlbums,
   }) => {
     const loadMore = async () => {
-      // if (hasLoadedAllAssets) {
-      //   return;
-      // }
       const albumsSorted = albums.sortBy(album => album.title);
       const last = albumsSorted.last();
       if (!last) {
@@ -45,20 +43,21 @@ const Component = MediaStateContainer(
         limit: 3,
         titleQuery: {
           title: last.title,
-          equation: 'greaterThan'
-        }
+          equation: 'greaterThan',
+        },
       });
     };
     return (
       <StorybookAsyncWrapper
         loadAsync={async () => {
           await authorizeMediaLibrary();
-          await queryAlbums({ limit: 5 }); // TODO
+          await queryAlbums({ limit: 5 });
         }}
         render={() => (
           <AlbumExplorer
             albums={albums.toJSON()}
             style={styles.explorer}
+            albumTitleStyle={styles.albumTitleStyle}
             onPressAlbum={noop}
             thumbnailAssetIDForAlbumID={albumID => {
               const assets = assetsForAlbum(albumID);
@@ -66,7 +65,7 @@ const Component = MediaStateContainer(
                 return assets.assetIDs.first();
               }
               if (!isLoadingAssetsForAlbum(albumID)) {
-                queryMedia({ albumID })
+                queryMedia({ albumID });
                 return; // TODO: add loading UI
               }
               return;

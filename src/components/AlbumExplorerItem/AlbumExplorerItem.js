@@ -8,6 +8,7 @@ import type { SFC, Style, AlbumObject } from '../../types';
 
 export type Props = {
   style?: ?Style,
+  albumTitleStyle?: ?Style,
   album: AlbumObject,
   onPressAlbum: (albumID: string) => void,
   thumbnailAssetIDForAlbumID: (albumID: string) => ?string,
@@ -53,6 +54,7 @@ const styles = {
 export const AlbumExplorerItem: SFC<Props> = ({
   style,
   album,
+  albumTitleStyle,
   onPressAlbum,
   thumbnailAssetIDForAlbumID,
 }: Props) => {
@@ -68,7 +70,7 @@ export const AlbumExplorerItem: SFC<Props> = ({
           <Thumbnail style={styles.thumbnail} assetID={assetID} resizeCover />
         )}
       </TouchableOpacity>
-      <Text numberOfLines={1} style={styles.albumTitle}>
+      <Text numberOfLines={1} style={[styles.albumTitle, albumTitleStyle]}>
         {album.title}
       </Text>
     </View>
