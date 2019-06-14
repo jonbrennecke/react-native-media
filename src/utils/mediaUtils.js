@@ -4,7 +4,7 @@ import { NativeModules } from 'react-native';
 
 import type { AlbumObject, MediaObject, MediaType } from '../types';
 
-const { MediaLibrary: NativeMediaLibrary } = NativeModules;
+const { HSMediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
 export const authorizeMediaLibrary = (): Promise<boolean> => {

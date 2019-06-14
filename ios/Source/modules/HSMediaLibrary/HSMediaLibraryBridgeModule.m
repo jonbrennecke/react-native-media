@@ -69,7 +69,7 @@
   return @[ @"mediaLibraryDidOutputThumbnail", @"mediaLibraryDidUpdateVideos" ];
 }
 
-RCT_EXPORT_MODULE(MediaLibrary)
+RCT_EXPORT_MODULE(HSMediaLibrary)
 
 RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
   [mediaLibrary authorizeMediaLibrary:^(BOOL success) {
