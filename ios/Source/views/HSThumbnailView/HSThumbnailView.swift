@@ -53,7 +53,7 @@ class HSThumbnailView: UIView {
       loadThumbnail()
     }
   }
-  
+
   @objc
   public var resizeCover: Bool = false {
     didSet {

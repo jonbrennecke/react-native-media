@@ -31,36 +31,32 @@ const Component = MediaStateContainer(
     isLoadingAssetsForAlbum,
     queryMedia,
     queryAlbums,
-  }) => {
-    const loadAssetsForAlbum = albumID => queryMedia({ albumID });
-    return (
-      <StorybookAsyncWrapper
-        loadAsync={async () => {
-          await authorizeMediaLibrary();
-          await queryAlbums({});
+  }) => (
+  <StorybookAsyncWrapper
+    loadAsync={async () => {
+      await authorizeMediaLibrary();
+      await queryAlbums({});
+    }}
+    render={() => (
+      <AlbumExplorer
+        albums={albums.toJSON()}
+        style={styles.explorer}
+        onPressAlbum={noop}
+        thumbnailAssetIDForAlbumID={albumID => {
+          const assets = assetsForAlbum(albumID);
+          if (assets && assets.loadingStatus !== 'isLoading') {
+            return assets.assetIDs.first();
+          }
+          if (!isLoadingAssetsForAlbum(albumID)) {
+            queryMedia({ albumID })
+            return; // TODO: add loading UI
+          }
+          return;
         }}
-        render={() => (
-          <AlbumExplorer
-            albums={albums.toJSON()}
-            style={styles.explorer}
-            onPressAlbum={noop}
-            thumbnailAssetIDForAlbumID={albumID => {
-              const assets = assetsForAlbum(albumID);
-              if (assets && assets.loadingStatus !== 'isLoading') {
-                return assets.assetIDs.first();
-              }
-              if (!isLoadingAssetsForAlbum(albumID)) {
-                loadAssetsForAlbum(albumID);
-                return; // TODO: add loading UI
-              }
-              return;
-            }}
-          />
-        )}
       />
-    );
-  }
-);
+    )}
+  />
+));
 
 storiesOf('Albums', module).add('Album Explorer', () => (
   <Provider store={store}>

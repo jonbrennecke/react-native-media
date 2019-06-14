@@ -55,12 +55,28 @@ class HSMediaLibrary: NSObject {
       fetchOptions.fetchLimit = query.limit
     }
     let fetchResult = PHAssetCollection.fetchAssetCollections(
-      with: .album, // TODO: also want .smartAlbum
+      with: .album,
       subtype: .any,
       options: fetchOptions
     )
+    let fetchResultFavorites = PHAssetCollection.fetchAssetCollections(
+      with: .smartAlbum,
+      subtype: .smartAlbumFavorites,
+      options: fetchOptions
+    )
+    let fetchResultCameraRoll = PHAssetCollection.fetchAssetCollections(
+      with: .smartAlbum,
+      subtype: .smartAlbumUserLibrary,
+      options: fetchOptions
+    )
     let collectionArray = createArray(withFetchResult: fetchResult)
-    return collectionArray.map { HSMediaAlbum(collection: $0) }
+    let collectionArrayFavorites = createArray(withFetchResult: fetchResultFavorites)
+    let collectionArrayCameraRoll = createArray(withFetchResult: fetchResultCameraRoll)
+    return [
+      collectionArray,
+      collectionArrayFavorites,
+      collectionArrayCameraRoll,
+    ].flatMap { $0 }.map { HSMediaAlbum(collection: $0) }
   }
 }
 

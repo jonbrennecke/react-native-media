@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { Thumbnail } from '../Thumbnail';
 
@@ -32,7 +32,7 @@ const styles = {
     },
     textShadowRadius: 1,
     textAlign: 'left',
-    fontSize: 19
+    fontSize: 19,
   },
   thumbnail: {
     flex: 1,
@@ -42,6 +42,11 @@ const styles = {
   thumbnailWrap: {
     flex: 1,
     padding: 1,
+  },
+  thumbnailBackground: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: '#ccc',
+    borderRadius: 3,
   },
 };
 
@@ -58,7 +63,10 @@ export const AlbumExplorerItem: SFC<Props> = ({
         style={styles.thumbnailWrap}
         onPress={() => onPressAlbum(album.albumID)}
       >
-        {assetID && <Thumbnail style={styles.thumbnail} assetID={assetID} resizeCover />}
+        <View style={styles.thumbnailBackground} />
+        {assetID && (
+          <Thumbnail style={styles.thumbnail} assetID={assetID} resizeCover />
+        )}
       </TouchableOpacity>
       <Text numberOfLines={1} style={styles.albumTitle}>
         {album.title}

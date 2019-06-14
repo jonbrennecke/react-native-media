@@ -34,10 +34,11 @@ storiesOf('Thumbnails', module).add('Thumbnail Grid (Load More)', () => (
       initialState={{ assets: [], hasLoadedAllAssets: false }}
       onMount={async (unused, setState) => {
         await authorizeMediaLibrary();
-        const assets = await queryMedia();
+        const assets = await queryMedia({});
         setState({ assets: sortAssets(assets) });
       }}
-      render={({ assets, hasLoadedAllAssets }, setState) => {
+      render={(getState, setState) => {
+        const { assets, hasLoadedAllAssets } = getState();
         const lastItem = last(assets);
         const loadMore = async () => {
           if (hasLoadedAllAssets) {

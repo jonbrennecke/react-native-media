@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
-import { View } from 'react-native';
+import { View, FlatList } from 'react-native';
+import noop from 'lodash/noop';
 
 import { AlbumExplorerItem } from '../AlbumExplorerItem';
 
@@ -9,28 +10,45 @@ import type { SFC, Style, AlbumObject } from '../../types';
 export type AlbumExplorerProps = {
   style?: ?Style,
   albums: AlbumObject[],
-  onPressAlbum: (albumID: string) => void;
   thumbnailAssetIDForAlbumID: (albumID: string) => ?string,
+  onPressAlbum?: (albumID: string) => void,
+  onRequestLoadMore?: () => void,
 };
 
 const styles = {
   container: {},
-};  
+};
 
 export const AlbumExplorer: SFC<AlbumExplorerProps> = ({
   style,
   albums,
-  onPressAlbum,
+  onPressAlbum = noop,
   thumbnailAssetIDForAlbumID,
+  onRequestLoadMore,
 }: AlbumExplorerProps) => (
   <View style={[styles.container, style]}>
-    {albums.map(album => (
-      <AlbumExplorerItem
-        key={album.albumID}
-        album={album}
-        onPressAlbum={onPressAlbum}
-        thumbnailAssetIDForAlbumID={thumbnailAssetIDForAlbumID}
-      />
-    ))}
+    <FlatList
+      numColumns={1}
+      enableEmptySections
+      horizontal={false}
+      data={albums}
+      keyExtractor={album => album.albumID}
+      removeClippedSubviews
+      initialNumToRender={15}
+      renderItem={({ item: album }) => (
+        <AlbumExplorerItem
+          album={album}
+          onPressAlbum={onPressAlbum}
+          thumbnailAssetIDForAlbumID={thumbnailAssetIDForAlbumID}
+        />
+      )}
+      onEndReached={({ distanceFromEnd }) => {
+        if (distanceFromEnd < 0) {
+          return;
+        }
+        onRequestLoadMore && onRequestLoadMore();
+      }}
+      onEndReachedThreshold={0.75}
+    />
   </View>
 );

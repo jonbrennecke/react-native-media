@@ -15,5 +15,11 @@ export type ThumbnailProps = {
 export const Thumbnail: SFC<ThumbnailProps> = ({
   style,
   assetID,
-  resizeCover = false
-}: ThumbnailProps) => <NativeThumbnailView style={style} assetID={assetID} resizeCover={resizeCover} />;
+  resizeCover = false,
+}: ThumbnailProps) => (
+  <NativeThumbnailView
+    style={style}
+    assetID={assetID}
+    resizeCover={resizeCover}
+  />
+);
