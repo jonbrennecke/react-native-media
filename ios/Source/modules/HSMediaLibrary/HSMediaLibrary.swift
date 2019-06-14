@@ -48,34 +48,38 @@ class HSMediaLibrary: NSObject {
   }
 
   @objc(queryAlbums:)
-  public func queryAlbums(_ query: HSMediaLibraryBasicQuery) -> [HSMediaAlbum] {
+  public func queryAlbums(_ query: HSMediaLibraryAlbumQuery) -> [HSMediaAlbum] {
     let fetchOptions = PHFetchOptions()
-    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "title", ascending: false)]
     if #available(iOS 9.0, *) {
       fetchOptions.fetchLimit = query.limit
+    }
+    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+    if let titleQuery = query.titleQuery {
+      let predicate = titleQuery.predicate(forVariableNamed: "title")
+      fetchOptions.predicate = predicate
     }
     let fetchResult = PHAssetCollection.fetchAssetCollections(
       with: .album,
       subtype: .any,
       options: fetchOptions
     )
-    let fetchResultFavorites = PHAssetCollection.fetchAssetCollections(
-      with: .smartAlbum,
-      subtype: .smartAlbumFavorites,
-      options: fetchOptions
-    )
-    let fetchResultCameraRoll = PHAssetCollection.fetchAssetCollections(
-      with: .smartAlbum,
-      subtype: .smartAlbumUserLibrary,
-      options: fetchOptions
-    )
+//    let fetchResultFavorites = PHAssetCollection.fetchAssetCollections(
+//      with: .smartAlbum,
+//      subtype: .smartAlbumFavorites,
+//      options: fetchOptions
+//    )
+//    let fetchResultCameraRoll = PHAssetCollection.fetchAssetCollections(
+//      with: .smartAlbum,
+//      subtype: .smartAlbumUserLibrary,
+//      options: fetchOptions
+//    )
     let collectionArray = createArray(withFetchResult: fetchResult)
-    let collectionArrayFavorites = createArray(withFetchResult: fetchResultFavorites)
-    let collectionArrayCameraRoll = createArray(withFetchResult: fetchResultCameraRoll)
+//    let collectionArrayFavorites = createArray(withFetchResult: fetchResultFavorites)
+//    let collectionArrayCameraRoll = createArray(withFetchResult: fetchResultCameraRoll)
     return [
       collectionArray,
-      collectionArrayFavorites,
-      collectionArrayCameraRoll,
+//      collectionArrayFavorites,
+//      collectionArrayCameraRoll,
     ].flatMap { $0 }.map { HSMediaAlbum(collection: $0) }
   }
 }

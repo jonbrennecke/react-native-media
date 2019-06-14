@@ -99,10 +99,9 @@ RCT_EXPORT_METHOD(queryMedia
 RCT_EXPORT_METHOD(queryAlbums
                   : (NSDictionary *)queryArgs callback
                   : (RCTResponseSenderBlock)callback) {
-  HSMediaLibraryBasicQuery *query = [[HSMediaLibraryBasicQuery alloc] initWithDict:queryArgs];
+  HSMediaLibraryAlbumQuery *query = [[HSMediaLibraryAlbumQuery alloc] initWithDict:queryArgs];
   if (!query) {
-    id error =
-    RCTMakeError(@"Invalid album query sent to MediaLibrary", queryArgs, nil);
+    id error = RCTMakeError(@"Invalid album query sent to MediaLibrary", queryArgs, nil);
     callback(@[ error, [NSNull null] ]);
     return;
   }

@@ -31,32 +31,53 @@ const Component = MediaStateContainer(
     isLoadingAssetsForAlbum,
     queryMedia,
     queryAlbums,
-  }) => (
-  <StorybookAsyncWrapper
-    loadAsync={async () => {
-      await authorizeMediaLibrary();
-      await queryAlbums({});
-    }}
-    render={() => (
-      <AlbumExplorer
-        albums={albums.toJSON()}
-        style={styles.explorer}
-        onPressAlbum={noop}
-        thumbnailAssetIDForAlbumID={albumID => {
-          const assets = assetsForAlbum(albumID);
-          if (assets && assets.loadingStatus !== 'isLoading') {
-            return assets.assetIDs.first();
-          }
-          if (!isLoadingAssetsForAlbum(albumID)) {
-            queryMedia({ albumID })
-            return; // TODO: add loading UI
-          }
-          return;
+  }) => {
+    const loadMore = async () => {
+      // if (hasLoadedAllAssets) {
+      //   return;
+      // }
+      const albumsSorted = albums.sortBy(album => album.title);
+      const last = albumsSorted.last();
+      if (!last) {
+        return;
+      }
+      await queryAlbums({
+        limit: 3,
+        titleQuery: {
+          title: last.title,
+          equation: 'greaterThan'
+        }
+      });
+    };
+    return (
+      <StorybookAsyncWrapper
+        loadAsync={async () => {
+          await authorizeMediaLibrary();
+          await queryAlbums({ limit: 5 }); // TODO
         }}
+        render={() => (
+          <AlbumExplorer
+            albums={albums.toJSON()}
+            style={styles.explorer}
+            onPressAlbum={noop}
+            thumbnailAssetIDForAlbumID={albumID => {
+              const assets = assetsForAlbum(albumID);
+              if (assets && assets.loadingStatus !== 'isLoading') {
+                return assets.assetIDs.first();
+              }
+              if (!isLoadingAssetsForAlbum(albumID)) {
+                queryMedia({ albumID })
+                return; // TODO: add loading UI
+              }
+              return;
+            }}
+            onRequestLoadMore={loadMore}
+          />
+        )}
       />
-    )}
-  />
-));
+    );
+  }
+);
 
 storiesOf('Albums', module).add('Album Explorer', () => (
   <Provider store={store}>

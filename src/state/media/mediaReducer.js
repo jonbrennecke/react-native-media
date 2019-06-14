@@ -1,5 +1,5 @@
 // @flow
-import { List, Map, Set } from 'immutable';
+import { Map, Set } from 'immutable';
 
 import { createReducer } from '../createReducer';
 import { queryAlbums, queryMedia } from '../../utils';
@@ -16,8 +16,8 @@ import type {
 import type { AlbumQuery, MediaQuery } from '../../utils';
 
 const MediaState = createMediaState({
-  albums: List([]),
-  assets: List([]),
+  albums: Set([]),
+  assets: Set([]),
   albumAssets: Map({}),
 });
 
@@ -34,6 +34,16 @@ const reducers = {
     return state.setAlbums(payload.albums);
   },
 
+  appendAlbums: (
+    state,
+    { payload }: Action<{ albums: Array<AlbumObject> }>
+  ): IMediaState => {
+    if (!payload) {
+      return state;
+    }
+    return state.appendAlbums(payload.albums);
+  },
+
   setAssets: (
     state,
     { payload }: Action<{ assets: Array<MediaObject> }>
@@ -42,6 +52,16 @@ const reducers = {
       return state;
     }
     return state.setAssets(payload.assets);
+  },
+
+  appendAssets: (
+    state,
+    { payload }: Action<{ assets: Array<MediaObject> }>
+  ): IMediaState => {
+    if (!payload) {
+      return state;
+    }
+    return state.appendAssets(payload.assets);
   },
 
   setAlbumAssets: (
@@ -104,7 +124,7 @@ export const actionCreators = {
 
   queryAlbums: (query: AlbumQuery) => async (dispatch: Dispatch<*>) => {
     const albums = await queryAlbums(query);
-    dispatch(actionCreators.setAlbums({ albums }));
+    dispatch(actionCreators.appendAlbums({ albums }));
   },
 
   queryMedia: (query: MediaQuery) => async (dispatch: Dispatch<any>) => {
@@ -117,7 +137,7 @@ export const actionCreators = {
       );
     }
     const assets = await queryMedia(query);
-    dispatch(actionCreators.setAssets({ assets }));
+    dispatch(actionCreators.appendAssets({ assets }));
     if (query.albumID) {
       const assetIDs = assets.map(a => a.assetID);
       dispatch(
@@ -126,12 +146,6 @@ export const actionCreators = {
           assetIDs,
         })
       );
-      // dispatch(
-      //   actionCreators.setAlbumAssetLoadingStatus({
-      //     albumID: query.albumID,
-      //     loadingStatus: 'isLoaded',
-      //   })
-      // );
     }
   },
 };

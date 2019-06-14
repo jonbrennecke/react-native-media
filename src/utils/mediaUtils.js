@@ -11,7 +11,7 @@ export const authorizeMediaLibrary = (): Promise<boolean> => {
   return MediaLibrary.authorizeMediaLibraryAsync();
 };
 
-export type DateQueryEquation =
+export type QuerySortEquation =
   | 'greaterThan'
   | 'greaterThanOrEqualTo'
   | 'equalTo'
@@ -20,7 +20,12 @@ export type DateQueryEquation =
 
 export type DateQuery = {
   date: Date,
-  equation: DateQueryEquation,
+  equation: QuerySortEquation,
+};
+
+export type TitleQuery = {
+  title: string,
+  equation: QuerySortEquation,
 };
 
 export const queryVideos = ({
@@ -79,16 +84,16 @@ export const queryMedia = ({
 };
 
 export type AlbumQuery = {
-  creationDateQuery?: DateQuery,
+  titleQuery?: TitleQuery,
   limit?: number,
 };
 
 export const queryAlbums = ({
   limit = 20,
-  creationDateQuery,
+  titleQuery,
 }: AlbumQuery = {}): Promise<AlbumObject[]> => {
   return MediaLibrary.queryAlbumsAsync({
-    creationDateQuery,
+    titleQuery,
     limit,
   });
 };

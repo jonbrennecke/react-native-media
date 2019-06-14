@@ -2,12 +2,12 @@ import Foundation
 
 @objc
 class HSMediaLibraryDateQuery: NSObject {
-  typealias Equation = HSMediaLibraryDateQueryEquation
+  typealias SortEquation = HSMediaLibraryQuerySortEquation
 
   internal let date: Date
-  internal let equation: Equation
+  internal let equation: SortEquation
 
-  init(date: Date, equation: Equation) {
+  init(date: Date, equation: SortEquation) {
     self.date = date
     self.equation = equation
     super.init()
@@ -17,7 +17,7 @@ class HSMediaLibraryDateQuery: NSObject {
   public static func from(dict: NSDictionary) -> HSMediaLibraryDateQuery? {
     guard
       let equationString = dict["equation"] as? String,
-      let equation = Equation.from(string: equationString),
+      let equation = SortEquation.from(string: equationString),
       let dateString = dict["date"] as? String,
       let date = HSDateFormatter.date(from: dateString)
     else {

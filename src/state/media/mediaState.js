@@ -1,5 +1,5 @@
 // @flow
-import { Record, List, Map, Set } from 'immutable';
+import { Record, Map, Set } from 'immutable';
 
 import type { RecordOf, RecordInstance } from 'immutable';
 
@@ -18,21 +18,23 @@ export type AlbumAssetsObject = { [key: string]: AlbumAssetValueObject };
 export type AlbumAssets = Map<string, AlbumAssetValueObject>;
 
 export type MediaStateObject = {
-  albums: List<AlbumObject>,
-  assets: List<MediaObject>,
+  albums: Set<AlbumObject>,
+  assets: Set<MediaObject>,
   albumAssets: AlbumAssets,
 };
 
 export type MediaStateRecord = RecordOf<MediaStateObject>;
 
-export type ArrayOrList<T> = Array<T> | List<T>;
+export type ArrayOrSet<T> = Array<T> | Set<T>;
 
 export interface IMediaState {
-  getAlbums(): List<AlbumObject>;
-  setAlbums(albums: ArrayOrList<AlbumObject>): IMediaState;
+  getAlbums(): Set<AlbumObject>;
+  setAlbums(albums: ArrayOrSet<AlbumObject>): IMediaState;
+  appendAlbums(albums: ArrayOrSet<AlbumObject>): IMediaState;
 
-  getAssets(): List<MediaObject>;
-  setAssets(assets: ArrayOrList<MediaObject>): IMediaState;
+  getAssets(): Set<MediaObject>;
+  setAssets(assets: ArrayOrSet<MediaObject>): IMediaState;
+  appendAssets(assets: ArrayOrSet<MediaObject>): IMediaState;
 
   getAlbumAssets(): AlbumAssets;
   setAlbumAssets(albumAssets: AlbumAssets | AlbumAssetsObject): IMediaState;
@@ -48,20 +50,30 @@ export const createMediaState: MediaStateObject => Class<
   RecordInstance<MediaStateRecord> & IMediaState
 > = defaultState =>
   class MediaState extends Record(defaultState) implements IMediaState {
-    getAlbums(): List<AlbumObject> {
+    getAlbums(): Set<AlbumObject> {
       return this.get('albums');
     }
 
-    setAlbums(albums: ArrayOrList<AlbumObject>): MediaState {
-      return this.set('albums', List(albums));
+    setAlbums(albums: ArrayOrSet<AlbumObject>): MediaState {
+      return this.set('albums', Set(albums));
     }
 
-    getAssets(): List<MediaObject> {
+    appendAlbums(albums: ArrayOrSet<AlbumObject>): MediaState {
+      const currentAlbums = this.getAlbums();
+      return this.setAlbums(currentAlbums.concat(albums));
+    }
+
+    getAssets(): Set<MediaObject> {
       return this.get('assets');
     }
 
-    setAssets(assets: ArrayOrList<MediaObject>): MediaState {
-      return this.set('assets', List(assets));
+    setAssets(assets: ArrayOrSet<MediaObject>): MediaState {
+      return this.set('assets', Set(assets));
+    }
+
+    appendAssets(assets: ArrayOrSet<MediaObject>): IMediaState {
+      const currentAssets = this.getAssets();
+      return this.setAssets(currentAssets.concat(assets));
     }
 
     getAlbumAssets(): AlbumAssets {

@@ -1,11 +1,11 @@
-enum HSMediaLibraryDateQueryEquation {
+enum HSMediaLibraryQuerySortEquation {
   case greaterThan
   case greaterThanOrEqualTo
   case equalTo
   case lessThan
   case lessThanOrEqualTo
 
-  public static func from(string: String) -> HSMediaLibraryDateQueryEquation? {
+  public static func from(string: String) -> HSMediaLibraryQuerySortEquation? {
     switch string {
     case "greaterThan":
       return .greaterThan

@@ -10,6 +10,8 @@
 		FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */; };
 		FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */; };
 		FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */; };
+		FC728AD622B31EEE005A15DA /* HSMediaLibraryTitleQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC728AD522B31EED005A15DA /* HSMediaLibraryTitleQuery.swift */; };
+		FC728AD922B3214E005A15DA /* HSMediaLibraryAlbumQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC728AD822B3214E005A15DA /* HSMediaLibraryAlbumQuery.swift */; };
 		FC73F2E522AF8824009B6D9F /* seekbarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */; };
 		FC73F2E822B02723009B6D9F /* HSVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */; };
 		FC73F2EA22B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */; };
@@ -55,6 +57,8 @@
 		FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSSeekbarView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSSeekbarViewManager.m; sourceTree = "<group>"; };
 		FC6B60FD22AF815C0060F828 /* HSSeekbarViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSSeekbarViewManager.h; sourceTree = "<group>"; };
+		FC728AD522B31EED005A15DA /* HSMediaLibraryTitleQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMediaLibraryTitleQuery.swift; sourceTree = "<group>"; };
+		FC728AD822B3214E005A15DA /* HSMediaLibraryAlbumQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMediaLibraryAlbumQuery.swift; sourceTree = "<group>"; };
 		FC73F2E422AF8824009B6D9F /* seekbarUtils.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = seekbarUtils.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +127,19 @@
 				FC6B60FD22AF815C0060F828 /* HSSeekbarViewManager.h */,
 			);
 			path = HSSeekbarView;
+			sourceTree = "<group>";
+		};
+		FC728AD722B31EF3005A15DA /* queries */ = {
+			isa = PBXGroup;
+			children = (
+				FC728AD522B31EED005A15DA /* HSMediaLibraryTitleQuery.swift */,
+				FC73F2F922B05650009B6D9F /* HSMediaLibraryBasicQuery.swift */,
+				FCDAC44B22AE00DE004A36E7 /* HSMediaLibraryMediaQuery.swift */,
+				FCDAC45422AEB426004A36E7 /* HSMediaLibraryDateQueryEquation.swift */,
+				FCDAC45222AEB3E0004A36E7 /* HSMediaLibraryDateQuery.swift */,
+				FC728AD822B3214E005A15DA /* HSMediaLibraryAlbumQuery.swift */,
+			);
+			path = queries;
 			sourceTree = "<group>";
 		};
 		FC73F2E622B0270B009B6D9F /* HSVideoPlayerView */ = {
@@ -196,10 +213,7 @@
 		FCDAC44322ADF907004A36E7 /* HSMediaLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				FCDAC45422AEB426004A36E7 /* HSMediaLibraryDateQueryEquation.swift */,
-				FCDAC45222AEB3E0004A36E7 /* HSMediaLibraryDateQuery.swift */,
-				FCDAC44B22AE00DE004A36E7 /* HSMediaLibraryMediaQuery.swift */,
-				FC73F2F922B05650009B6D9F /* HSMediaLibraryBasicQuery.swift */,
+				FC728AD722B31EF3005A15DA /* queries */,
 				FCDAC44122ADF8DA004A36E7 /* HSMediaLibrary.swift */,
 				FCDAC44422ADF989004A36E7 /* HSMediaLibraryDelegate.swift */,
 				FCDAC44622ADFB4B004A36E7 /* HSMediaLibraryBridgeModule.m */,
@@ -293,12 +307,14 @@
 				FCDAC44A22AE004B004A36E7 /* mediaUtils.swift in Sources */,
 				FCA0A4BE22ACC2B700A93C32 /* orientationUtil.swift in Sources */,
 				FC73F2EC22B028D5009B6D9F /* HSVideoPlayerViewManager.m in Sources */,
+				FC728AD622B31EEE005A15DA /* HSMediaLibraryTitleQuery.swift in Sources */,
 				FC73F2F322B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m in Sources */,
 				FCDAC45522AEB426004A36E7 /* HSMediaLibraryDateQueryEquation.swift in Sources */,
 				FCDAC44C22AE00DE004A36E7 /* HSMediaLibraryMediaQuery.swift in Sources */,
 				FCA0A4C022ACC8C300A93C32 /* imageUtils.swift in Sources */,
 				FCDAC44222ADF8DA004A36E7 /* HSMediaLibrary.swift in Sources */,
 				FC73F2E522AF8824009B6D9F /* seekbarUtils.swift in Sources */,
+				FC728AD922B3214E005A15DA /* HSMediaLibraryAlbumQuery.swift in Sources */,
 				FCA0A4BC22ACC25400A93C32 /* HSColorHistogram.swift in Sources */,
 				FCDAC45322AEB3E0004A36E7 /* HSMediaLibraryDateQuery.swift in Sources */,
 				FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */,

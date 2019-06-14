@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import noop from 'lodash/noop';
+import sortBy from 'lodash/sortBy';
 
 import { AlbumExplorerItem } from '../AlbumExplorerItem';
 
@@ -31,7 +32,7 @@ export const AlbumExplorer: SFC<AlbumExplorerProps> = ({
       numColumns={1}
       enableEmptySections
       horizontal={false}
-      data={albums}
+      data={sortAlbums(albums)}
       keyExtractor={album => album.albumID}
       removeClippedSubviews
       initialNumToRender={15}
@@ -52,3 +53,5 @@ export const AlbumExplorer: SFC<AlbumExplorerProps> = ({
     />
   </View>
 );
+
+const sortAlbums = albums => sortBy(albums, 'title');
