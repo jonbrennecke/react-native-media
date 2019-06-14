@@ -76,7 +76,7 @@ const createSlicedDispatchToPropsMapper = <State, StateSlice, DispatchProps>(
 
 export type MediaStateHOC<OriginalProps> = (
   Component: ComponentType<MediaStateHOCProps & OriginalProps>
-) => ComponentType<MediaStateHOCProps>;
+) => ComponentType<OriginalProps>;
 
 export function createMediaStateHOC<Props, State: IMediaState>(
   stateSliceAccessor?: State => IMediaState = identity
