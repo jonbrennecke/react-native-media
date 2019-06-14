@@ -9,12 +9,12 @@ type AnyPayload = any;
 // eslint-disable-next-line no-unused-vars
 type GetPayloadType<Payload: *, Fn: (any, Action<Payload>) => any> = Payload;
 
-type MapActions = <Payload>(
-  (any, Action<Payload>) => any
+type MapActions = <State, Payload>(
+  Reducer<State, Payload>
 ) => Payload => Action<Payload>;
 
-type MapActionCreators = <Payload>(
-  (any, Action<Payload>) => any
+type MapActionCreators = <State, Payload>(
+  Reducer<State, Payload>
 ) => Payload => (Dispatch<Payload>) => Action<Payload>;
 
 export function createReducer<
@@ -45,7 +45,7 @@ export function createReducer<
   );
 
   return {
-    // $FlowFixMe (types fine as `handleActions<State, Action<Payload>>(...)`, but breaks babel)
+    // $FlowFixMe (types fine as `handleActions<StateSlice, Action<Payload>>(...)`, but breaks babel)
     reducer: handleActions(reducers, initialState),
     actions,
     actionCreators,

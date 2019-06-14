@@ -2,4 +2,4 @@
 export * from './mediaReducer';
 export * from './mediaState';
 export * from './mediaSelectors';
-export * from './mediaStateContainer';
+export * from './mediaStateHOC';

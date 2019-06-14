@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native';
 import {
   AlbumExplorer,
   authorizeMediaLibrary,
-  MediaStateContainer,
+  createMediaStateHOC,
 } from '@jonbrennecke/react-native-media';
 import { Provider } from 'react-redux';
 import noop from 'lodash/noop';
@@ -24,6 +24,8 @@ const styles = {
   },
   albumTitleStyle: {},
 };
+
+const MediaStateContainer = createMediaStateHOC();
 
 const Component = MediaStateContainer(
   ({
@@ -70,7 +72,7 @@ const Component = MediaStateContainer(
               }
               return;
             }}
-            onRequestLoadMore={loadMore}
+            onRequestLoadMore={() => { loadMore(); }}
           />
         )}
       />
@@ -81,6 +83,7 @@ const Component = MediaStateContainer(
 storiesOf('Albums', module).add('Album Explorer', () => (
   <Provider store={store}>
     <SafeAreaView style={styles.container}>
+      {/* $FlowFixMe */}
       <Component />
     </SafeAreaView>
   </Provider>
