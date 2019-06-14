@@ -5,6 +5,7 @@ export type MediaObject = {
   assetID: string,
   duration: number,
   mediaType: MediaType,
+  creationDate: string, // ISO 8601 date string
 };
 
 export type AlbumObject = {
