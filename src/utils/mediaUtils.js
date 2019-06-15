@@ -19,7 +19,7 @@ export type QuerySortEquation =
   | 'lessThanOrEqualTo';
 
 export type DateQuery = {
-  date: Date,
+  date: Date | string,
   equation: QuerySortEquation,
 };
 
