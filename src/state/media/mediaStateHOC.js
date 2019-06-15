@@ -78,9 +78,9 @@ export type MediaStateHOC<OriginalProps> = (
   Component: ComponentType<MediaStateHOCProps & OriginalProps>
 ) => ComponentType<OriginalProps>;
 
-export function createMediaStateHOC<Props, State: IMediaState>(
+export function createMediaStateHOC<PassThroughProps, State: IMediaState>(
   stateSliceAccessor?: State => IMediaState = identity
-): MediaStateHOC<Props> {
+): MediaStateHOC<PassThroughProps> {
   const mapStateToProps = createSlicedStateToPropsMapper(
     mapMediaStateToProps,
     stateSliceAccessor
@@ -90,7 +90,7 @@ export function createMediaStateHOC<Props, State: IMediaState>(
     stateSliceAccessor
   );
   return Component => {
-    const fn = (props: MediaStateHOCProps & Props) => <Component {...props} />;
+    const fn = (props: PassThroughProps) => <Component {...props} />;
     return connect(mapStateToProps, mapDispatchToProps)(fn);
   };
 }
