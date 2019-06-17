@@ -6,9 +6,10 @@ import { Thumbnail } from '../Thumbnail';
 
 import type { SFC, Style, AlbumObject } from '../../types';
 
-export type Props = {
+export type AlbumExplorerItemProps = {
   style?: ?Style,
   albumTitleStyle?: ?Style,
+  backgroundStyle?: ?Style,
   album: AlbumObject,
   onPressAlbum: (albumID: string) => void,
   thumbnailAssetIDForAlbumID: (albumID: string) => ?string,
@@ -44,20 +45,17 @@ const styles = {
     flex: 1,
     padding: 1,
   },
-  thumbnailBackground: {
-    ...StyleSheet.absoluteFill,
-    backgroundColor: '#ccc',
-    borderRadius: 3,
-  },
+  thumbnailBackground: StyleSheet.absoluteFill,
 };
 
-export const AlbumExplorerItem: SFC<Props> = ({
+export const AlbumExplorerItem: SFC<AlbumExplorerItemProps> = ({
   style,
   album,
   albumTitleStyle,
+  backgroundStyle,
   onPressAlbum,
   thumbnailAssetIDForAlbumID,
-}: Props) => {
+}: AlbumExplorerItemProps) => {
   const assetID = thumbnailAssetIDForAlbumID(album.albumID);
   return (
     <View style={[styles.container, style]}>
@@ -65,7 +63,7 @@ export const AlbumExplorerItem: SFC<Props> = ({
         style={styles.thumbnailWrap}
         onPress={() => onPressAlbum(album.albumID)}
       >
-        <View style={styles.thumbnailBackground} />
+        <View style={[styles.thumbnailBackground, backgroundStyle]} />
         {assetID && (
           <Thumbnail style={styles.thumbnail} assetID={assetID} resizeCover />
         )}
