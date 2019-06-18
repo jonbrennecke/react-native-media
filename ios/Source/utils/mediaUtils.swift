@@ -15,12 +15,14 @@ internal func fetchAssets(in albumID: String?, with mediaType: PHAssetMediaType,
       ? PHAsset.fetchAssets(with: options)
       : PHAsset.fetchAssets(with: mediaType, options: options)
   }
-  if let predicate = options.predicate, mediaType != .unknown {
-    let mediaTypePredicate = NSPredicate(format: "mediaType = %@", argumentArray: [mediaType])
-    options.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-      predicate,
-      mediaTypePredicate,
-    ])
+  if mediaType != .unknown {
+    let mediaTypePredicate = NSPredicate(format: "mediaType = %d", argumentArray: [mediaType.rawValue])
+    options.predicate = options.predicate != nil
+      ? NSCompoundPredicate(andPredicateWithSubpredicates: [
+        options.predicate!,
+        mediaTypePredicate,
+      ])
+      : mediaTypePredicate
   }
   return PHAsset.fetchAssets(in: collection, options: options)
 }
