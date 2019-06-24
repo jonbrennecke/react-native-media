@@ -1,5 +1,7 @@
 // @flow
 import { Record, Map, Set } from 'immutable';
+import uniqBy from 'lodash/uniqBy';
+import property from 'lodash/property';
 
 import type { RecordOf, RecordInstance } from 'immutable';
 
@@ -55,7 +57,9 @@ export const createMediaState: MediaStateObject => Class<
     }
 
     setAlbums(albums: ArrayOrSet<AlbumObject>): MediaState {
-      return this.set('albums', Set(albums));
+      // $FlowFixMe
+      const uniqueAlbums = uniqBy(albums.toArray ? albums.toArray() : albums, property('albumID'));
+      return this.set('albums', Set(uniqueAlbums));
     }
 
     appendAlbums(albums: ArrayOrSet<AlbumObject>): MediaState {
@@ -68,7 +72,9 @@ export const createMediaState: MediaStateObject => Class<
     }
 
     setAssets(assets: ArrayOrSet<MediaObject>): MediaState {
-      return this.set('assets', Set(assets));
+      // $FlowFixMe
+      const uniqueAssets = uniqBy(assets.toArray ? assets.toArray() : assets, property('assetsID'));
+      return this.set('assets', Set(uniqueAssets));
     }
 
     appendAssets(assets: ArrayOrSet<MediaObject>): IMediaState {
