@@ -73,7 +73,7 @@ export const createMediaState: MediaStateObject => Class<
 
     setAssets(assets: ArrayOrSet<MediaObject>): MediaState {
       // $FlowFixMe
-      const uniqueAssets = uniqBy(assets.toArray ? assets.toArray() : assets, property('assetsID'));
+      const uniqueAssets = uniqBy(assets.toArray ? assets.toArray() : assets, property('assetID'));
       return this.set('assets', Set(uniqueAssets));
     }
 
