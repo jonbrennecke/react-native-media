@@ -49,9 +49,7 @@ RCT_EXPORT_MODULE(HSMediaLibrary)
 
 #pragma mark - React Native exported methods
 
-RCT_EXPORT_METHOD(startObservingVideos) {
-  [mediaLibrary startObserving];
-}
+RCT_EXPORT_METHOD(startObservingVideos) { [mediaLibrary startObserving]; }
 
 RCT_EXPORT_METHOD(stopObservingVideos) { [mediaLibrary stopObserving]; }
 
