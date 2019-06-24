@@ -1,6 +1,5 @@
 // @flow
 import type { ____DangerouslyImpreciseStyle_Internal } from 'react-native/Libraries/StyleSheet/StyleSheetTypes';
-
 import type {
   Element,
   ChildrenArray,

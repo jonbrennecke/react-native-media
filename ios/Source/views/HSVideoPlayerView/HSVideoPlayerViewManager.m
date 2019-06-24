@@ -36,17 +36,18 @@ RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidRestart, RCTBubblingEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
-  [self.bridge.uiManager addUIBlock:^(
-                             RCTUIManager *uiManager,
-                             NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    HSVideoPlayerWrappingView *view =
-        (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
-    if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
-      RCTLogError(@"Cannot find HSVideoPlayerWrappingView with tag #%@", reactTag);
-      return;
-    }
-    [view.playerView play];
-  }];
+  [self.bridge.uiManager
+      addUIBlock:^(RCTUIManager *uiManager,
+                   NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        HSVideoPlayerWrappingView *view =
+            (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
+          RCTLogError(@"Cannot find HSVideoPlayerWrappingView with tag #%@",
+                      reactTag);
+          return;
+        }
+        [view.playerView play];
+      }];
 }
 
 RCT_EXPORT_METHOD(pause : (nonnull NSNumber *)reactTag) {

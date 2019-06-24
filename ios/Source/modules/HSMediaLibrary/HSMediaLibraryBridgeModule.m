@@ -20,35 +20,11 @@
 
 #pragma mark - HSMediaLibraryDelegate
 
-- (void)mediaLibraryDidGenerateThumbnail:(UIImage *)thumbnail
-                           forTargetSize:(CGSize)size {
-  if (!thumbnail || !hasListeners) {
-    return;
-  }
-  [self sendEventWithName:@"mediaLibraryDidOutputThumbnail"
-                     body:@{
-                       @"size" : @(size),
-                       @"image" : thumbnail
-                     }];
-}
-
-- (void)mediaLibraryDidUpdateVideos:(NSArray<PHAsset *> *)videoAssets {
+- (void)mediaLibraryDidChange {
   if (!hasListeners) {
     return;
   }
-  NSMutableArray<NSDictionary *> *videos =
-      [[NSMutableArray alloc] initWithCapacity:videoAssets.count];
-  [videoAssets
-      enumerateObjectsUsingBlock:^(PHAsset *_Nonnull asset, NSUInteger idx,
-                                   BOOL *_Nonnull stop) {
-        if (asset == nil) {
-          return;
-        }
-        HSMediaAsset *mediaAsset = [[HSMediaAsset alloc] initWithAsset:asset];
-        [videos insertObject:[mediaAsset asDictionary] atIndex:idx];
-      }];
-  [self sendEventWithName:@"mediaLibraryDidUpdateVideos"
-                     body:@{@"videos" : videos}];
+  [self sendEventWithName:@"mediaLibraryDidChange" body:@{}];
 }
 
 #pragma mark - React Native module
@@ -66,10 +42,16 @@
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-  return @[ @"mediaLibraryDidOutputThumbnail", @"mediaLibraryDidUpdateVideos" ];
+  return @[ @"mediaLibraryDidChange" ];
 }
 
 RCT_EXPORT_MODULE(HSMediaLibrary)
+
+#pragma mark - React Native exported methods
+
+RCT_EXPORT_METHOD(startObservingVideos) { [mediaLibrary startObserving]; }
+
+RCT_EXPORT_METHOD(stopObservingVideos) { [mediaLibrary stopObserving]; }
 
 RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
   [mediaLibrary authorizeMediaLibrary:^(BOOL success) {
@@ -80,44 +62,47 @@ RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
 RCT_EXPORT_METHOD(queryMedia
                   : (NSDictionary *)queryArgs callback
                   : (RCTResponseSenderBlock)callback) {
-  HSMediaLibraryMediaQuery *query = [[HSMediaLibraryMediaQuery alloc] initWithDict:queryArgs];
+  HSMediaLibraryMediaQuery *query =
+      [[HSMediaLibraryMediaQuery alloc] initWithDict:queryArgs];
   if (!query) {
-    id error =
-        RCTMakeError(@"Invalid meida query sent to MediaLibrary", queryArgs, nil);
+    id error = RCTMakeError(@"Invalid meida query sent to MediaLibrary",
+                            queryArgs, nil);
     callback(@[ error, [NSNull null] ]);
     return;
   }
-  NSArray<id<NSDictionaryConvertible>> *queryResult = [mediaLibrary queryMedia:query];
-  NSMutableArray<NSDictionary *> *assets = [[NSMutableArray alloc] initWithCapacity:queryResult.count];
-  [queryResult enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res, NSUInteger idx,
-                                            BOOL *_Nonnull stop) {
-    [assets insertObject:[res asDictionary] atIndex:idx];
-  }];
+  NSArray<id<NSDictionaryConvertible>> *queryResult =
+      [mediaLibrary queryMedia:query];
+  NSMutableArray<NSDictionary *> *assets =
+      [[NSMutableArray alloc] initWithCapacity:queryResult.count];
+  [queryResult
+      enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res,
+                                   NSUInteger idx, BOOL *_Nonnull stop) {
+        [assets insertObject:[res asDictionary] atIndex:idx];
+      }];
   callback(@[ [NSNull null], assets ]);
 }
 
 RCT_EXPORT_METHOD(queryAlbums
                   : (NSDictionary *)queryArgs callback
                   : (RCTResponseSenderBlock)callback) {
-  HSMediaLibraryAlbumQuery *query = [[HSMediaLibraryAlbumQuery alloc] initWithDict:queryArgs];
+  HSMediaLibraryAlbumQuery *query =
+      [[HSMediaLibraryAlbumQuery alloc] initWithDict:queryArgs];
   if (!query) {
-    id error = RCTMakeError(@"Invalid album query sent to MediaLibrary", queryArgs, nil);
+    id error = RCTMakeError(@"Invalid album query sent to MediaLibrary",
+                            queryArgs, nil);
     callback(@[ error, [NSNull null] ]);
     return;
   }
-  NSArray<id<NSDictionaryConvertible>> *queryResult = [mediaLibrary queryAlbums:query];
-  NSMutableArray<NSDictionary *> *albums = [[NSMutableArray alloc] initWithCapacity:queryResult.count];
-  [queryResult enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res, NSUInteger idx,
-                                       BOOL *_Nonnull stop) {
-    [albums insertObject:[res asDictionary] atIndex:idx];
-  }];
+  NSArray<id<NSDictionaryConvertible>> *queryResult =
+      [mediaLibrary queryAlbums:query];
+  NSMutableArray<NSDictionary *> *albums =
+      [[NSMutableArray alloc] initWithCapacity:queryResult.count];
+  [queryResult
+      enumerateObjectsUsingBlock:^(id<NSDictionaryConvertible> res,
+                                   NSUInteger idx, BOOL *_Nonnull stop) {
+        [albums insertObject:[res asDictionary] atIndex:idx];
+      }];
   callback(@[ [NSNull null], albums ]);
 }
-
-// RCT_EXPORT_METHOD(startObservingVideos) { [mediaLibrary
-// startObservingVideos]; }
-
-// RCT_EXPORT_METHOD(stopObservingVideos) { [mediaLibrary stopObservingVideos];
-// }
 
 @end

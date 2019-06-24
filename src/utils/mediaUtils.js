@@ -1,11 +1,21 @@
 // @flow
 import Bluebird from 'bluebird';
-import { NativeModules } from 'react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 
-import type { AlbumObject, MediaObject, MediaType } from '../types';
+import type { AlbumObject, MediaObject, MediaType, ReturnType } from '../types';
 
 const { HSMediaLibrary: NativeMediaLibrary } = NativeModules;
 const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
+
+export const MediaEventEmitter = new NativeEventEmitter(NativeMediaLibrary);
+
+export type MediaEventEmitterSubscription = ReturnType<
+  typeof MediaEventEmitter.addListener
+>;
+
+export const MediaEvents = {
+  DidUpdate: 'mediaLibraryDidChange',
+};
 
 export const authorizeMediaLibrary = (): Promise<boolean> => {
   return MediaLibrary.authorizeMediaLibraryAsync();
@@ -96,4 +106,16 @@ export const queryAlbums = ({
     titleQuery,
     limit,
   });
+};
+
+export const startObservingVideos = (
+  listener: () => void
+): MediaEventEmitterSubscription => {
+  return MediaEventEmitter.addListener(MediaEvents.DidUpdate, listener);
+};
+
+export const stopObservingVideos = (
+  subscription: MediaEventEmitterSubscription
+) => {
+  subscription.remove();
 };
