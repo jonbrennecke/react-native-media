@@ -72,7 +72,9 @@ const Component = MediaStateContainer(
               }
               return;
             }}
-            onRequestLoadMore={() => { loadMore(); }}
+            onRequestLoadMore={() => {
+              loadMore();
+            }}
           />
         )}
       />

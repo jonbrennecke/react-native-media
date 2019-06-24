@@ -34,21 +34,24 @@ storiesOf('Video', module).add('Video Player', () => (
         authorizeAndLoadAssets(state, setState);
       }}
       initialState={{ assets: [], playbackTime: 0 }}
-      render={({ assets }) =>
-        assets &&
-        assets[0] && (
-          <VideoPlayer
-            style={styles.video}
-            videoID={assets[0].assetID}
-            onVideoDidFailToLoad={noop}
-            onVideoDidBecomeReadyToPlay={noop}
-            onVideoDidPause={noop}
-            onVideoDidUpdatePlaybackTime={noop}
-            onVideoDidRestart={noop}
-            onViewDidResize={noop}
-          />
-        )
-      }
+      render={getState => {
+        const { assets } = getState();
+        return (
+          assets &&
+          assets[0] && (
+            <VideoPlayer
+              style={styles.video}
+              videoID={assets[0].assetID}
+              onVideoDidFailToLoad={noop}
+              onVideoDidBecomeReadyToPlay={noop}
+              onVideoDidPause={noop}
+              onVideoDidUpdatePlaybackTime={noop}
+              onVideoDidRestart={noop}
+              onViewDidResize={noop}
+            />
+          )
+        );
+      }}
     />
   </SafeAreaView>
 ));
