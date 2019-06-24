@@ -9,6 +9,7 @@ const MediaLibrary = Bluebird.promisifyAll(NativeMediaLibrary);
 
 export const MediaEventEmitter = new NativeEventEmitter(NativeMediaLibrary);
 
+// eslint-disable-next-line flowtype/generic-spacing
 export type MediaEventEmitterSubscription = ReturnType<
   typeof MediaEventEmitter.addListener
 >;
@@ -111,11 +112,13 @@ export const queryAlbums = ({
 export const startObservingVideos = (
   listener: () => void
 ): MediaEventEmitterSubscription => {
+  MediaLibrary.startObservingVideos();
   return MediaEventEmitter.addListener(MediaEvents.DidUpdate, listener);
 };
 
 export const stopObservingVideos = (
   subscription: MediaEventEmitterSubscription
 ) => {
+  MediaLibrary.stopObservingVideos();
   subscription.remove();
 };

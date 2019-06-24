@@ -3,7 +3,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { SafeAreaView } from 'react-native';
 import noop from 'lodash/noop';
-
 import {
   Seekbar,
   queryVideos,
@@ -36,7 +35,7 @@ const authorizeAndLoadAssets = async (state, setState) => {
 storiesOf('Seekbar', module).add('Seekbar', () => (
   <SafeAreaView style={styles.container}>
     <StorybookStateWrapper
-      onMount={authorizeAndLoadAssets}
+      onMount={() => { authorizeAndLoadAssets(); }}
       initialState={{ assets: [], playbackTime: 0 }}
       render={({ assets, playbackTime }, setState) =>
         assets &&

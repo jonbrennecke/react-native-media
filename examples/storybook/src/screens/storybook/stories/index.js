@@ -6,3 +6,4 @@ import './SeekbarBackground';
 import './Seekbar';
 import './VideoPlayer';
 import './Albums';
+import './events';
