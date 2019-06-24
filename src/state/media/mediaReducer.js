@@ -1,8 +1,9 @@
 // @flow
 import { Map, Set } from 'immutable';
+import concat from 'lodash/concat';
 
 import { createReducer } from '../createReducer';
-import { queryAlbums, queryMedia } from '../../utils';
+import { queryAlbums, queryMedia, getFavoritesAlbum, getCameraRollAlbum } from '../../utils';
 import { createMediaState } from './mediaState';
 import { selectAlbumAssetsByAlbumId } from './mediaSelectors';
 
@@ -124,7 +125,11 @@ export const actionCreators = {
 
   queryAlbums: (query: AlbumQuery) => async (dispatch: Dispatch<*>) => {
     const albums = await queryAlbums(query);
-    dispatch(actionCreators.appendAlbums({ albums }));
+    const favoritesAlbum = await getFavoritesAlbum();
+    const cameraRollAlbum = await getCameraRollAlbum();
+    dispatch(actionCreators.appendAlbums({
+      albums: concat(albums, favoritesAlbum, cameraRollAlbum)
+    }));
   },
 
   queryMedia: (query: MediaQuery) => async (dispatch: Dispatch<any>) => {

@@ -63,24 +63,34 @@ class HSMediaLibrary: NSObject {
       subtype: .any,
       options: fetchOptions
     )
-//    let fetchResultFavorites = PHAssetCollection.fetchAssetCollections(
-//      with: .smartAlbum,
-//      subtype: .smartAlbumFavorites,
-//      options: fetchOptions
-//    )
-//    let fetchResultCameraRoll = PHAssetCollection.fetchAssetCollections(
-//      with: .smartAlbum,
-//      subtype: .smartAlbumUserLibrary,
-//      options: fetchOptions
-//    )
-    let collectionArray = createArray(withFetchResult: fetchResult)
-//    let collectionArrayFavorites = createArray(withFetchResult: fetchResultFavorites)
-//    let collectionArrayCameraRoll = createArray(withFetchResult: fetchResultCameraRoll)
-    return [
-      collectionArray,
-//      collectionArrayFavorites,
-//      collectionArrayCameraRoll,
-    ].flatMap { $0 }.map { HSMediaAlbum(collection: $0) }
+    return createArray(withFetchResult: fetchResult)
+      .map { HSMediaAlbum(collection: $0) }
+  }
+
+  @objc
+  public func getFavoritesAlbum() -> HSMediaAlbum? {
+    let fetchResult = PHAssetCollection.fetchAssetCollections(
+      with: .smartAlbum,
+      subtype: .smartAlbumFavorites,
+      options: nil
+    )
+    guard let collection = fetchResult.firstObject else {
+      return nil
+    }
+    return HSMediaAlbum(collection: collection)
+  }
+
+  @objc
+  public func getCameraRollAlbum() -> HSMediaAlbum? {
+    let fetchResult = PHAssetCollection.fetchAssetCollections(
+      with: .smartAlbum,
+      subtype: .smartAlbumUserLibrary,
+      options: nil
+    )
+    guard let collection = fetchResult.firstObject else {
+      return nil
+    }
+    return HSMediaAlbum(collection: collection)
   }
 }
 

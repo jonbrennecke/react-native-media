@@ -109,6 +109,14 @@ export const queryAlbums = ({
   });
 };
 
+export const getFavoritesAlbum = (): Promise<AlbumObject> => {
+  return MediaLibrary.getFavoritesAlbumAsync();
+};
+
+export const getCameraRollAlbum = (): Promise<AlbumObject> => {
+  return MediaLibrary.getCameraRollAlbumAsync();
+};
+
 export const startObservingVideos = (
   listener: () => void
 ): MediaEventEmitterSubscription => {

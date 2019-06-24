@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(queryMedia
   HSMediaLibraryMediaQuery *query =
       [[HSMediaLibraryMediaQuery alloc] initWithDict:queryArgs];
   if (!query) {
-    id error = RCTMakeError(@"Invalid meida query sent to MediaLibrary",
+    id error = RCTMakeError(@"Invalid media query sent to MediaLibrary",
                             queryArgs, nil);
     callback(@[ error, [NSNull null] ]);
     return;
@@ -103,6 +103,18 @@ RCT_EXPORT_METHOD(queryAlbums
         [albums insertObject:[res asDictionary] atIndex:idx];
       }];
   callback(@[ [NSNull null], albums ]);
+}
+
+RCT_EXPORT_METHOD(getFavoritesAlbum: (RCTResponseSenderBlock)callback) {
+  id<NSDictionaryConvertible> album = [mediaLibrary getFavoritesAlbum];
+  NSDictionary *dict = [album asDictionary];
+  callback(@[ [NSNull null], dict ]);
+}
+
+RCT_EXPORT_METHOD(getCameraRollAlbum: (RCTResponseSenderBlock)callback) {
+  id<NSDictionaryConvertible> album = [mediaLibrary getCameraRollAlbum];
+  NSDictionary *dict = [album asDictionary];
+  callback(@[ [NSNull null], dict ]);
 }
 
 @end
