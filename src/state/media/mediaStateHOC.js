@@ -50,7 +50,7 @@ function mapMediaDispatchToProps(dispatch: Dispatch<*>): DispatchProps {
   return {
     queryAlbums: (...args) => dispatch(actionCreators.queryAlbums(...args)),
     queryMedia: (...args) => dispatch(actionCreators.queryMedia(...args)),
-    setAlbums: (...args) => dispatch(actionCreators.setAlbums(...args)), // TODO: probably don't need this
+    setAlbums: (...args) => dispatch(actionCreators.setAlbums(...args)),
   };
 }
 
