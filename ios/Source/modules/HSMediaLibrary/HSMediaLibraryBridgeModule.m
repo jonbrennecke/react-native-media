@@ -105,13 +105,13 @@ RCT_EXPORT_METHOD(queryAlbums
   callback(@[ [NSNull null], albums ]);
 }
 
-RCT_EXPORT_METHOD(getFavoritesAlbum: (RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(getFavoritesAlbum : (RCTResponseSenderBlock)callback) {
   id<NSDictionaryConvertible> album = [mediaLibrary getFavoritesAlbum];
   NSDictionary *dict = [album asDictionary];
   callback(@[ [NSNull null], dict ]);
 }
 
-RCT_EXPORT_METHOD(getCameraRollAlbum: (RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(getCameraRollAlbum : (RCTResponseSenderBlock)callback) {
   id<NSDictionaryConvertible> album = [mediaLibrary getCameraRollAlbum];
   NSDictionary *dict = [album asDictionary];
   callback(@[ [NSNull null], dict ]);

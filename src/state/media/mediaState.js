@@ -57,8 +57,11 @@ export const createMediaState: MediaStateObject => Class<
     }
 
     setAlbums(albums: ArrayOrSet<AlbumObject>): MediaState {
-      // $FlowFixMe
-      const uniqueAlbums = uniqBy(albums.toArray ? albums.toArray() : albums, property('albumID'));
+      const uniqueAlbums = uniqBy(
+        // $FlowFixMe
+        albums.toArray ? albums.toArray() : albums,
+        property('albumID')
+      );
       return this.set('albums', Set(uniqueAlbums));
     }
 
@@ -72,8 +75,11 @@ export const createMediaState: MediaStateObject => Class<
     }
 
     setAssets(assets: ArrayOrSet<MediaObject>): MediaState {
-      // $FlowFixMe
-      const uniqueAssets = uniqBy(assets.toArray ? assets.toArray() : assets, property('assetID'));
+      const uniqueAssets = uniqBy(
+        // $FlowFixMe
+        assets.toArray ? assets.toArray() : assets,
+        property('assetID')
+      );
       return this.set('assets', Set(uniqueAssets));
     }
 
