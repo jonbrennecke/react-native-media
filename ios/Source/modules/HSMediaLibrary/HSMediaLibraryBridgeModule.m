@@ -107,12 +107,22 @@ RCT_EXPORT_METHOD(queryAlbums
 
 RCT_EXPORT_METHOD(getFavoritesAlbum : (RCTResponseSenderBlock)callback) {
   id<NSDictionaryConvertible> album = [mediaLibrary getFavoritesAlbum];
+  if (album == nil) {
+    id error = RCTMakeError(@"Unable to find favorites album", nil, nil);
+    callback(@[ error, [NSNull null] ]);
+    return;
+  }
   NSDictionary *dict = [album asDictionary];
   callback(@[ [NSNull null], dict ]);
 }
 
 RCT_EXPORT_METHOD(getCameraRollAlbum : (RCTResponseSenderBlock)callback) {
   id<NSDictionaryConvertible> album = [mediaLibrary getCameraRollAlbum];
+  if (album == nil) {
+    id error = RCTMakeError(@"Unable to find camera roll album", nil, nil);
+    callback(@[ error, [NSNull null] ]);
+    return;
+  }
   NSDictionary *dict = [album asDictionary];
   callback(@[ [NSNull null], dict ]);
 }
