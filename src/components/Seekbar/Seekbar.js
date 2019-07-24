@@ -13,6 +13,7 @@ import type { Style } from '../../types/react';
 type Props = {
   style?: ?Style,
   handleStyle?: ?Style,
+  backgroundStyle?: ?Style,
   assetID: string,
   duration: number,
   playbackTime: number,
@@ -26,9 +27,7 @@ type State = {
 };
 
 const styles = {
-  container: {
-    borderRadius: 10,
-  },
+  container: {},
   handle: {
     position: 'absolute',
     top: -3,
@@ -45,10 +44,7 @@ const styles = {
     shadowRadius: 5,
   },
   dragContainer: StyleSheet.absoluteFillObject,
-  preview: {
-    ...StyleSheet.absoluteFillObject,
-    borderRadius: 10,
-  },
+  background: StyleSheet.absoluteFillObject,
 };
 
 // $FlowFixMe
@@ -99,7 +95,7 @@ export class Seekbar extends PureComponent<Props, State> {
         onLayout={this.viewDidLayout}
       >
         <SeekbarBackground
-          style={styles.preview}
+          style={[styles.background, this.props.backgroundStyle]}
           assetID={this.props.assetID}
         />
         <DragInteractionContainer
