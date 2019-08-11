@@ -7,7 +7,7 @@ import type { Style, SFC } from '../../types/react';
 const NativeSeekbarBackgroundView = requireNativeComponent('HSSeekbarView');
 
 type SeekbarBackgroundProps = {
-  style?: ?Style,
+  style?: ?(Style | Array<Style>),
   assetID: string,
 };
 
