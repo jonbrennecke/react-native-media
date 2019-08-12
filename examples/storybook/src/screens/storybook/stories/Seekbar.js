@@ -35,7 +35,9 @@ const authorizeAndLoadAssets = async (state, setState) => {
 storiesOf('Seekbar', module).add('Seekbar', () => (
   <SafeAreaView style={styles.container}>
     <StorybookStateWrapper
-      onMount={(state, setState) => { authorizeAndLoadAssets(state, setState); }}
+      onMount={(state, setState) => {
+        authorizeAndLoadAssets(state, setState);
+      }}
       initialState={{ assets: [], playbackTime: 0 }}
       render={(getState, setState) => {
         const { assets, playbackTime } = getState();

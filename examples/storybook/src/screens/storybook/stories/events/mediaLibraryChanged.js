@@ -6,13 +6,13 @@ import { autobind } from 'core-decorators';
 import {
   authorizeMediaLibrary,
   startObservingVideos,
-  stopObservingVideos
+  stopObservingVideos,
 } from '@jonbrennecke/react-native-media';
 
 const styles = {
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 };
 
 // $FlowFixMe
@@ -36,14 +36,12 @@ class MediaLibraryDidChangeStory extends Component<{}> {
   }
 
   render() {
-    return (
-      <View/>
-    );
+    return <View />;
   }
 }
 
 storiesOf('Events', module).add('Media Library Changed', () => (
   <SafeAreaView style={styles.container}>
-    <MediaLibraryDidChangeStory/>
+    <MediaLibraryDidChangeStory />
   </SafeAreaView>
 ));
