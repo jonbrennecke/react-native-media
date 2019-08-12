@@ -5,8 +5,8 @@ import type { Element } from 'react';
 
 export type StorybookStateWrapperProps<S: Object> = {
   initialState: S,
-  onMount?: (data: S, setState: (S) => void) => void,
-  render: (getState: () => S, setState: (S) => void) => ?Element<*>,
+  onMount?: (state: S, setState: ($Shape<S>) => void) => void,
+  render: (getState: () => S, setState: ($Shape<S>) => void) => ?Element<*>,
 };
 
 export type StorybookStateWrapperState<S: Object> = S;
