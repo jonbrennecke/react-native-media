@@ -3,10 +3,10 @@ import UIKit
 
 class HSSeekbarView: UIView {
   private static let imageManager = PHCachingImageManager()
-  
+
   private var imageViews: [UIImageView] = []
   private var requestID: PHImageRequestID?
-  
+
   private var assetImageGenerator: AVAssetImageGenerator? {
     willSet {
       assetImageGenerator?.cancelAllCGImageGeneration()
