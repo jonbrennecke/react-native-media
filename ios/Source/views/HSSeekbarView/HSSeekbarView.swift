@@ -2,10 +2,16 @@ import Photos
 import UIKit
 
 class HSSeekbarView: UIView {
+  private static let imageManager = PHCachingImageManager()
+  
   private var imageViews: [UIImageView] = []
   private var requestID: PHImageRequestID?
-
-  private static let imageManager = PHCachingImageManager()
+  
+  private var assetImageGenerator: AVAssetImageGenerator? {
+    willSet {
+      assetImageGenerator?.cancelAllCGImageGeneration()
+    }
+  }
 
   deinit {
     if let id = requestID {
@@ -67,13 +73,17 @@ class HSSeekbarView: UIView {
   }
 
   private func generateImages(withAsset asset: AVAsset) {
-    let assetImageGenerator = AVAssetImageGenerator(asset: asset)
-    assetImageGenerator.appliesPreferredTrackTransform = true
+    assetImageGenerator = AVAssetImageGenerator(asset: asset)
+    guard let generator = assetImageGenerator else { return }
+    generator.appliesPreferredTrackTransform = true
     let duration = CMTimeGetSeconds(asset.duration)
     let (size, numberOfImages) = createSeekbarConfig(size: frame.size)
     let times = createSeekbarTimeValues(numberOfImages: numberOfImages, duration: duration)
-    assetImageGenerator.maximumSize = size
-    assetImageGenerator.generateCGImagesAsynchronously(forTimes: times) { requestedTime, cgImage, _, _, error in
+    let scale = UIScreen.main.scale
+    generator.maximumSize = CGSize(width: size.width * scale, height: size.height * scale)
+    generator.appliesPreferredTrackTransform = true
+    generator.cancelAllCGImageGeneration()
+    generator.generateCGImagesAsynchronously(forTimes: times) { requestedTime, cgImage, _, _, error in
       if error != nil {
         return
       }
