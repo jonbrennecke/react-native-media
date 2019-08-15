@@ -11,7 +11,7 @@ type ThumbnailLoadMoreGridProps = {
   style?: ?Style,
   extraDurationStyle?: ?Style,
   assets: MediaObject[],
-  flatListProps: Object,
+  flatListProps?: Object,
   onRequestLoadMore?: () => void,
   onPressThumbnail?: (asssetID: string) => void,
 };
