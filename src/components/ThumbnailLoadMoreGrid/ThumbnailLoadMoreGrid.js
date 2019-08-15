@@ -11,6 +11,7 @@ type ThumbnailLoadMoreGridProps = {
   style?: ?Style,
   extraDurationStyle?: ?Style,
   assets: MediaObject[],
+  flatListProps: Object,
   onRequestLoadMore?: () => void,
   onPressThumbnail?: (asssetID: string) => void,
 };
@@ -36,6 +37,7 @@ export const ThumbnailLoadMoreGrid: SFC<ThumbnailLoadMoreGridProps> = ({
   extraDurationStyle,
   onRequestLoadMore,
   onPressThumbnail = noop,
+  flatListProps = {},
 }: ThumbnailLoadMoreGridProps) => (
   <View style={[styles.container, style]}>
     <FlatList
@@ -63,6 +65,7 @@ export const ThumbnailLoadMoreGrid: SFC<ThumbnailLoadMoreGridProps> = ({
         onRequestLoadMore && onRequestLoadMore();
       }}
       onEndReachedThreshold={0.75}
+      {...flatListProps}
     />
   </View>
 );
