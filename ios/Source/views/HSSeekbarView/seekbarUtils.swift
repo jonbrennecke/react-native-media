@@ -24,6 +24,9 @@ internal func createSeekbarConfig(size: CGSize) -> (size: CGSize, numberOfImages
   let imageHeight = size.height
   let imageWidth = imageHeight * SEEKBAR_IMAGE_RATIO
   let imageSize = CGSize(width: imageWidth, height: imageHeight)
-  let numberOfImages = Int((size.width / imageWidth).rounded(.up))
-  return (size: imageSize, numberOfImages: numberOfImages)
+  if imageWidth > 0 {
+    let numberOfImages = Int((size.width / imageWidth).rounded(.up))
+    return (size: imageSize, numberOfImages: numberOfImages)
+  }
+  return (size: .zero, numberOfImages: 0)
 }
