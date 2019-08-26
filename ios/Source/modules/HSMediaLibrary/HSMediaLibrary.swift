@@ -15,6 +15,10 @@ class HSMediaLibrary: NSObject {
     PHPhotoLibrary.shared().unregisterChangeObserver(self)
   }
 
+  deinit {
+    stopObserving()
+  }
+
   @objc
   public func authorizeMediaLibrary(_ callback: @escaping (Bool) -> Void) {
     PHPhotoLibrary.requestAuthorization { status in
@@ -65,6 +69,49 @@ class HSMediaLibrary: NSObject {
     )
     return createArray(withFetchResult: fetchResult)
       .map { HSMediaAlbum(collection: $0) }
+  }
+
+  @objc(createAlbumWithTitle:completionHandler:)
+  public func createAlbum(withTitle title: String, _ completionHandler: @escaping (HSMediaAlbum?) -> Void) {
+    let fetchOptions = PHFetchOptions()
+    if #available(iOS 9.0, *) {
+      fetchOptions.fetchLimit = 1
+    }
+    fetchOptions.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+    fetchOptions.predicate = NSPredicate(format: "title = %@", title)
+    let fetchResult = PHAssetCollection.fetchAssetCollections(
+      with: .album, subtype: .any, options: fetchOptions
+    )
+    if let collection = fetchResult.firstObject {
+      let album = HSMediaAlbum(collection: collection)
+      completionHandler(album)
+    }
+    var albumPlaceholder: PHObjectPlaceholder?
+    PHPhotoLibrary.shared().performChanges({
+      let albumChangeRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(
+        withTitle: title
+      )
+      albumPlaceholder = albumChangeRequest.placeholderForCreatedAssetCollection
+    }) { [weak self] (success, _) -> Void in
+      guard self != nil else { return }
+      if !success {
+        completionHandler(nil)
+        return
+      }
+      guard let placeholder = albumPlaceholder else {
+        completionHandler(nil)
+        return
+      }
+      let fetchResult = PHAssetCollection.fetchAssetCollections(
+        withLocalIdentifiers: [placeholder.localIdentifier], options: nil
+      )
+      if let collection = fetchResult.firstObject {
+        let album = HSMediaAlbum(collection: collection)
+        completionHandler(album)
+        return
+      }
+      completionHandler(nil)
+    }
   }
 
   @objc

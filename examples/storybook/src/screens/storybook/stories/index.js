@@ -7,3 +7,4 @@ import './Seekbar';
 import './VideoPlayer';
 import './Albums';
 import './events';
+import './CreateAlbum';

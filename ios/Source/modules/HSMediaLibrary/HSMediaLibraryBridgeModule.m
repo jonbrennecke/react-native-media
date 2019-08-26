@@ -105,6 +105,20 @@ RCT_EXPORT_METHOD(queryAlbums
   callback(@[ [NSNull null], albums ]);
 }
 
+RCT_EXPORT_METHOD(createAlbum
+                  : (NSString *)title callback
+                  : (RCTResponseSenderBlock)callback) {
+  [mediaLibrary createAlbumWithTitle:title
+                   completionHandler:^(HSMediaAlbum *_Nullable album) {
+                     if (!album) {
+                       callback(@[ [NSNull null], [NSNull null] ]);
+                       return;
+                     }
+                     NSDictionary *albumJson = [album asDictionary];
+                     callback(@[ [NSNull null], albumJson ]);
+                   }];
+}
+
 RCT_EXPORT_METHOD(getFavoritesAlbum : (RCTResponseSenderBlock)callback) {
   id<NSDictionaryConvertible> album = [mediaLibrary getFavoritesAlbum];
   if (album == nil) {
