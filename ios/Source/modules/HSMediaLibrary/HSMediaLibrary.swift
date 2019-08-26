@@ -85,6 +85,7 @@ class HSMediaLibrary: NSObject {
     if let collection = fetchResult.firstObject {
       let album = HSMediaAlbum(collection: collection)
       completionHandler(album)
+      return
     }
     var albumPlaceholder: PHObjectPlaceholder?
     PHPhotoLibrary.shared().performChanges({
