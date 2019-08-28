@@ -8,7 +8,7 @@ import {
   queryMedia,
   getFavoritesAlbum,
   getCameraRollAlbum,
-  createAlbum
+  createAlbum,
 } from '../../utils';
 import { createMediaState } from './mediaState';
 import { selectAlbumAssetsByAlbumId } from './mediaSelectors';
@@ -167,5 +167,5 @@ export const actionCreators = {
     if (album) {
       dispatch(actionCreators.appendAlbums({ albums: [album] }));
     }
-  }
+  },
 };
