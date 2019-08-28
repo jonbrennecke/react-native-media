@@ -8,6 +8,7 @@ import {
   queryMedia,
   getFavoritesAlbum,
   getCameraRollAlbum,
+  createAlbum
 } from '../../utils';
 import { createMediaState } from './mediaState';
 import { selectAlbumAssetsByAlbumId } from './mediaSelectors';
@@ -160,4 +161,11 @@ export const actionCreators = {
       );
     }
   },
+
+  createAlbum: (title: string) => async (dispatch: Dispatch<any>) => {
+    const album = await createAlbum(title);
+    if (album) {
+      dispatch(actionCreators.appendAlbums({ albums: [album] }));
+    }
+  }
 };
