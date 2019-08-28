@@ -131,6 +131,6 @@ export const stopObservingVideos = (
   subscription.remove();
 };
 
-export const createAlbum = async (title: string): Promise<AlbumObject> => {
+export const createAlbum = async (title: string): Promise<?AlbumObject> => {
   return MediaLibrary.createAlbumAsync(title);
 };
