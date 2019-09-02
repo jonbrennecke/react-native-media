@@ -115,6 +115,38 @@ class HSMediaLibrary: NSObject {
     }
   }
 
+  @objc(createAssetWithFileAtURL:albumID:completionHandler:)
+  public func createAsset(
+    withFileAtURL url: URL,
+    albumID: String?,
+    _ completionHandler: @escaping (HSMediaAsset?) -> Void
+  ) {
+    PHPhotoLibrary.shared().performChanges({
+      let creationRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+      guard let placeholder = creationRequest?.placeholderForCreatedAsset else {
+        completionHandler(nil)
+        return
+      }
+      let assetFetchRequest = PHAsset.fetchAssets(
+        withLocalIdentifiers: [placeholder.localIdentifier], options: nil
+      )
+      guard let asset = assetFetchRequest.firstObject else {
+        completionHandler(nil)
+        return
+      }
+      if let albumID = albumID {
+        let collectionFetchResult = PHAssetCollection.fetchAssetCollections(
+          withLocalIdentifiers: [albumID], options: nil
+        )
+        if let collection = collectionFetchResult.firstObject {
+          let collectionChangeRequest = PHAssetCollectionChangeRequest(for: collection)
+          collectionChangeRequest?.addAssets(assetFetchRequest)
+        }
+      }
+      completionHandler(HSMediaAsset(asset: asset))
+    })
+  }
+
   @objc
   public func getFavoritesAlbum() -> HSMediaAlbum? {
     let fetchResult = PHAssetCollection.fetchAssetCollections(

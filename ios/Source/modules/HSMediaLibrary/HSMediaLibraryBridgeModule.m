@@ -141,4 +141,22 @@ RCT_EXPORT_METHOD(getCameraRollAlbum : (RCTResponseSenderBlock)callback) {
   callback(@[ [NSNull null], dict ]);
 }
 
+RCT_EXPORT_METHOD(createAssetWithFileAtURL
+                  : (NSURL *)url albumID
+                  : (NSString *)albumID callback
+                  : (RCTResponseSenderBlock)callback) {
+  [mediaLibrary
+      createAssetWithFileAtURL:url
+                       albumID:albumID
+             completionHandler:^(HSMediaAsset *_Nullable asset) {
+               if (asset == nil) {
+                 id error = RCTMakeError(@"Unable to create asset", nil, nil);
+                 callback(@[ error, [NSNull null] ]);
+                 return;
+               }
+               NSDictionary *dict = [asset asDictionary];
+               callback(@[ [NSNull null], dict ]);
+             }];
+}
+
 @end
