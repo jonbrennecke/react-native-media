@@ -115,9 +115,9 @@ class HSMediaLibrary: NSObject {
     }
   }
 
-  @objc(createAssetWithFileAtURL:albumID:completionHandler:)
+  @objc(createAssetWithVideoFileAtURL:albumID:completionHandler:)
   public func createAsset(
-    withFileAtURL url: URL,
+    withVideoFileAtURL url: URL,
     albumID: String?,
     _ completionHandler: @escaping (HSMediaAsset?) -> Void
   ) {
