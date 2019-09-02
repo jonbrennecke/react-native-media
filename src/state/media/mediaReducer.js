@@ -9,6 +9,7 @@ import {
   getFavoritesAlbum,
   getCameraRollAlbum,
   createAlbum,
+  createAssetWithVideoFileAtURL,
 } from '../../utils';
 import { createMediaState } from './mediaState';
 import { selectAlbumAssetsByAlbumId } from './mediaSelectors';
@@ -166,6 +167,15 @@ export const actionCreators = {
     const album = await createAlbum(title);
     if (album) {
       dispatch(actionCreators.appendAlbums({ albums: [album] }));
+    }
+  },
+
+  createAssetWithVideoFileAtURL: (url: string, albumID: ?string) => async (
+    dispatch: Dispatch<any>
+  ) => {
+    const asset = await createAssetWithVideoFileAtURL(url, albumID);
+    if (asset) {
+      dispatch(actionCreators.appendAssets({ assets: [asset] }));
     }
   },
 };

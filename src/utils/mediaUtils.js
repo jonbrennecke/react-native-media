@@ -138,6 +138,6 @@ export const createAlbum = async (title: string): Promise<?AlbumObject> => {
 export const createAssetWithVideoFileAtURL = async (
   url: string,
   albumID: ?string
-): Promise<?AlbumObject> => {
+): Promise<?MediaObject> => {
   return MediaLibrary.createAssetWithVideoFileAtURLAsync(url, albumID);
 };

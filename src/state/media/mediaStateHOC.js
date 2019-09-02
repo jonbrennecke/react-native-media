@@ -33,6 +33,7 @@ type DispatchProps = {
   queryMedia: MediaQuery => any,
   setAlbums: ({ albums: AlbumObject[] }) => any, // TODO: FunctionArgsType<typeof actionCreators.setAlbums>
   createAlbum: (title: string) => any,
+  createAssetWithVideoFileAtURL: (url: string, albumID: ?string) => any,
 };
 
 export type MediaStateHOCProps = OwnProps & StateProps & DispatchProps;
@@ -53,6 +54,8 @@ function mapMediaDispatchToProps(dispatch: Dispatch<*>): DispatchProps {
     queryMedia: (...args) => dispatch(actionCreators.queryMedia(...args)),
     setAlbums: (...args) => dispatch(actionCreators.setAlbums(...args)),
     createAlbum: (...args) => dispatch(actionCreators.createAlbum(...args)),
+    createAssetWithVideoFileAtURL: (...args) =>
+      dispatch(actionCreators.createAssetWithVideoFileAtURL(...args)),
   };
 }
 
