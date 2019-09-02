@@ -134,3 +134,10 @@ export const stopObservingVideos = (
 export const createAlbum = async (title: string): Promise<?AlbumObject> => {
   return MediaLibrary.createAlbumAsync(title);
 };
+
+export const createAssetWithVideoFileAtURL = async (
+  url: string,
+  albumID: ?string
+): Promise<?AlbumObject> => {
+  return MediaLibrary.createAssetWithVideoFileAtURLAsync(url, albumID);
+};
