@@ -121,14 +121,21 @@ class HSMediaLibrary: NSObject {
     albumID: String?,
     _ completionHandler: @escaping (HSMediaAsset?) -> Void
   ) {
+    var localIdentifier: String?
     PHPhotoLibrary.shared().performChanges({
       let creationRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
       guard let placeholder = creationRequest?.placeholderForCreatedAsset else {
         completionHandler(nil)
         return
       }
+      localIdentifier = placeholder.localIdentifier
+    }) { _, _ in
+      guard let assetID = localIdentifier else {
+        completionHandler(nil)
+        return
+      }
       let assetFetchRequest = PHAsset.fetchAssets(
-        withLocalIdentifiers: [placeholder.localIdentifier], options: nil
+        withLocalIdentifiers: [assetID], options: nil
       )
       guard let asset = assetFetchRequest.firstObject else {
         completionHandler(nil)
@@ -139,12 +146,16 @@ class HSMediaLibrary: NSObject {
           withLocalIdentifiers: [albumID], options: nil
         )
         if let collection = collectionFetchResult.firstObject {
-          let collectionChangeRequest = PHAssetCollectionChangeRequest(for: collection)
-          collectionChangeRequest?.addAssets(assetFetchRequest)
+          return PHPhotoLibrary.shared().performChanges({
+            let collectionChangeRequest = PHAssetCollectionChangeRequest(for: collection)
+            collectionChangeRequest?.addAssets(assetFetchRequest)
+          }) { _, _ in
+            completionHandler(HSMediaAsset(asset: asset))
+          }
         }
       }
       completionHandler(HSMediaAsset(asset: asset))
-    })
+    }
   }
 
   @objc
