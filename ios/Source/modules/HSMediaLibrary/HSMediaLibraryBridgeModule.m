@@ -21,7 +21,7 @@
 #pragma mark - HSMediaLibraryDelegate
 
 - (void)mediaLibraryDidChange {
-  if (!hasListeners) {
+  if (!hasListeners || ![self.bridge isValid]) {
     return;
   }
   [self sendEventWithName:@"mediaLibraryDidChange" body:@{}];
