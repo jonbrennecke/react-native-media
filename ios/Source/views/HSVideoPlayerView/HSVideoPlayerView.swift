@@ -29,6 +29,9 @@ class HSVideoPlayerView: UIView {
         return
       }
       backgroundQueue.async {
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setCategory(.playback)
+        try? audioSession.setActive(true, options: .init())
         let item = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: ["playable", "hasProtectedContent", "preferredTransform"])
         item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
         self.item = item
