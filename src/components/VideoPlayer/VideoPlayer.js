@@ -11,23 +11,26 @@ const NativeVideoPlayerView = requireNativeComponent('HSVideoPlayerView');
 const { HSVideoPlayerViewManager: _VideoPlayerViewManager } = NativeModules;
 const VideoPlayerViewManager = Bluebird.promisifyAll(_VideoPlayerViewManager);
 
+export type PlaybackState = 'playing' | 'paused' | 'waiting' | 'readyToPlay';
+
 type ReactNativeFiberHostComponent = any;
 
 type Props = {
   style?: ?Style,
   videoID: string,
-  onVideoDidFailToLoad: () => void,
-  onVideoDidBecomeReadyToPlay: (
+  onVideoDidFailToLoad?: () => void,
+  onVideoDidBecomeReadyToPlay?: (
     duration: number,
     orientation: Orientation
   ) => void,
-  onVideoDidPause: () => void,
-  onVideoDidUpdatePlaybackTime: (
+  onVideoDidPause?: () => void,
+  onVideoDidUpdatePlaybackTime?: (
     playbackTime: number,
     duration: number
   ) => void,
-  onVideoDidRestart: () => void,
-  onViewDidResize: Size => void,
+  onVideoWillRestart?: () => void,
+  onViewDidResize?: Size => void,
+  onPlaybackStateChange?: PlaybackState => void,
 };
 
 const styles = {
@@ -80,7 +83,7 @@ export class VideoPlayer extends Component<Props> {
       width: layout.width,
       height: layout.height,
     };
-    this.props.onViewDidResize(viewSize);
+    this.props.onViewDidResize && this.props.onViewDidResize(viewSize);
   }
 
   render() {
@@ -95,23 +98,27 @@ export class VideoPlayer extends Component<Props> {
           }}
           style={styles.nativeView}
           localIdentifier={this.props.videoID}
-          onVideoDidBecomeReadyToPlay={({ nativeEvent }) => {
-            if (!nativeEvent) {
-              return;
-            }
-            const { orientation, duration } = nativeEvent;
-            this.props.onVideoDidBecomeReadyToPlay(duration, orientation);
-          }}
           onVideoDidFailToLoad={this.props.onVideoDidFailToLoad}
-          onVideoDidPause={this.props.onVideoDidPause}
           onVideoDidUpdatePlaybackTime={({ nativeEvent }) => {
             if (!nativeEvent) {
               return;
             }
             const { playbackTime, duration } = nativeEvent;
-            this.props.onVideoDidUpdatePlaybackTime(playbackTime, duration);
+            if (this.props.onVideoDidUpdatePlaybackTime) {
+              this.props.onVideoDidUpdatePlaybackTime(playbackTime, duration);
+            }
           }}
-          onVideoDidRestart={this.props.onVideoDidRestart}
+          onVideoWillRestart={() => {
+            if (this.props.onVideoWillRestart) {
+              this.props.onVideoWillRestart();
+            }
+          }}
+          onPlaybackStateChange={({ nativeEvent }) => {
+            if (!nativeEvent || !this.props.onPlaybackStateChange) {
+              return;
+            }
+            this.props.onPlaybackStateChange(nativeEvent.playbackState);
+          }}
         />
       </View>
     );

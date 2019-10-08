@@ -5,7 +5,6 @@
 
 #import "HSReactNativeMedia-Swift.h"
 #import "HSVideoPlayerViewManager.h"
-#import "HSVideoPlayerWrappingView.h"
 #import "RCTConvert+UIImageOrientation.h"
 
 @implementation HSVideoPlayerViewManager
@@ -29,24 +28,23 @@ RCT_EXPORT_MODULE()
   return NO;
 }
 
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidBecomeReadyToPlay, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidPause, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidRestart, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onVideoDidRestart, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateChange, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
       addUIBlock:^(RCTUIManager *uiManager,
                    NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-        HSVideoPlayerWrappingView *view =
-            (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
-          RCTLogError(@"Cannot find HSVideoPlayerWrappingView with tag #%@",
+        HSVideoPlayerBridgeView *view =
+            (HSVideoPlayerBridgeView *)viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+          RCTLogError(@"Cannot find HSVideoPlayerBridgeView with tag #%@",
                       reactTag);
           return;
         }
-        [view.playerView play];
+        [view play];
       }];
 }
 
@@ -54,13 +52,14 @@ RCT_EXPORT_METHOD(pause : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
       addUIBlock:^(RCTUIManager *uiManager,
                    NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-        HSVideoPlayerWrappingView *view =
-            (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
-          RCTLogError(@"Cannot find VideoPlayerView with tag #%@", reactTag);
+        HSVideoPlayerBridgeView *view =
+            (HSVideoPlayerBridgeView *)viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+          RCTLogError(@"Cannot find HSVideoPlayerBridgeView with tag #%@",
+                      reactTag);
           return;
         }
-        [view.playerView pause];
+        [view pause];
       }];
 }
 
@@ -68,14 +67,15 @@ RCT_EXPORT_METHOD(restart : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
       addUIBlock:^(RCTUIManager *uiManager,
                    NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-        HSVideoPlayerWrappingView *view =
-            (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
-          RCTLogError(@"Cannot find VideoPlayerView with tag #%@", reactTag);
+        HSVideoPlayerBridgeView *view =
+            (HSVideoPlayerBridgeView *)viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+          RCTLogError(@"Cannot find HSVideoPlayerBridgeView with tag #%@",
+                      reactTag);
           return;
         }
-        [view.playerView restartWithCompletionHandler:^(BOOL success) {
-          [view.playerView play];
+        [view restartWithCompletionHandler:^(BOOL success) {
+          [view play];
         }];
       }];
 }
@@ -87,17 +87,18 @@ RCT_EXPORT_METHOD(seekToTime
   [self.bridge.uiManager
       addUIBlock:^(RCTUIManager *uiManager,
                    NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-        HSVideoPlayerWrappingView *view =
-            (HSVideoPlayerWrappingView *)viewRegistry[reactTag];
-        if (!view || ![view isKindOfClass:[HSVideoPlayerWrappingView class]]) {
-          RCTLogError(@"Cannot find VideoPlayerView with tag #%@", reactTag);
+        HSVideoPlayerBridgeView *view =
+            (HSVideoPlayerBridgeView *)viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+          RCTLogError(@"Cannot find HSVideoPlayerBridgeView with tag #%@",
+                      reactTag);
           return;
         }
         CMTime time = CMTimeMakeWithSeconds([seekTime floatValue], 600);
-        [view.playerView seekTo:time
-              completionHandler:^(BOOL success) {
-                callback(@[ [NSNull null], @(success) ]);
-              }];
+        [view seekTo:time
+            completionHandler:^(BOOL success) {
+              callback(@[ [NSNull null], @(success) ]);
+            }];
       }];
 }
 
@@ -119,15 +120,81 @@ RCT_CUSTOM_VIEW_PROPERTY(localIdentifier, NSString, UIView) {
                resultHandler:^(AVAsset *_Nullable asset,
                                AVAudioMix *_Nullable audioMix,
                                NSDictionary *_Nullable info) {
-                 HSVideoPlayerWrappingView *playerViewWrap =
-                     (HSVideoPlayerWrappingView *)view;
-                 playerViewWrap.playerView.asset = asset;
+                 if (!view ||
+                     ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+                   RCTLogError(@"Cannot find HSVideoPlayerBridgeView");
+                   return;
+                 }
+                 ((HSVideoPlayerBridgeView *)view).asset = asset;
                }];
 }
 
 - (UIView *)view {
-  HSVideoPlayerWrappingView *view = [[HSVideoPlayerWrappingView alloc] init];
+  HSVideoPlayerBridgeView *view = [[HSVideoPlayerBridgeView alloc] init];
   return view;
+}
+
+#pragma MARK - HSVideoPlayerViewDelegate methods
+
+- (void)videoPlayerView:(HSVideoPlayerView *)view
+    didChangePlaybackState:(enum HSVideoPlaybackState)playbackState {
+  if (![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+    return;
+  }
+  HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
+  if (bridgeView.onPlaybackStateChange) {
+    NSDictionary *conversionDict = @{
+      @(HSVideoPlaybackStatePlaying) : @"playing",
+      @(HSVideoPlaybackStatePaused) : @"paused",
+      @(HSVideoPlaybackStateWaiting) : @"waiting",
+      @(HSVideoPlaybackStateReadyToPlay) : @"readyToPlay",
+    };
+    NSString *playbackStateKey = [conversionDict objectForKey:@(playbackState)];
+    if (bridgeView.onPlaybackStateChange) {
+      bridgeView.onPlaybackStateChange(@{@"playbackState" : playbackStateKey});
+    }
+  }
+}
+
+- (void)videoPlayerView:(HSVideoPlayerView *_Nonnull)view
+    didUpdatePlaybackTime:(CMTime)time
+                 duration:(CMTime)duration {
+  if (![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+    return;
+  }
+  HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
+  if (!bridgeView.onVideoDidUpdatePlaybackTime) {
+    return;
+  }
+  NSNumber *durationNumber =
+      [NSNumber numberWithFloat:CMTimeGetSeconds(duration)];
+  NSNumber *playbackTimeNumber =
+      [NSNumber numberWithFloat:CMTimeGetSeconds(time)];
+  NSDictionary *body =
+      @{@"duration" : durationNumber, @"playbackTime" : playbackTimeNumber};
+  if (bridgeView.onVideoDidUpdatePlaybackTime) {
+    bridgeView.onVideoDidUpdatePlaybackTime(body);
+  }
+}
+
+- (void)videoPlayerViewDidFailToLoad:(HSVideoPlayerView *_Nonnull)view {
+  if (![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+    return;
+  }
+  HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
+  if (bridgeView.onVideoDidFailToLoad) {
+    bridgeView.onVideoDidFailToLoad(@{});
+  }
+}
+
+- (void)videoPlayerViewWillRestartVideo:(HSVideoPlayerView *_Nonnull)view {
+  if (![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+    return;
+  }
+  HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
+  if (bridgeView.onVideoWillRestart) {
+    bridgeView.onVideoWillRestart(@{});
+  }
 }
 
 @end

@@ -4,5 +4,5 @@
 #import <React/RCTViewManager.h>
 
 @class HSVideoPlayerViewManager;
-@interface HSVideoPlayerViewManager : RCTViewManager
+@interface HSVideoPlayerViewManager : RCTViewManager <HSVideoPlayerViewDelegate>
 @end

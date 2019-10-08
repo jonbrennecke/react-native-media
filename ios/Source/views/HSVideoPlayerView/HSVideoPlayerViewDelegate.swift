@@ -1,10 +1,17 @@
 import AVFoundation
 
+@available(iOS 10.0, *)
 @objc
 protocol HSVideoPlayerViewDelegate {
-  func videoPlayerDidBecomeReadyToPlayAsset(_ asset: AVAsset)
-  func videoPlayerDidFailToLoad()
-  func videoPlayerDidPause()
-  func videoPlayerDidUpdatePlaybackTime(_ time: CMTime, duration: CMTime)
-  func videoPlayerDidRestartVideo()
+  @objc(videoPlayerViewDidFailToLoad:)
+  func videoPlayerViewDidFailToLoad(_ view: HSVideoPlayerView)
+
+  @objc(videoPlayerView:didUpdatePlaybackTime:duration:)
+  func videoPlayer(view: HSVideoPlayerView, didUpdatePlaybackTime time: CMTime, duration: CMTime)
+
+  @objc(videoPlayerViewWillRestartVideo:)
+  func videoPlayerViewWillRestartVideo(_ view: HSVideoPlayerView)
+
+  @objc(videoPlayerView:didChangePlaybackState:)
+  func videoPlayer(view: HSVideoPlayerView, didChangePlaybackState playbackState: HSVideoPlaybackState)
 }

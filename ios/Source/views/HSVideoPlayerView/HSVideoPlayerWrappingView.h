@@ -11,6 +11,7 @@
 @property(nonatomic, copy) RCTBubblingEventBlock onVideoDidPause;
 @property(nonatomic, copy) RCTBubblingEventBlock onVideoDidUpdatePlaybackTime;
 @property(nonatomic, copy) RCTBubblingEventBlock onVideoDidRestart;
+@property(nonatomic, copy) RCTBubblingEventBlock onVideoDidChangePlaybackState;
 - (void)videoPlayerDidFailToLoad;
 - (void)videoPlayerDidBecomeReadyToPlayAsset:(AVAsset *)asset;
 - (void)videoPlayerDidPause;

@@ -20,7 +20,10 @@ class HSVideoPlayerView: UIView {
 
   private var player = AVQueuePlayer()
   private var timeObserverToken: Any?
-  private var backgroundQueue = DispatchQueue(label: "video player queue")
+  private var backgroundQueue = DispatchQueue(
+    label: "com.jonbrennecke.captionThis.videoPlayerQueue",
+    qos: .userInitiated
+  )
 
   @objc
   public var asset: AVAsset? {
@@ -28,48 +31,55 @@ class HSVideoPlayerView: UIView {
       guard let asset = self.asset else {
         return
       }
-      backgroundQueue.async {
+      backgroundQueue.async { [weak self] in
+        guard let strongSelf = self else { return }
         let audioSession = AVAudioSession.sharedInstance()
         try? audioSession.setCategory(.playback)
         try? audioSession.setActive(true, options: .init())
-        let item = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: ["playable", "hasProtectedContent", "preferredTransform"])
-        item.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        self.item = item
-        self.player.replaceCurrentItem(with: item)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidPlayToEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        self.play()
+        let item = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: [
+          "playable", "hasProtectedContent", "preferredTransform",
+        ])
+        strongSelf.item = item
+        strongSelf.player.replaceCurrentItem(with: item)
+        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.old, .new], context: nil)
+        NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.playerDidPlayToEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
       }
     }
   }
 
   @objc
   private func playerDidPlayToEnd(notification _: NSNotification) {
-    delegate?.videoPlayerDidRestartVideo()
+    delegate?.videoPlayerViewWillRestartVideo(self)
   }
 
   override func observeValue(forKeyPath keyPath: String?, of _: Any?, change: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
-    if keyPath == #keyPath(AVPlayerItem.status) {
-      var status: AVPlayerItem.Status
-      if let statusNumber = change?[.newKey] as? NSNumber {
-        if let _status = AVPlayerItem.Status(rawValue: statusNumber.intValue) {
-          status = _status
-        } else {
-          status = .unknown
-        }
-      } else {
-        status = .unknown
-      }
-      switch status {
-      case .readyToPlay:
+    if
+      keyPath == #keyPath(AVPlayer.status),
+      let statusRawValue = change?[.newKey] as? NSNumber,
+      let status = AVPlayer.Status(rawValue: statusRawValue.intValue) {
+      if case .readyToPlay = status {
         onVideoDidBecomeReadyToPlay()
-        return
-      case .failed:
+      } else if case .failed = status {
         onVideoDidFailToLoad()
-        return
-      case .unknown:
-        return
-      default:
-        return
+      }
+    }
+
+    if
+      keyPath == #keyPath(AVPlayer.timeControlStatus),
+      let newStatusRawValue = change?[.newKey] as? NSNumber,
+      let oldStatusRawValue = change?[.oldKey] as? NSNumber,
+      oldStatusRawValue != newStatusRawValue,
+      let status = AVPlayer.TimeControlStatus(rawValue: newStatusRawValue.intValue) {
+      switch status {
+      case .waitingToPlayAtSpecifiedRate:
+        delegate?.videoPlayer(view: self, didChangePlaybackState: .waiting)
+      case .paused:
+        delegate?.videoPlayer(view: self, didChangePlaybackState: .paused)
+      case .playing:
+        delegate?.videoPlayer(view: self, didChangePlaybackState: .playing)
+        @unknown default:
+        break
       }
     }
   }
@@ -114,7 +124,7 @@ class HSVideoPlayerView: UIView {
       return
     }
     playerLooper = AVPlayerLooper(player: player, templateItem: item)
-    delegate?.videoPlayerDidBecomeReadyToPlayAsset(asset)
+    delegate?.videoPlayer(view: self, didChangePlaybackState: .readyToPlay)
     startTimeObvserver()
     DispatchQueue.main.async {
       switch orientation(forAsset: asset) {
@@ -138,12 +148,17 @@ class HSVideoPlayerView: UIView {
       let time = CMTime(seconds: 0.1, preferredTimescale: timeScale)
       self.timeObserverToken = self.player.addPeriodicTimeObserver(forInterval: time, queue: .main) {
         [weak self] time in
-        self?.delegate?.videoPlayerDidUpdatePlaybackTime(time, duration: asset.duration)
+        guard let strongSelf = self else { return }
+        strongSelf.delegate?.videoPlayer(
+          view: strongSelf,
+          didUpdatePlaybackTime: time,
+          duration: asset.duration
+        )
       }
     }
   }
 
   private func onVideoDidFailToLoad() {
-    delegate?.videoPlayerDidFailToLoad()
+    delegate?.videoPlayerViewDidFailToLoad(self)
   }
 }
