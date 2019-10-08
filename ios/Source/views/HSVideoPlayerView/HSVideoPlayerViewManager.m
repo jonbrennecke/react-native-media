@@ -131,6 +131,7 @@ RCT_CUSTOM_VIEW_PROPERTY(localIdentifier, NSString, UIView) {
 
 - (UIView *)view {
   HSVideoPlayerBridgeView *view = [[HSVideoPlayerBridgeView alloc] init];
+  view.delegate = self;
   return view;
 }
 

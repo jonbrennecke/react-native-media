@@ -1,8 +1,9 @@
 // @flow
-import React from 'react';
+import React, { PureComponent, createRef } from 'react';
+import { autobind } from 'core-decorators';
 import { storiesOf } from '@storybook/react-native';
+import { withKnobs, button } from '@storybook/addon-knobs';
 import { SafeAreaView } from 'react-native';
-import noop from 'lodash/noop';
 
 import {
   VideoPlayer,
@@ -10,7 +11,7 @@ import {
   authorizeMediaLibrary,
 } from '@jonbrennecke/react-native-media';
 
-import { StorybookStateWrapper } from '../utils';
+import type { MediaObject } from '@jonbrennecke/react-native-media';
 
 const styles = {
   container: {
@@ -21,37 +22,80 @@ const styles = {
   },
 };
 
-const authorizeAndLoadAssets = async (state, setState) => {
-  await authorizeMediaLibrary();
-  const assets = await queryVideos({ limit: 1 });
-  setState({ assets });
+type Props = {};
+
+type State = {
+  assets: Array<MediaObject>,
 };
 
-storiesOf('Video', module).add('Video Player', () => (
+// $FlowFixMe
+@autobind
+class StoryComponent extends PureComponent<Props, State> {
+  videoPlayerRef = createRef();
+  state = {
+    assets: [],
+  };
+  
+  async componentDidMount() {
+    await authorizeMediaLibrary();
+    const assets = await queryVideos({ limit: 1 });
+    this.setState({ assets });
+  }
+
+  configureButtons() {
+    button('Play', () => {
+      if (this.videoPlayerRef.current) {
+        this.videoPlayerRef.current.play();
+      }
+    });
+    button('Pause', () => {
+      if (this.videoPlayerRef.current) {
+        this.videoPlayerRef.current.pause();
+      }
+    });
+    button('Seek to beginning', () => {
+      if (this.videoPlayerRef.current) {
+        this.videoPlayerRef.current.seekToTime(0);
+      }
+    });
+  }
+
+  render() {
+    this.configureButtons();
+    const { assets } = this.state;
+    if (!assets || !assets.length) {
+      return null;
+    }
+    return (
+      <VideoPlayer
+        ref={this.videoPlayerRef}
+        style={styles.video}
+        videoID={assets[0].assetID}
+        onVideoDidFailToLoad={() => {
+          // eslint-disable-next-line no-console
+          console.log('video failed to load');
+        }}
+        onVideoDidUpdatePlaybackTime={progress => {
+          // eslint-disable-next-line no-console
+          console.log(`progress: ${progress}`);
+        }}
+        onPlaybackStateChange={playbackState => {
+          // eslint-disable-next-line no-console
+          console.log(`playback state: ${playbackState}`);
+        }}
+        onVideoDidRestart={() => {
+          // eslint-disable-next-line no-console
+          console.log('video restarted');
+        }}
+      />
+    );
+  }
+}
+
+const stories = storiesOf('Video', module)
+stories.addDecorator(withKnobs);
+stories.add('Video Player', () => (
   <SafeAreaView style={styles.container}>
-    <StorybookStateWrapper
-      onMount={(state, setState) => {
-        authorizeAndLoadAssets(state, setState);
-      }}
-      initialState={{ assets: [], playbackTime: 0 }}
-      render={getState => {
-        const { assets } = getState();
-        return (
-          assets &&
-          assets[0] && (
-            <VideoPlayer
-              style={styles.video}
-              videoID={assets[0].assetID}
-              onVideoDidFailToLoad={noop}
-              onVideoDidBecomeReadyToPlay={noop}
-              onVideoDidPause={noop}
-              onVideoDidUpdatePlaybackTime={noop}
-              onVideoDidRestart={noop}
-              onViewDidResize={noop}
-            />
-          )
-        );
-      }}
-    />
+    <StoryComponent/>
   </SafeAreaView>
 ));
