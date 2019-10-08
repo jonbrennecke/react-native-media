@@ -30,7 +30,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidRestart, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateChange, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
