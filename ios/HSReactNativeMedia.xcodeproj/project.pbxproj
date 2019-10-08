@@ -153,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				FC73F2F122B02A92009B6D9F /* RCTConvert */,
+				FCE0B564234D008400A33112 /* HSVideoPlaybackState.swift */,
 				FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */,
 				FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */,
 				FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */,
@@ -160,7 +161,6 @@
 				FC73F2EE22B029F7009B6D9F /* HSVideoPlayerWrappingView.h */,
 				FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */,
 				FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */,
-				FCE0B564234D008400A33112 /* HSVideoPlaybackState.swift */,
 				FCE0B566234D01BF00A33112 /* HSVideoPlayerBridgeView.swift */,
 			);
 			path = HSVideoPlayerView;
