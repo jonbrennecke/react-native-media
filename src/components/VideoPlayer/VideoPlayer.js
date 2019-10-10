@@ -19,10 +19,7 @@ type Props = {
   style?: ?Style,
   assetID: string,
   onVideoDidFailToLoad?: () => void,
-  onPlaybackTimeDidUpdate?: (
-    playbackTime: number,
-    duration: number
-  ) => void,
+  onPlaybackTimeDidUpdate?: (playbackTime: number, duration: number) => void,
   onVideoWillRestart?: () => void,
   onViewDidResize?: Size => void,
   onPlaybackStateDidChange?: PlaybackState => void,

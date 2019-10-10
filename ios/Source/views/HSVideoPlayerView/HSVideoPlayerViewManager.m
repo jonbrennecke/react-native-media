@@ -31,8 +31,8 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackTimeDidUpdate, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
