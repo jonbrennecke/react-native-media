@@ -75,7 +75,7 @@ class StoryComponent extends PureComponent<Props, State> {
           // eslint-disable-next-line no-console
           console.log('video failed to load');
         }}
-        onVideoDidUpdatePlaybackTime={progress => {
+        onPlaybackTimeDidUpdate={progress => {
           // eslint-disable-next-line no-console
           console.log(`progress: ${progress}`);
         }}
@@ -83,7 +83,7 @@ class StoryComponent extends PureComponent<Props, State> {
           // eslint-disable-next-line no-console
           console.log(`playback state: ${playbackState}`);
         }}
-        onVideoDidRestart={() => {
+        onVideoWillRestart={() => {
           // eslint-disable-next-line no-console
           console.log('video restarted');
         }}

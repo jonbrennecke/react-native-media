@@ -29,10 +29,10 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onPlaybackTimeDidUpdate, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
@@ -160,7 +160,8 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
     };
     NSString *playbackStateKey = [conversionDict objectForKey:@(playbackState)];
     if (bridgeView.onPlaybackStateDidChange) {
-      bridgeView.onPlaybackStateDidChange(@{@"playbackState" : playbackStateKey});
+      bridgeView.onPlaybackStateDidChange(
+          @{@"playbackState" : playbackStateKey});
     }
   }
 }
@@ -172,17 +173,14 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
     return;
   }
   HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
-  if (!bridgeView.onVideoDidUpdatePlaybackTime) {
-    return;
-  }
   NSNumber *durationNumber =
       [NSNumber numberWithFloat:CMTimeGetSeconds(duration)];
   NSNumber *playbackTimeNumber =
       [NSNumber numberWithFloat:CMTimeGetSeconds(time)];
   NSDictionary *body =
       @{@"duration" : durationNumber, @"playbackTime" : playbackTimeNumber};
-  if (bridgeView.onVideoDidUpdatePlaybackTime) {
-    bridgeView.onVideoDidUpdatePlaybackTime(body);
+  if (bridgeView.onPlaybackTimeDidUpdate) {
+    bridgeView.onPlaybackTimeDidUpdate(body);
   }
 }
 

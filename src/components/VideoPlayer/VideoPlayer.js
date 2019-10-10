@@ -19,7 +19,7 @@ type Props = {
   style?: ?Style,
   assetID: string,
   onVideoDidFailToLoad?: () => void,
-  onVideoDidUpdatePlaybackTime?: (
+  onPlaybackTimeDidUpdate?: (
     playbackTime: number,
     duration: number
   ) => void,
@@ -95,18 +95,18 @@ export class VideoPlayer extends Component<Props> {
           style={styles.nativeView}
           assetID={this.props.assetID}
           onVideoDidFailToLoad={this.props.onVideoDidFailToLoad}
-          onVideoDidUpdatePlaybackTime={({ nativeEvent }) => {
+          onVideoWillRestart={() => {
+            if (this.props.onVideoWillRestart) {
+              this.props.onVideoWillRestart();
+            }
+          }}
+          onPlaybackTimeDidUpdate={({ nativeEvent }) => {
             if (!nativeEvent) {
               return;
             }
             const { playbackTime, duration } = nativeEvent;
-            if (this.props.onVideoDidUpdatePlaybackTime) {
-              this.props.onVideoDidUpdatePlaybackTime(playbackTime, duration);
-            }
-          }}
-          onVideoWillRestart={() => {
-            if (this.props.onVideoWillRestart) {
-              this.props.onVideoWillRestart();
+            if (this.props.onPlaybackTimeDidUpdate) {
+              this.props.onPlaybackTimeDidUpdate(playbackTime, duration);
             }
           }}
           onPlaybackStateDidChange={({ nativeEvent }) => {
