@@ -5,7 +5,7 @@ import UIKit
 @objc
 class HSVideoPlayerBridgeView: HSVideoPlayerView {
   @objc
-  public var onPlaybackStateChange: RCTDirectEventBlock?
+  public var onPlaybackStateDidChange: RCTDirectEventBlock?
 
   @objc
   public var onVideoDidFailToLoad: RCTDirectEventBlock?

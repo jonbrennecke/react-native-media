@@ -31,7 +31,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateChange, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
@@ -151,7 +151,7 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
     return;
   }
   HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
-  if (bridgeView.onPlaybackStateChange) {
+  if (bridgeView.onPlaybackStateDidChange) {
     NSDictionary *conversionDict = @{
       @(HSVideoPlaybackStatePlaying) : @"playing",
       @(HSVideoPlaybackStatePaused) : @"paused",
@@ -159,8 +159,8 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
       @(HSVideoPlaybackStateReadyToPlay) : @"readyToPlay",
     };
     NSString *playbackStateKey = [conversionDict objectForKey:@(playbackState)];
-    if (bridgeView.onPlaybackStateChange) {
-      bridgeView.onPlaybackStateChange(@{@"playbackState" : playbackStateKey});
+    if (bridgeView.onPlaybackStateDidChange) {
+      bridgeView.onPlaybackStateDidChange(@{@"playbackState" : playbackStateKey});
     }
   }
 }

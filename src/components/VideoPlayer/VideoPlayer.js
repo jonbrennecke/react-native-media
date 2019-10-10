@@ -25,7 +25,7 @@ type Props = {
   ) => void,
   onVideoWillRestart?: () => void,
   onViewDidResize?: Size => void,
-  onPlaybackStateChange?: PlaybackState => void,
+  onPlaybackStateDidChange?: PlaybackState => void,
   onOrientationDidLoad?: Orientation => void,
 };
 
@@ -109,11 +109,11 @@ export class VideoPlayer extends Component<Props> {
               this.props.onVideoWillRestart();
             }
           }}
-          onPlaybackStateChange={({ nativeEvent }) => {
-            if (!nativeEvent || !this.props.onPlaybackStateChange) {
+          onPlaybackStateDidChange={({ nativeEvent }) => {
+            if (!nativeEvent || !this.props.onPlaybackStateDidChange) {
               return;
             }
-            this.props.onPlaybackStateChange(nativeEvent.playbackState);
+            this.props.onPlaybackStateDidChange(nativeEvent.playbackState);
           }}
           onOrientationDidLoad={({ nativeEvent }) => {
             if (!nativeEvent || !this.props.onOrientationDidLoad) {
