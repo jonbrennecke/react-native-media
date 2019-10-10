@@ -16,7 +16,6 @@
 		FC73F2E822B02723009B6D9F /* HSVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E722B02723009B6D9F /* HSVideoPlayerView.swift */; };
 		FC73F2EA22B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */; };
 		FC73F2EC22B028D5009B6D9F /* HSVideoPlayerViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */; };
-		FC73F2F022B02A02009B6D9F /* HSVideoPlayerWrappingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */; };
 		FC73F2F322B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2F222B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m */; };
 		FC73F2F822B02F1F009B6D9F /* OrientationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */; };
 		FC73F2FA22B05650009B6D9F /* HSMediaLibraryBasicQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC73F2F922B05650009B6D9F /* HSMediaLibraryBasicQuery.swift */; };
@@ -67,8 +66,6 @@
 		FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerViewDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = HSVideoPlayerViewManager.m; sourceTree = "<group>"; tabWidth = 2; };
 		FC73F2ED22B029A9009B6D9F /* HSVideoPlayerViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSVideoPlayerViewManager.h; sourceTree = "<group>"; };
-		FC73F2EE22B029F7009B6D9F /* HSVideoPlayerWrappingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSVideoPlayerWrappingView.h; sourceTree = "<group>"; };
-		FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HSVideoPlayerWrappingView.m; sourceTree = "<group>"; };
 		FC73F2F222B02AA5009B6D9F /* RCTConvert+UIImageOrientation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+UIImageOrientation.m"; sourceTree = "<group>"; };
 		FC73F2F422B02AB1009B6D9F /* RCTConvert+UIImageOrientation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+UIImageOrientation.h"; sourceTree = "<group>"; };
 		FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationUtil.swift; sourceTree = "<group>"; };
@@ -158,8 +155,6 @@
 				FC73F2E922B0284F009B6D9F /* HSVideoPlayerViewDelegate.swift */,
 				FC73F2EB22B028D5009B6D9F /* HSVideoPlayerViewManager.m */,
 				FC73F2ED22B029A9009B6D9F /* HSVideoPlayerViewManager.h */,
-				FC73F2EE22B029F7009B6D9F /* HSVideoPlayerWrappingView.h */,
-				FC73F2EF22B02A02009B6D9F /* HSVideoPlayerWrappingView.m */,
 				FC73F2F722B02F1F009B6D9F /* OrientationUtil.swift */,
 				FCE0B566234D01BF00A33112 /* HSVideoPlayerBridgeView.swift */,
 			);
@@ -311,7 +306,6 @@
 				FC73F2FA22B05650009B6D9F /* HSMediaLibraryBasicQuery.swift in Sources */,
 				FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */,
 				FCDAC44522ADF989004A36E7 /* HSMediaLibraryDelegate.swift in Sources */,
-				FC73F2F022B02A02009B6D9F /* HSVideoPlayerWrappingView.m in Sources */,
 				FC73F2FC22B059BE009B6D9F /* HSMediaAlbum.swift in Sources */,
 				FCDAC44722ADFB4B004A36E7 /* HSMediaLibraryBridgeModule.m in Sources */,
 				FCDAC44E22AE017E004A36E7 /* HSMediaType.swift in Sources */,
