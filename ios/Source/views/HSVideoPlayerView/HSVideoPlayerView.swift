@@ -127,14 +127,9 @@ class HSVideoPlayerView: UIView {
     delegate?.videoPlayer(view: self, didChangePlaybackState: .readyToPlay)
     startTimeObvserver()
     DispatchQueue.main.async {
-      switch orientation(forAsset: asset) {
-      case .left, .leftMirrored, .right, .rightMirrored:
-        self.playerLayer.videoGravity = .resizeAspect
-        break
-      default:
-        self.playerLayer.videoGravity = .resizeAspectFill
-        break
-      }
+      self.playerLayer.videoGravity = isLandscape(orientation: orientation(forAsset: asset))
+        ? .resizeAspect
+        : .resizeAspectFill
       self.playerLayer.player = self.player
     }
   }
