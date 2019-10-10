@@ -17,13 +17,8 @@ type ReactNativeFiberHostComponent = any;
 
 type Props = {
   style?: ?Style,
-  videoID: string,
+  assetID: string,
   onVideoDidFailToLoad?: () => void,
-  onVideoDidBecomeReadyToPlay?: (
-    duration: number,
-    orientation: Orientation
-  ) => void,
-  onVideoDidPause?: () => void,
   onVideoDidUpdatePlaybackTime?: (
     playbackTime: number,
     duration: number
@@ -31,6 +26,7 @@ type Props = {
   onVideoWillRestart?: () => void,
   onViewDidResize?: Size => void,
   onPlaybackStateChange?: PlaybackState => void,
+  onOrientationDidLoad?: Orientation => void,
 };
 
 const styles = {
@@ -97,7 +93,7 @@ export class VideoPlayer extends Component<Props> {
             this.nativeComponentRef = ref;
           }}
           style={styles.nativeView}
-          localIdentifier={this.props.videoID}
+          assetID={this.props.assetID}
           onVideoDidFailToLoad={this.props.onVideoDidFailToLoad}
           onVideoDidUpdatePlaybackTime={({ nativeEvent }) => {
             if (!nativeEvent) {
@@ -118,6 +114,12 @@ export class VideoPlayer extends Component<Props> {
               return;
             }
             this.props.onPlaybackStateChange(nativeEvent.playbackState);
+          }}
+          onOrientationDidLoad={({ nativeEvent }) => {
+            if (!nativeEvent || !this.props.onOrientationDidLoad) {
+              return;
+            }
+            this.props.onOrientationDidLoad(nativeEvent.orientation);
           }}
         />
       </View>

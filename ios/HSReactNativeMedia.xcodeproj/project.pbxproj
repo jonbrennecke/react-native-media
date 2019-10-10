@@ -87,7 +87,7 @@
 		FCDAC45422AEB426004A36E7 /* HSMediaLibraryDateQueryEquation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSMediaLibraryDateQueryEquation.swift; sourceTree = "<group>"; };
 		FCDAC45622AEF2E4004A36E7 /* HSDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSDateFormatter.swift; sourceTree = "<group>"; };
 		FCE0B564234D008400A33112 /* HSVideoPlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVideoPlaybackState.swift; sourceTree = "<group>"; };
-		FCE0B566234D01BF00A33112 /* HSVideoPlayerBridgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerBridgeView.swift; sourceTree = "<group>"; };
+		FCE0B566234D01BF00A33112 /* HSVideoPlayerBridgeView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSVideoPlayerBridgeView.swift; sourceTree = "<group>"; tabWidth = 2; };
 		FCE0B568234D052B00A33112 /* RCTConvert+HSVideoPlaybackState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+HSVideoPlaybackState.h"; sourceTree = "<group>"; };
 		FCE0B569234D058700A33112 /* RCTConvert+HSVideoPlaybackState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+HSVideoPlaybackState.m"; sourceTree = "<group>"; };
 		FCFC983922AC7CD20089D452 /* HSThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSThumbnailView.swift; sourceTree = "<group>"; };

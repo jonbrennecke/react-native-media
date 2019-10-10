@@ -32,6 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidUpdatePlaybackTime, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateChange, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(play : (nonnull NSNumber *)reactTag) {
   [self.bridge.uiManager
@@ -102,31 +103,38 @@ RCT_EXPORT_METHOD(seekToTime
       }];
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(localIdentifier, NSString, UIView) {
-  NSString *localIdentifier = [RCTConvert NSString:json];
-  PHFetchResult<PHAsset *> *fetchResult =
-      [PHAsset fetchAssetsWithLocalIdentifiers:@[ localIdentifier ]
-                                       options:nil];
-  PHAsset *asset = fetchResult.firstObject;
-  if (asset == nil) {
+RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
+  NSString *assetID = [RCTConvert NSString:json];
+  if (!view || ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
+    RCTLogError(@"Cannot find HSVideoPlayerBridgeView");
     return;
   }
-  PHVideoRequestOptions *requestOptions = [[PHVideoRequestOptions alloc] init];
-  requestOptions.deliveryMode =
-      PHImageRequestOptionsDeliveryModeHighQualityFormat;
-  [PHImageManager.defaultManager
-      requestAVAssetForVideo:asset
-                     options:requestOptions
-               resultHandler:^(AVAsset *_Nullable asset,
-                               AVAudioMix *_Nullable audioMix,
-                               NSDictionary *_Nullable info) {
-                 if (!view ||
-                     ![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
-                   RCTLogError(@"Cannot find HSVideoPlayerBridgeView");
-                   return;
-                 }
-                 ((HSVideoPlayerBridgeView *)view).asset = asset;
-               }];
+  HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
+  [bridgeView loadAssetWithAssetID:assetID
+                 completionHandler:^(AVAsset *_Nullable asset) {
+                   bridgeView.asset = asset;
+                   if (!asset) {
+                     return;
+                   }
+                   UIImageOrientation orientation =
+                       [OrientationUtil orientationForAsset:asset];
+                   NSDictionary *conversionDict = @{
+                     @(UIImageOrientationUp) : @"up",
+                     @(UIImageOrientationUpMirrored) : @"upMirrored",
+                     @(UIImageOrientationDown) : @"down",
+                     @(UIImageOrientationDownMirrored) : @"downMirrored",
+                     @(UIImageOrientationLeft) : @"left",
+                     @(UIImageOrientationLeftMirrored) : @"leftMirrored",
+                     @(UIImageOrientationRight) : @"right",
+                     @(UIImageOrientationRightMirrored) : @"rightMirrored",
+                   };
+                   NSString *orientationString =
+                       [conversionDict objectForKey:@(orientation)];
+                   if (bridgeView.onOrientationDidLoad) {
+                     bridgeView.onOrientationDidLoad(
+                         @{@"orientation" : orientationString});
+                   }
+                 }];
 }
 
 - (UIView *)view {

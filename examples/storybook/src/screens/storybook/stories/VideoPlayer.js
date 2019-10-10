@@ -70,7 +70,7 @@ class StoryComponent extends PureComponent<Props, State> {
       <VideoPlayer
         ref={this.videoPlayerRef}
         style={styles.video}
-        videoID={assets[0].assetID}
+        assetID={assets[0].assetID}
         onVideoDidFailToLoad={() => {
           // eslint-disable-next-line no-console
           console.log('video failed to load');
@@ -86,6 +86,10 @@ class StoryComponent extends PureComponent<Props, State> {
         onVideoDidRestart={() => {
           // eslint-disable-next-line no-console
           console.log('video restarted');
+        }}
+        onOrientationDidLoad={orientation => {
+          // eslint-disable-next-line no-console
+          console.log(`Orientation: ${orientation}`);
         }}
       />
     );
