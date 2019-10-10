@@ -48,7 +48,7 @@ extension HSMediaAsset: NSDictionaryConvertible {
       "mediaType": mediaType.stringValue,
       "size": [
         "width": size.width,
-        "height": size.height
+        "height": size.height,
       ],
     ] as NSDictionary
   }
