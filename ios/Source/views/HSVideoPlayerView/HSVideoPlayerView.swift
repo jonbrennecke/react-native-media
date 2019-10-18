@@ -101,7 +101,12 @@ class HSVideoPlayerView: UIView {
 
   @objc
   public func restart(completionHandler: @escaping (Bool) -> Void) {
-    seek(to: .zero, completionHandler: completionHandler)
+    seek(to: .zero) { success in
+      if success {
+        player.play()
+      }
+      completionHandler(success)
+    }
   }
 
   @objc
