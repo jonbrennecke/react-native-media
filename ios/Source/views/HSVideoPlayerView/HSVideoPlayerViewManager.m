@@ -29,7 +29,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(videoPlayerViewDidPlayToEnd, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onVideoDidPlayToEnd, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackTimeDidUpdate, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)

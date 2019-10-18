@@ -18,7 +18,6 @@ class HSVideoPlayerView: UIView {
     return layer as! AVPlayerLayer
   }
 
-//  private var player: AVQueuePlayer!
   private var player = AVQueuePlayer()
   private var timeObserverToken: Any?
   private var backgroundQueue = DispatchQueue(
@@ -32,29 +31,29 @@ class HSVideoPlayerView: UIView {
     }
   }
 
-  @objc
-  public var asset: AVAsset? {
-    didSet {
-      guard let asset = self.asset else {
-        return
+  private func startTimeObvserver() {
+    guard let asset = asset else {
+      return
+    }
+    backgroundQueue.async {
+      let timeScale = CMTimeScale(NSEC_PER_SEC)
+      let time = CMTime(seconds: 1 / 60, preferredTimescale: timeScale)
+      if let token = self.timeObserverToken {
+        self.player.removeTimeObserver(token)
       }
-      backgroundQueue.async { [weak self] in
+      self.timeObserverToken = self.player.addPeriodicTimeObserver(forInterval: time, queue: .main) {
+        [weak self] time in
         guard let strongSelf = self else { return }
-        let item = AVPlayerItem(asset: asset)
-        strongSelf.item = item
-        strongSelf.player.replaceCurrentItem(with: item)
-        strongSelf.player.actionAtItemEnd = .pause
-        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.old, .new], context: nil)
-        NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.playerDidPlayToEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        strongSelf.delegate?.videoPlayer(
+          view: strongSelf,
+          didUpdatePlaybackTime: time,
+          duration: asset.duration
+        )
       }
     }
   }
 
-  @objc
-  private func playerDidPlayToEnd(notification _: NSNotification) {
-    delegate?.videoPlayerViewDidPlayToEnd(self)
-  }
+  // MARK: - UIView methods
 
   override func observeValue(forKeyPath keyPath: String?, of _: Any?, change: [NSKeyValueChangeKey: Any]?, context _: UnsafeMutableRawPointer?) {
     if
@@ -90,6 +89,27 @@ class HSVideoPlayerView: UIView {
   override func didMoveToSuperview() {
     super.didMoveToSuperview()
     playerLayer.videoGravity = .resizeAspectFill
+  }
+
+  // MARK: - public objc interface
+
+  @objc
+  public var asset: AVAsset? {
+    didSet {
+      guard let asset = self.asset else {
+        return
+      }
+      backgroundQueue.async { [weak self] in
+        guard let strongSelf = self else { return }
+        let item = AVPlayerItem(asset: asset)
+        strongSelf.item = item
+        strongSelf.player.replaceCurrentItem(with: item)
+        strongSelf.player.actionAtItemEnd = .pause
+        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+        strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.old, .new], context: nil)
+        NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.onVideoDidPlayToEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+      }
+    }
   }
 
   @objc
@@ -130,6 +150,8 @@ class HSVideoPlayerView: UIView {
     }
   }
 
+  // MARK: - video events
+
   private func onVideoDidBecomeReadyToPlay() {
     guard let asset = player.currentItem?.asset else {
       return
@@ -145,29 +167,12 @@ class HSVideoPlayerView: UIView {
     }
   }
 
-  private func startTimeObvserver() {
-    guard let asset = asset else {
-      return
-    }
-    backgroundQueue.async {
-      let timeScale = CMTimeScale(NSEC_PER_SEC)
-      let time = CMTime(seconds: 1 / 60, preferredTimescale: timeScale)
-      if let token = self.timeObserverToken {
-        self.player.removeTimeObserver(token)
-      }
-      self.timeObserverToken = self.player.addPeriodicTimeObserver(forInterval: time, queue: .main) {
-        [weak self] time in
-        guard let strongSelf = self else { return }
-        strongSelf.delegate?.videoPlayer(
-          view: strongSelf,
-          didUpdatePlaybackTime: time,
-          duration: asset.duration
-        )
-      }
-    }
-  }
-
   private func onVideoDidFailToLoad() {
     delegate?.videoPlayerViewDidFailToLoad(self)
+  }
+
+  @objc
+  private func onVideoDidPlayToEnd(notification _: NSNotification) {
+    delegate?.videoPlayerViewDidPlayToEnd(self)
   }
 }
