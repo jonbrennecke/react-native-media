@@ -29,7 +29,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onVideoWillRestart, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(videoPlayerViewDidPlayToEnd, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackTimeDidUpdate, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onOrientationDidLoad, RCTDirectEventBlock)
@@ -64,7 +64,9 @@ RCT_EXPORT_METHOD(pause : (nonnull NSNumber *)reactTag) {
       }];
 }
 
-RCT_EXPORT_METHOD(restart : (nonnull NSNumber *)reactTag) {
+RCT_EXPORT_METHOD(restart
+                  : (nonnull NSNumber *)reactTag callback
+                  : (RCTResponseSenderBlock)callback) {
   [self.bridge.uiManager
       addUIBlock:^(RCTUIManager *uiManager,
                    NSDictionary<NSNumber *, UIView *> *viewRegistry) {
@@ -76,7 +78,7 @@ RCT_EXPORT_METHOD(restart : (nonnull NSNumber *)reactTag) {
           return;
         }
         [view restartWithCompletionHandler:^(BOOL success) {
-          [view play];
+          callback(@[ [NSNull null], @(success) ]);
         }];
       }];
 }
@@ -194,13 +196,13 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
   }
 }
 
-- (void)videoPlayerViewWillRestartVideo:(HSVideoPlayerView *_Nonnull)view {
+- (void)videoPlayerViewDidPlayToEnd:(HSVideoPlayerView *_Nonnull)view {
   if (![view isKindOfClass:[HSVideoPlayerBridgeView class]]) {
     return;
   }
   HSVideoPlayerBridgeView *bridgeView = (HSVideoPlayerBridgeView *)view;
-  if (bridgeView.onVideoWillRestart) {
-    bridgeView.onVideoWillRestart(@{});
+  if (bridgeView.onVideoDidPlayToEnd) {
+    bridgeView.onVideoDidPlayToEnd(@{});
   }
 }
 

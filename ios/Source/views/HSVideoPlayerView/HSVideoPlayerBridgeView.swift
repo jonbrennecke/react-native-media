@@ -14,7 +14,7 @@ class HSVideoPlayerBridgeView: HSVideoPlayerView {
   public var onPlaybackTimeDidUpdate: RCTDirectEventBlock?
 
   @objc
-  public var onVideoWillRestart: RCTDirectEventBlock?
+  public var onVideoDidPlayToEnd: RCTDirectEventBlock?
 
   @objc
   public var onOrientationDidLoad: RCTDirectEventBlock?

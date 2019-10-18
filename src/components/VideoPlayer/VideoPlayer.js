@@ -19,10 +19,10 @@ type Props = {
   style?: ?Style,
   assetID: string,
   onVideoDidFailToLoad?: () => void,
+  onVideoDidPlayToEnd?: () => void,
   onPlaybackTimeDidUpdate?: (playbackTime: number, duration: number) => void,
-  onVideoWillRestart?: () => void,
-  onViewDidResize?: Size => void,
   onPlaybackStateDidChange?: PlaybackState => void,
+  onViewDidResize?: Size => void,
   onOrientationDidLoad?: Orientation => void,
 };
 
@@ -57,11 +57,13 @@ export class VideoPlayer extends Component<Props> {
     VideoPlayerViewManager.pause(this.nativeComponentRef._nativeTag);
   }
 
-  restart() {
+  async restart() {
     if (!this.nativeComponentRef) {
       return;
     }
-    VideoPlayerViewManager.restart(this.nativeComponentRef._nativeTag);
+    await VideoPlayerViewManager.restartAsync(
+      this.nativeComponentRef._nativeTag
+    );
   }
 
   play() {
@@ -92,9 +94,9 @@ export class VideoPlayer extends Component<Props> {
           style={styles.nativeView}
           assetID={this.props.assetID}
           onVideoDidFailToLoad={this.props.onVideoDidFailToLoad}
-          onVideoWillRestart={() => {
-            if (this.props.onVideoWillRestart) {
-              this.props.onVideoWillRestart();
+          onVideoDidPlayToEnd={() => {
+            if (this.props.onVideoDidPlayToEnd) {
+              this.props.onVideoDidPlayToEnd();
             }
           }}
           onPlaybackTimeDidUpdate={({ nativeEvent }) => {

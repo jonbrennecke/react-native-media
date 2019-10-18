@@ -35,7 +35,7 @@ class StoryComponent extends PureComponent<Props, State> {
   state = {
     assets: [],
   };
-  
+
   async componentDidMount() {
     await authorizeMediaLibrary();
     const assets = await queryVideos({ limit: 1 });
@@ -58,6 +58,11 @@ class StoryComponent extends PureComponent<Props, State> {
         this.videoPlayerRef.current.seekToTime(0);
       }
     });
+    button('Restart', () => {
+      if (this.videoPlayerRef.current) {
+        this.videoPlayerRef.current.restart();
+      }
+    });
   }
 
   render() {
@@ -75,6 +80,10 @@ class StoryComponent extends PureComponent<Props, State> {
           // eslint-disable-next-line no-console
           console.log('video failed to load');
         }}
+        onVideoDidPlayToEnd={() => {
+          // eslint-disable-next-line no-console
+          console.log('video played to end');
+        }}
         onPlaybackTimeDidUpdate={progress => {
           // eslint-disable-next-line no-console
           console.log(`progress: ${progress}`);
@@ -82,10 +91,6 @@ class StoryComponent extends PureComponent<Props, State> {
         onPlaybackStateDidChange={playbackState => {
           // eslint-disable-next-line no-console
           console.log(`playback state: ${playbackState}`);
-        }}
-        onVideoWillRestart={() => {
-          // eslint-disable-next-line no-console
-          console.log('video restarted');
         }}
         onOrientationDidLoad={orientation => {
           // eslint-disable-next-line no-console
@@ -96,10 +101,10 @@ class StoryComponent extends PureComponent<Props, State> {
   }
 }
 
-const stories = storiesOf('Video', module)
+const stories = storiesOf('Video', module);
 stories.addDecorator(withKnobs);
 stories.add('Video Player', () => (
   <SafeAreaView style={styles.container}>
-    <StoryComponent/>
+    <StoryComponent />
   </SafeAreaView>
 ));
