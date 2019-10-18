@@ -107,7 +107,12 @@ class HSVideoPlayerView: UIView {
         strongSelf.player.actionAtItemEnd = .pause
         strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
         strongSelf.player.addObserver(strongSelf, forKeyPath: #keyPath(AVPlayer.timeControlStatus), options: [.old, .new], context: nil)
-        NotificationCenter.default.addObserver(strongSelf, selector: #selector(strongSelf.onVideoDidPlayToEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+        NotificationCenter.default.addObserver(
+          strongSelf,
+          selector: #selector(strongSelf.onVideoDidPlayToEnd(notification:)),
+          name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+          object: strongSelf.player
+        )
       }
     }
   }
