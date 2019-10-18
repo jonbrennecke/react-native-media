@@ -111,7 +111,7 @@ class HSVideoPlayerView: UIView {
           strongSelf,
           selector: #selector(strongSelf.onVideoDidPlayToEnd(notification:)),
           name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-          object: strongSelf.player
+          object: strongSelf.item
         )
       }
     }
