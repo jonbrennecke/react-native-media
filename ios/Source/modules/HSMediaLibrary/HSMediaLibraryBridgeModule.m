@@ -53,6 +53,11 @@ RCT_EXPORT_METHOD(startObservingVideos) { [mediaLibrary startObserving]; }
 
 RCT_EXPORT_METHOD(stopObservingVideos) { [mediaLibrary stopObserving]; }
 
+RCT_EXPORT_METHOD(isMediaLibraryAuthorized : (RCTResponseSenderBlock)callback) {
+  BOOL authorized = [mediaLibrary isMediaLibraryAuthorized];
+  callback(@[ [NSNull null], @(authorized) ]);
+}
+
 RCT_EXPORT_METHOD(authorizeMediaLibrary : (RCTResponseSenderBlock)callback) {
   [mediaLibrary authorizeMediaLibrary:^(BOOL success) {
     callback(@[ [NSNull null], @(success) ]);

@@ -22,6 +22,10 @@ export const authorizeMediaLibrary = (): Promise<boolean> => {
   return MediaLibrary.authorizeMediaLibraryAsync();
 };
 
+export const isMediaLibraryAuthorized = (): Promise<boolean> => {
+  return MediaLibrary.isMediaLibraryAuthorizedAsync();
+};
+
 export type QuerySortEquation =
   | 'greaterThan'
   | 'greaterThanOrEqualTo'

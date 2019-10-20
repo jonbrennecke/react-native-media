@@ -20,6 +20,18 @@ class HSMediaLibrary: NSObject {
   }
 
   @objc
+  public func isMediaLibraryAuthorized() -> Bool {
+    switch PHPhotoLibrary.authorizationStatus() {
+    case .authorized:
+      return true
+    case .denied, .notDetermined, .restricted:
+      return false
+      @unknown default:
+      return false
+    }
+  }
+
+  @objc
   public func authorizeMediaLibrary(_ callback: @escaping (Bool) -> Void) {
     PHPhotoLibrary.requestAuthorization { status in
       switch status {

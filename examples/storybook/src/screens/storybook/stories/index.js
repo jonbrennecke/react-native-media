@@ -8,3 +8,4 @@ import './VideoPlayer';
 import './Albums';
 import './events';
 import './CreateAlbum';
+import './authorization';
