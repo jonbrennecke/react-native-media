@@ -24,6 +24,10 @@ class HSVideoPlayerView: UIView {
     label: "com.jonbrennecke.captionThis.videoPlayerQueue",
     qos: .userInitiated
   )
+  private var delegateQueue = DispatchQueue(
+    label: "com.jonbrennecke.captionThis.videoPlayer.delegateQueue",
+    qos: .userInteractive
+  )
 
   deinit {
     if let token = timeObserverToken {
@@ -35,13 +39,16 @@ class HSVideoPlayerView: UIView {
     guard let asset = asset else {
       return
     }
-    backgroundQueue.async {
+    backgroundQueue.async { [weak self] in
+      guard let strongSelf = self else { return }
       let timeScale = CMTimeScale(NSEC_PER_SEC)
-      let time = CMTime(seconds: 1 / 60, preferredTimescale: timeScale)
-      if let token = self.timeObserverToken {
-        self.player.removeTimeObserver(token)
+      let time = CMTime(seconds: 1 / 30, preferredTimescale: timeScale)
+      if let token = strongSelf.timeObserverToken {
+        strongSelf.player.removeTimeObserver(token)
       }
-      self.timeObserverToken = self.player.addPeriodicTimeObserver(forInterval: time, queue: .main) {
+      strongSelf.timeObserverToken = strongSelf.player.addPeriodicTimeObserver(
+        forInterval: time, queue: strongSelf.delegateQueue
+      ) {
         [weak self] time in
         guard let strongSelf = self else { return }
         strongSelf.delegate?.videoPlayer(
