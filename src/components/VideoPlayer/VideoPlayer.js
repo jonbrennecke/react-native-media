@@ -18,7 +18,7 @@ type ReactNativeFiberHostComponent = any;
 type Props = {
   style?: ?Style,
   assetID: string,
-  playbackEventThrottle: number,
+  playbackEventThrottle?: number,
   onVideoDidFailToLoad?: () => void,
   onVideoDidPlayToEnd?: () => void,
   onPlaybackTimeDidUpdate?: (playbackTime: number, duration: number) => void,
