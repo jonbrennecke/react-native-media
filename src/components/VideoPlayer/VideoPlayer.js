@@ -18,6 +18,7 @@ type ReactNativeFiberHostComponent = any;
 type Props = {
   style?: ?Style,
   assetID: string,
+  playbackEventThrottle: number,
   onVideoDidFailToLoad?: () => void,
   onVideoDidPlayToEnd?: () => void,
   onPlaybackTimeDidUpdate?: (playbackTime: number, duration: number) => void,
@@ -93,6 +94,7 @@ export class VideoPlayer extends Component<Props> {
           }}
           style={styles.nativeView}
           assetID={this.props.assetID}
+          playbackEventThrottle={this.props.playbackEventThrottle}
           onVideoDidFailToLoad={this.props.onVideoDidFailToLoad}
           onVideoDidPlayToEnd={() => {
             if (this.props.onVideoDidPlayToEnd) {

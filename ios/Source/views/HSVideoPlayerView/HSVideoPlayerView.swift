@@ -42,7 +42,8 @@ class HSVideoPlayerView: UIView {
     backgroundQueue.async { [weak self] in
       guard let strongSelf = self else { return }
       let timeScale = CMTimeScale(NSEC_PER_SEC)
-      let time = CMTime(seconds: 1 / 30, preferredTimescale: timeScale)
+      let seconds = Double(strongSelf.playbackEventThrottle / 1000)
+      let time = CMTime(seconds: seconds, preferredTimescale: timeScale)
       if let token = strongSelf.timeObserverToken {
         strongSelf.player.removeTimeObserver(token)
       }
@@ -99,6 +100,9 @@ class HSVideoPlayerView: UIView {
   }
 
   // MARK: - public objc interface
+
+  @objc
+  public var playbackEventThrottle: Float = 1000 / 24
 
   @objc
   public var asset: AVAsset? {

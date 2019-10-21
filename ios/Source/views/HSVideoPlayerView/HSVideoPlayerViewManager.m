@@ -28,6 +28,7 @@ RCT_EXPORT_MODULE()
   return NO;
 }
 
+RCT_EXPORT_VIEW_PROPERTY(playbackEventThrottle, float)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidFailToLoad, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onVideoDidPlayToEnd, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackStateDidChange, RCTDirectEventBlock)
