@@ -24,7 +24,7 @@ type Props = {
   onPlaybackTimeDidUpdate?: (playbackTime: number, duration: number) => void,
   onPlaybackStateDidChange?: PlaybackState => void,
   onViewDidResize?: Size => void,
-  onOrientationDidLoad?: Orientation => void,
+  onOrientationDidLoad?: (Orientation, Size) => void,
 };
 
 const styles = {
@@ -120,7 +120,10 @@ export class VideoPlayer extends Component<Props> {
             if (!nativeEvent || !this.props.onOrientationDidLoad) {
               return;
             }
-            this.props.onOrientationDidLoad(nativeEvent.orientation);
+            this.props.onOrientationDidLoad(
+              nativeEvent.orientation,
+              nativeEvent.dimensions
+            );
           }}
         />
       </View>

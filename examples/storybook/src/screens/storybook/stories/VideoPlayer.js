@@ -92,9 +92,9 @@ class StoryComponent extends PureComponent<Props, State> {
           // eslint-disable-next-line no-console
           console.log(`playback state: ${playbackState}`);
         }}
-        onOrientationDidLoad={orientation => {
+        onOrientationDidLoad={(orientation, dimensions) => {
           // eslint-disable-next-line no-console
-          console.log(`Orientation: ${orientation}`);
+          console.log(`Orientation: ${orientation}, Dimensions: ${JSON.stringify(dimensions)}`);
         }}
       />
     );

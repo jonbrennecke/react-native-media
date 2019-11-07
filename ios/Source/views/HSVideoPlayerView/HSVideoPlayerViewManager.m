@@ -134,8 +134,18 @@ RCT_CUSTOM_VIEW_PROPERTY(assetID, NSString, UIView) {
                    NSString *orientationString =
                        [conversionDict objectForKey:@(orientation)];
                    if (bridgeView.onOrientationDidLoad) {
-                     bridgeView.onOrientationDidLoad(
-                         @{@"orientation" : orientationString});
+                     NSArray<AVAssetTrack *> *videoTracks =
+                         [asset tracksWithMediaType:AVMediaTypeVideo];
+                     if (videoTracks.count > 0) {
+                       AVAssetTrack *videoTrack = videoTracks[0];
+                       bridgeView.onOrientationDidLoad(@{
+                         @"orientation" : orientationString,
+                         @"dimensions" : @{
+                           @"width" : @(videoTrack.naturalSize.width),
+                           @"height" : @(videoTrack.naturalSize.height)
+                         }
+                       });
+                     }
                    }
                  }];
 }
