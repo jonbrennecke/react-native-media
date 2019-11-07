@@ -21,7 +21,7 @@
     "@jonbrennecke/react-native-media": "../../",
     "lodash": "4.17.11",
     "react": "16.6.3",
-    "react-native": "0.58.6",
+    "react-native": "0.59.9",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
