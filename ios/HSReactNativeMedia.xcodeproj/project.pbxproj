@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB960DC964DA0043883360F5 /* Pods_HSReactNativeMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1C86DEE71EAF0C840C7EA67 /* Pods_HSReactNativeMedia.framework */; };
 		FC0B252B22AC54E900EE45CA /* HSThumbnailViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */; };
 		FC6B60F922AF7B750060F828 /* HSSeekbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */; };
 		FC6B60FC22AF81500060F828 /* HSSeekbarViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6B60FB22AF81500060F828 /* HSSeekbarViewManager.m */; };
@@ -54,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libHSReactNativeMedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHSReactNativeMedia.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6516532CBEDAD2BB72805C3 /* Pods-HSReactNativeMedia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSReactNativeMedia.release.xcconfig"; path = "Target Support Files/Pods-HSReactNativeMedia/Pods-HSReactNativeMedia.release.xcconfig"; sourceTree = "<group>"; };
+		E1C86DEE71EAF0C840C7EA67 /* Pods_HSReactNativeMedia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSReactNativeMedia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F553548F7968AA9A4C1DFF0B /* Pods-HSReactNativeMedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSReactNativeMedia.debug.xcconfig"; path = "Target Support Files/Pods-HSReactNativeMedia/Pods-HSReactNativeMedia.debug.xcconfig"; sourceTree = "<group>"; };
 		FC0B252922AC54E900EE45CA /* HSThumbnailViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSThumbnailViewManager.h; sourceTree = "<group>"; };
 		FC0B252A22AC54E900EE45CA /* HSThumbnailViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = HSThumbnailViewManager.m; sourceTree = "<group>"; tabWidth = 2; };
 		FC6B60F822AF7B750060F828 /* HSSeekbarView.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HSSeekbarView.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB960DC964DA0043883360F5 /* Pods_HSReactNativeMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,13 +118,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		39EFE2A5513001D7F3B2197D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F553548F7968AA9A4C1DFF0B /* Pods-HSReactNativeMedia.debug.xcconfig */,
+				C6516532CBEDAD2BB72805C3 /* Pods-HSReactNativeMedia.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
 				FCFC983A22AC7CD20089D452 /* HSReactNativeMedia-Bridging-Header.h */,
 				FCDAC44F22AE01A6004A36E7 /* Source */,
 				134814211AA4EA7D00B7C361 /* Products */,
+				39EFE2A5513001D7F3B2197D /* Pods */,
+				D20A675777A380AE0EDB9461 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		D20A675777A380AE0EDB9461 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E1C86DEE71EAF0C840C7EA67 /* Pods_HSReactNativeMedia.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FC6B60FA22AF7BE80060F828 /* HSSeekbarView */ = {
@@ -245,6 +270,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "HSReactNativeMedia" */;
 			buildPhases = (
+				A95339027DBBADB89F8E8BDA /* [CP] Check Pods Manifest.lock */,
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
 				58B511D91A9E6C8500147676 /* CopyFiles */,
@@ -290,6 +316,31 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A95339027DBBADB89F8E8BDA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HSReactNativeMedia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -418,6 +469,7 @@
 		};
 		58B511F01A9E6C8500147676 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F553548F7968AA9A4C1DFF0B /* Pods-HSReactNativeMedia.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -443,6 +495,7 @@
 		};
 		58B511F11A9E6C8500147676 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6516532CBEDAD2BB72805C3 /* Pods-HSReactNativeMedia.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
