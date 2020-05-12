@@ -1,6 +1,6 @@
 {
   "name": "@jonbrennecke/react-native-media",
-  "version": "1.0.42",
+  "version": "1.0.43-alpha",
   "description": "",
   "main": "build/index.js",
   "scripts": {
