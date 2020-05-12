@@ -1,5 +1,6 @@
 import Photos
 import UIKit
+import React
 
 @available(iOS 10.0, *)
 @objc
